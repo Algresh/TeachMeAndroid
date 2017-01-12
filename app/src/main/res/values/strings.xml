@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">TeachMe</string>
+    <string name="tagline">Всё гениальное просто</string>
+
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Вход</string>
+    <string name="forgot_password">Восстановление пароля</string>
+    <string name="register">Регистрация</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="about">О проекте</string>
+
+    <string name="email">e-mail</string>
+    <string name="ask_are_you_teacher">Вы репетитор?</string>
+    <string name="ask_freeze_your_profile">Приостановить показ анкеты?</string>
+    <string name="ask_unlock_profile">Возобновить пока анкеты?</string>
+
+    <string name="btn_search">Поиск</string>
+    <string name="btn_quick_search">Быстрый поиск</string>
+    <string name="btn_all_profiles_in_my_city">Все анкеты в моем городе</string>
+    <string name="btn_yes">ДА</string>
+    <string name="btn_no">НЕТ</string>
+    <string name="btn_select_subject">Выбор предмета</string>
+    <string name="btn_add_yet">Добавить еще</string>
+    <string name="btn_select_subway">Выбор станции метро</string>
+    <string name="btn_select_promotion">Выбор способа продвижения</string>
+    <string name="btn_find">Найти</string>
+    <string name="btn_prev">Назад</string>
+    <string name="btn_profile">Профиль</string>
+    <string name="btn_save">Сохранить</string>
+    <string name="price">Цена</string>
+    <string name="currency">р.</string>
+
+    <string name="navi_edit_profile">Изменение анкеты</string>
+    <string name="navi_freeze">Заморозка анкеты</string>
+    <string name="navi_unlock_profile">Разморозка анкеты</string>
+    <string name="navi_search">Поиск анкеты</string>
+    <string name="navi_promotion">Продвижение анкеты</string>
+    <string name="navi_about">О проекте</string>
+    <string name="navi_feedback">Обратная связь</string>
+    <string name="navi_favorites">Избранные</string>
+    <string name="navi_search_teacher">Поиск репетитора</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="title_profile_teacher">Профиль преподавателя</string>
+    <string name="title_reg_teacher_about">О себе</string>
+    <string name="title_rules">Правила проекта</string>
+    <string name="title_about">Благодарим за участие в проекте</string>
+    <string name="title_type_promotion">Выбор способа продвижения анкеты:</string>
+
+    <string name="switch_adopt_rules">Принять правила</string>
+    <string name="switch_leave_house">Выезд на дом</string>
+    <string name="switch_is_photo">Фото анкеты</string>
+
+    <string name="hint_fullname">ФИО</string>
+    <string name="hint_birthday">дата рождения</string>
+    <string name="hint_city">город</string>
+    <string name="hint_region">округ</string>
+    <string name="hint_district">район</string>
+    <string name="hint_email">e-mail</string>
+    <string name="hint_login">Логин</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_password_confirm">Подтверждение пароля</string>
+    <string name="hint_experience">Опыт работы</string>
+    <string name="hint_price">Стоимость</string>
+    <string name="hint_phone">Телефон</string>
+    <string name="hint_subject">Предмет</string>
+    <string name="hint_subway">Станция метро</string>
+
+    <string name="error_login_is_empty">Логин пустой. Введите логин</string>
+    <string name="error_dont_agreement">Вы не приняли пользовательское соглашение</string>
+
+    <string name="message_teacher_add_to_favorites">Учитель добавлен в избранное</string>
+
+    <string-array name="promotion">
+        <item>Золотая анкета</item>
+        <item>Серебрянная анкета</item>
+        <item>Медная анкета</item>
+        <item>Нет</item>
+    </string-array>
+
+</resources>
