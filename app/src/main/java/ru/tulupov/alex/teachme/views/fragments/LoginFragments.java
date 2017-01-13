@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import ru.tulupov.alex.teachme.R;
 
-/**
- * Created by alex on 12.01.17.
- */
 
 public class LoginFragments extends Fragment implements View.OnClickListener {
 

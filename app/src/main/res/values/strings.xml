@@ -5,6 +5,7 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="enter">Вход</string>
+    <string name="cancel">Выход</string>
     <string name="forgot_password">Восстановление пароля</string>
     <string name="register">Регистрация</string>
     <string name="feedback">Обратная связь</string>
@@ -80,5 +81,8 @@
         <item>Медная анкета</item>
         <item>Нет</item>
     </string-array>
+
+    <string name="title_dialog_city">Выбор города</string>
+    <string name="title_dialog_subject">Выбор предмета</string>
 
 </resources>

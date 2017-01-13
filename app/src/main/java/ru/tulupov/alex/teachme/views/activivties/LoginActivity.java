@@ -9,6 +9,7 @@ import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
+import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 
 public class LoginActivity extends AppCompatActivity implements LoginView, LoginFragments.LoginFragmentCallback {
 
@@ -26,7 +27,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
 
     private void initFragment() {
         FragmentManager manager = getSupportFragmentManager();
-        LoginFragments loginFragments = new LoginFragments();
+        RegTeacherFullNameFragment loginFragments = new RegTeacherFullNameFragment();
+//        LoginFragments loginFragments = new LoginFragments();
         manager.beginTransaction()
                 .add(R.id.activity_login, loginFragments)
                 .commit();
