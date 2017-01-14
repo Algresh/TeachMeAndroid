@@ -42,17 +42,12 @@ public class RegTeacherFullNameFragment extends Fragment implements ShowCity, Fr
     private City selectedCity;
     private int indexSelectedCity = 0;
 
-
-
-    void clickOnAddAvatar() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, pickImageResult);
-    }
-
-    void clickOnBirthday() {
-
-    }
+    View.OnClickListener selectAvatar = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            selectAvatarPhoto();
+        }
+    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -99,13 +94,18 @@ public class RegTeacherFullNameFragment extends Fragment implements ShowCity, Fr
         etOkrug = (EditText) view.findViewById(R.id.register_teacher_okrug);
         etDistrict = (EditText) view.findViewById(R.id.register_teacher_district);
         etCity = (TextView) view.findViewById(R.id.register_teacher_city);
+        if (selectedCity != null) {
+            etCity.setText(selectedCity.getTitle());
+        }
         etCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 presenter.getListCities();
             }
         });
-        ivAvatar = (ImageView) view.findViewById(R.id.img_avatar);
+        ivAvatar = (ImageView) view.findViewById(R.id.avatarImage);
+        ivAvatar.setOnClickListener(selectAvatar);
+        view.findViewById(R.id.avatarImageText).setOnClickListener(selectAvatar);
 
         return view;
     }
@@ -116,14 +116,22 @@ public class RegTeacherFullNameFragment extends Fragment implements ShowCity, Fr
         FragmentCityDialog dialog = new FragmentCityDialog();
         dialog.setListCities(list);
         dialog.setSelectedItem(indexSelectedCity);
-        FragmentManager manager = getFragmentManager();
+        FragmentManager manager = getChildFragmentManager();
         dialog.show(manager, "city");
     }
 
 
     @Override
     public void selectCity(int cityIndex) {
+        indexSelectedCity = cityIndex;
         City city = listCities.get(cityIndex);
         etCity.setText(city.getTitle());
     }
+
+    protected void selectAvatarPhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, pickImageResult);
+    }
+
 }

@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
 
@@ -29,6 +31,7 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        listener = (SelectCity) getParentFragment();
         Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -51,7 +54,9 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        listener.selectCity(which);
+        if (listener != null) {
+            listener.selectCity(which);
+        }
         dismiss();
     }
 
@@ -61,17 +66,6 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
 
     public interface SelectCity {
         void selectCity(int location);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            listener = (SelectCity) activity;
-        } catch (ClassCastException e) {
-
-        }
-
     }
 
     protected String[] fromListToArray(List<City> list) {

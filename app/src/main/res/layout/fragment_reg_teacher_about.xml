@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorBg">
+
+    <TextView
+        android:gravity="center_vertical"
+        android:background="@color/colorBg"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:text="@string/title_reg_teacher_about"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+    <EditText
+        android:id="@+id/et_reg_teacher_about"
+        android:background="@color/colorBgLight"
+        android:padding="16dp"
+        android:gravity="start"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+</LinearLayout>

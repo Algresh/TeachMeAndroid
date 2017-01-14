@@ -56,10 +56,13 @@
     <string name="switch_is_photo">Фото анкеты</string>
 
     <string name="hint_fullname">ФИО</string>
-    <string name="hint_birthday">дата рождения</string>
-    <string name="hint_city">город</string>
-    <string name="hint_region">округ</string>
-    <string name="hint_district">район</string>
+    <string name="hint_firstName">Имя</string>
+    <string name="hint_lastName">Фамилия</string>
+    <string name="hint_fatherName">Отчество</string>
+    <string name="hint_birthday">Дата рождения</string>
+    <string name="hint_city">Город</string>
+    <string name="hint_region">Округ</string>
+    <string name="hint_district">Район</string>
     <string name="hint_email">e-mail</string>
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
@@ -69,6 +72,7 @@
     <string name="hint_phone">Телефон</string>
     <string name="hint_subject">Предмет</string>
     <string name="hint_subway">Станция метро</string>
+    <string name="text_download_avatar">Выбор фото</string>
 
     <string name="error_login_is_empty">Логин пустой. Введите логин</string>
     <string name="error_dont_agreement">Вы не приняли пользовательское соглашение</string>
