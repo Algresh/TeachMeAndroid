@@ -44,6 +44,11 @@ public class CitySubjectPresenter {
     }
 
     public void getListSubjects(final int tag) {
+        if (listSubjects != null) {
+            subjectView.showSubjects(listSubjects, tag);
+            return;
+        }
+
         modelMain.getSubjects(new ModelMainImpl.ModelMainSubjectsCallBack() {
             @Override
             public void success(List<Subject> list) {

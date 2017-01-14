@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.PriceList;
@@ -32,8 +34,8 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     private List<Subject> listSubjects;
     private List<View> viewList;
     private List<PriceList> priceLists;
+    private List<Integer> selectedListSubjects;
 
-//    private Subject selectedCity;
 
     private void addSubject() {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
@@ -55,6 +57,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         presenter = new CitySubjectPresenter();
         viewList = new ArrayList<>();
         priceLists = new ArrayList<>();
+        selectedListSubjects = new ArrayList<>();
         presenter.onCreate(null, this);
         fragmentView = inflater.inflate(R.layout.fragment_reg_teacher_subjects, container, false);
         subjectsContainer = (LinearLayout) fragmentView.findViewById(R.id.ll_subjects);
@@ -82,7 +85,15 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         FragmentSubjectDialog dialog = new FragmentSubjectDialog();
         dialog.setListSubject(list);
         dialog.setTag(tag);
-//        dialog.setSelectedItem(indexSelectedCity);
+        Integer selectItem;
+        Log.d(Constants.MY_TAG, "showSubjects " + tag);
+        if(selectedListSubjects.size() > tag) {
+            selectItem = selectedListSubjects.get(tag);
+        } else {
+            selectItem = 0;
+        }
+
+        dialog.setSelectedItem(selectItem);
         FragmentManager manager = getChildFragmentManager();
         dialog.show(manager, "subjects");
     }
@@ -94,5 +105,6 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         Subject subject = listSubjects.get(subjectIndex);
         tvSubject.setText(subject.getTitle());
         priceLists.get(tag).setSubject(subject);
+        selectedListSubjects.add(tag, subjectIndex);
     }
 }
