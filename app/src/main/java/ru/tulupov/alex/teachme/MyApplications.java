@@ -3,12 +3,14 @@ package ru.tulupov.alex.teachme;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import ru.tulupov.alex.teachme.models.user.PupilUser;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
 import ru.tulupov.alex.teachme.models.user.User;
 
 import static ru.tulupov.alex.teachme.Constants.APP_PREFERENCES;
+import static ru.tulupov.alex.teachme.Constants.MY_TAG;
 
 public class MyApplications extends Application {
 
@@ -17,6 +19,7 @@ public class MyApplications extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(MY_TAG, "Application");
         initUser();
     }
 

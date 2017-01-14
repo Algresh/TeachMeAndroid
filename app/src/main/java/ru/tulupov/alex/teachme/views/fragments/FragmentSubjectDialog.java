@@ -22,10 +22,12 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
     protected int selectedItem = 0;
 
     protected List<Subject> listSubject;
+    protected int tag;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        listener = (SelectSubject) getParentFragment();
         Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -45,7 +47,7 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
-        listener.selectSubject(which);
+        listener.selectSubject(which, tag);
         dismiss();
     }
 
@@ -53,23 +55,16 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
         this.listSubject = listSubject;
     }
 
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
     public void setSelectedItem(int selectedItem) {
         this.selectedItem = selectedItem;
     }
 
     public interface SelectSubject {
-        void selectSubject(int location);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            listener = (SelectSubject) activity;
-        } catch (ClassCastException e) {
-
-        }
-
+        void selectSubject(int subjectIndex, int tag);
     }
 
     protected String[] fromListToArray(List<Subject> list) {

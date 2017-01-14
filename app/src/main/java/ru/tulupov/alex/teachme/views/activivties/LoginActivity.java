@@ -1,18 +1,22 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
+import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherAboutFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
+import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
 public class LoginActivity extends AppCompatActivity implements LoginView, LoginFragments.LoginFragmentCallback {
 
@@ -20,6 +24,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
 
     protected ImageButton nextFragment;
     protected ImageButton previousFragment;
+    protected String registerUserType;
+    protected int registerStep = 0;
+    protected LinearLayout nextPrevPanel;
+    protected TeacherRegistration teacherRegistration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +50,18 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
                 toPreviousFragment();
             }
         });
+        nextPrevPanel = (LinearLayout) findViewById(R.id.register_next_prev_panel);
 
         initFragment();
     }
 
     private void initFragment() {
         FragmentManager manager = getSupportFragmentManager();
-        RegTeacherFullNameFragment loginFragments = new RegTeacherFullNameFragment();
+        LoginFragments loginFragments = new LoginFragments();
 //        LoginFragments loginFragments = new LoginFragments();
         manager.beginTransaction()
                 .add(R.id.reg_fragment_container, loginFragments)
-                .addToBackStack("fullName")
+                .addToBackStack("login")
                 .commit();
 
     }
@@ -68,21 +77,61 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
     }
 
     @Override
+    public void registerClick() {
+        FragmentManager manager = getSupportFragmentManager();
+        RegTeacherFullNameFragment loginFragments = new RegTeacherFullNameFragment();
+//        LoginFragments loginFragments = new LoginFragments();
+        manager.beginTransaction()
+                .replace(R.id.reg_fragment_container, loginFragments)
+                .addToBackStack("fullName")
+                .commit();
+        nextPrevPanel.setVisibility(View.VISIBLE);
+
+        registerStep++;
+    }
+
+    @Override
+    public void forgotPasswordClick() {
+
+    }
+
+    @Override
     public void loginClick(String login, String password) {
         presenter.logIn(login, password, this);
     }
 
     protected void toNextFragment() {
-        RegTeacherAboutFragment aboutFragment = new RegTeacherAboutFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, aboutFragment)
-                .addToBackStack("about")
+                .replace(R.id.reg_fragment_container, getFragmentTeacherStep(registerStep))
+                .addToBackStack(null)
                 .commit();
+        registerStep++;
+
 
     }
 
     protected void toPreviousFragment() {
+        if (registerStep != 0) {
+            registerStep--;
+        } else {
+            nextPrevPanel.setVisibility(View.GONE);
+        }
+
         onBackPressed();
+    }
+
+    protected Fragment getFragmentTeacherStep (int step) {
+
+        switch (step) {
+            case 0:
+                return new RegTeacherFullNameFragment();
+            case 1:
+                return new RegTeacherAboutFragment();
+            case 2:
+                return new RegTeacherSubjectsFragment();
+        }
+
+        return null;
     }
 }

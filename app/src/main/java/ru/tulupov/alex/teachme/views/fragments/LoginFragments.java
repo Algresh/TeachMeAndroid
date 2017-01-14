@@ -25,6 +25,7 @@ public class LoginFragments extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(LAYOUT, container, false);
         view.findViewById(R.id.btn_enter).setOnClickListener(this);
+        view.findViewById(R.id.btn_register).setOnClickListener(this);
 
         edtLogin = (TextView) view.findViewById(R.id.et_login);
         edtPassword = (TextView) view.findViewById(R.id.et_password);
@@ -36,6 +37,9 @@ public class LoginFragments extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.btn_enter:
                 loginClick();
+                break;
+            case R.id.btn_register:
+                callbackClick.registerClick();
                 break;
         }
     }
@@ -57,5 +61,7 @@ public class LoginFragments extends Fragment implements View.OnClickListener {
 
     public interface LoginFragmentCallback {
         void loginClick(String login, String password);
+        void registerClick();
+        void forgotPasswordClick();
     }
 }

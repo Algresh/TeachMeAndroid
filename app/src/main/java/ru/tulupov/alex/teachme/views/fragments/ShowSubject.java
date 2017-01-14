@@ -11,5 +11,5 @@ import ru.tulupov.alex.teachme.models.Subject;
 
 public interface ShowSubject {
 
-    void showSubjects(List<Subject> list);
+    void showSubjects(List<Subject> list, int tag);
 }

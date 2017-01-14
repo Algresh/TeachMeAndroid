@@ -43,12 +43,12 @@ public class CitySubjectPresenter {
         });
     }
 
-    public void getListSubjects() {
+    public void getListSubjects(final int tag) {
         modelMain.getSubjects(new ModelMainImpl.ModelMainSubjectsCallBack() {
             @Override
             public void success(List<Subject> list) {
                 listSubjects = list;
-                subjectView.showSubjects(list);
+                subjectView.showSubjects(list, tag);
             }
 
             @Override

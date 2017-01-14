@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.Subject;
@@ -37,7 +39,6 @@ public class RegTeacherFullNameFragment extends Fragment implements ShowCity, Fr
     ImageView ivAvatar;
     private CitySubjectPresenter presenter;
     private List<City> listCities;
-    private List<Subject> listSubjects;
 
     private City selectedCity;
     private int indexSelectedCity = 0;
@@ -62,8 +63,31 @@ public class RegTeacherFullNameFragment extends Fragment implements ShowCity, Fr
                         //объект и отображаем в элементе ImageView нашего интерфейса:
                         final Uri imageUri = data.getData();
                         final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        ivAvatar.setImageBitmap(selectedImage);
+                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        int height = selectedImage.getHeight();
+                        int width = selectedImage.getWidth();
+                        Log.d(Constants.MY_TAG, width + " " + height);
+                        float res;
+                        float w = width;
+                        float h = height;
+
+                        if (w > h) {
+                            res = h / w;
+                            w = 200;
+                            h =  w * res;
+                        } else {
+                            res = w / h;
+                            h = 200;
+                            w = h * res;
+                        }
+
+                        height = (int) h;
+                        width = (int) w;
+
+                        Log.d(Constants.MY_TAG, width + " | " + height);
+                        Bitmap smallBitmap = Bitmap.createScaledBitmap(selectedImage, width, height, false);
+                        selectedImage = null;
+                        ivAvatar.setImageBitmap(smallBitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
