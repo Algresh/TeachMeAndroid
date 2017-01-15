@@ -5,8 +5,10 @@ import java.util.List;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.ModelMainImpl;
 import ru.tulupov.alex.teachme.models.Subject;
+import ru.tulupov.alex.teachme.models.Subway;
 import ru.tulupov.alex.teachme.views.fragments.ShowCity;
 import ru.tulupov.alex.teachme.views.fragments.ShowSubject;
+import ru.tulupov.alex.teachme.views.fragments.ShowSubway;
 
 public class CitySubjectPresenter {
 
@@ -14,12 +16,15 @@ public class CitySubjectPresenter {
 
     private List<City> listCities;
     private List<Subject> listSubjects;
+    private List<Subway> listSubways;
     private ShowCity cityView;
     private ShowSubject subjectView;
+    private ShowSubway subwayView;
 
-    public void onCreate(ShowCity cityView, ShowSubject subjectView) {
+    public void onCreate(ShowCity cityView, ShowSubject subjectView, ShowSubway subwayView) {
         this.cityView = cityView;
         this.subjectView = subjectView;
+        this.subwayView = subwayView;
         modelMain = new ModelMainImpl();
     }
 
@@ -54,6 +59,26 @@ public class CitySubjectPresenter {
             public void success(List<Subject> list) {
                 listSubjects = list;
                 subjectView.showSubjects(list, tag);
+            }
+
+            @Override
+            public void error() {
+
+            }
+        });
+    }
+
+    public void getListSubways(int city) {
+        if (listSubways != null) {
+            subwayView.showSubways(listSubways);
+            return;
+        }
+
+        modelMain.getSubways(city, new ModelMainImpl.ModelMainSubwaysCallBack() {
+            @Override
+            public void success(List<Subway> list) {
+                listSubways = list;
+                subwayView.showSubways(list);
             }
 
             @Override

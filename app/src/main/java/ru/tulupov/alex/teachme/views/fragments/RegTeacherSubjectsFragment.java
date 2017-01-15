@@ -61,7 +61,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         presenter = new CitySubjectPresenter();
         viewList = new ArrayList<>();
         selectedListSubjects = new ArrayList<>();
-        presenter.onCreate(null, this);
+        presenter.onCreate(null, this, null);
         fragmentView = inflater.inflate(R.layout.fragment_reg_teacher_subjects, container, false);
         subjectsContainer = (LinearLayout) fragmentView.findViewById(R.id.ll_subjects);
         fragmentView.findViewById(R.id.btn_reg_teacher_add_subject).setOnClickListener(new View.OnClickListener() {

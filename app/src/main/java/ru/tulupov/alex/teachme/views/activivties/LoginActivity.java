@@ -16,6 +16,7 @@ import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
 import ru.tulupov.alex.teachme.views.fragments.RegDataCorrect;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherAboutFragment;
+import ru.tulupov.alex.teachme.views.fragments.RegTeacherContactsFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
@@ -28,7 +29,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
     protected String registerUserType;
     protected int registerStep = 0;
     protected LinearLayout nextPrevPanel;
-    protected TeacherRegistration teacherRegistration;
     private String[] regFragmentTags;
     private  RegDataCorrect currRegDataCorrect;
 
@@ -143,6 +143,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
                 return new RegTeacherAboutFragment();
             case 2:
                 return new RegTeacherSubjectsFragment();
+            case 3:
+                return new RegTeacherContactsFragment();
         }
 
         return null;

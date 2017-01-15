@@ -107,7 +107,7 @@ public class RegTeacherFullNameFragment extends Fragment
                              Bundle savedInstanceState) {
 
         presenter = new CitySubjectPresenter();
-        presenter.onCreate(this, null);
+        presenter.onCreate(this, null, null);
 
         View view = inflater.inflate(R.layout.fragment_reg_teacher_fullname, container, false);
         etBirthday = (EditText) view.findViewById(R.id.register_teacher_birthday);

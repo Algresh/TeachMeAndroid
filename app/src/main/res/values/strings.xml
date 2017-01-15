@@ -6,6 +6,7 @@
     <string name="password">Пароль</string>
     <string name="enter">Вход</string>
     <string name="cancel">Выход</string>
+    <string name="select">Выбрать</string>
     <string name="forgot_password">Восстановление пароля</string>
     <string name="register">Регистрация</string>
     <string name="feedback">Обратная связь</string>
@@ -92,11 +93,12 @@
         <item>fullName</item>
         <item>description</item>
         <item>subjects</item>
-        <item>asdasdas</item>
+        <item>contacts</item>
     </string-array>
 
 
     <string name="title_dialog_city">Выбор города</string>
+    <string name="title_dialog_subway">Выбор метро</string>
     <string name="title_dialog_subject">Выбор предмета</string>
 
 </resources>
