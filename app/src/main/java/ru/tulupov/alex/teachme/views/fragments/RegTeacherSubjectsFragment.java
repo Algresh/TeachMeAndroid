@@ -38,6 +38,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     private List<View> viewList;
     private List<PriceList> priceLists;
     private List<Integer> selectedListSubjects;
+    private boolean subjectDialogIsDownloading = false;
 
 
     private void addSubject() {
@@ -50,7 +51,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
         viewList.add(viewSubject);
         subjectsContainer.addView(viewSubject);
-        priceLists.add(new PriceList());
+//        priceLists.add(new PriceList());
         numSubjects++;
     }
 
@@ -59,7 +60,6 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         presenter = new CitySubjectPresenter();
         viewList = new ArrayList<>();
-        priceLists = new ArrayList<>();
         selectedListSubjects = new ArrayList<>();
         presenter.onCreate(null, this);
         fragmentView = inflater.inflate(R.layout.fragment_reg_teacher_subjects, container, false);
@@ -67,7 +67,9 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         fragmentView.findViewById(R.id.btn_reg_teacher_add_subject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addSubject();
+                if (selectedListSubjects.size() == viewList.size()) {
+                    addSubject();
+                }
             }
         });
         addSubject();
@@ -76,7 +78,8 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.sp_select_subject) {
+        if (view.getId() == R.id.sp_select_subject && !subjectDialogIsDownloading) {
+            subjectDialogIsDownloading = true;
             Integer tag = (Integer) view.getTag();
             presenter.getListSubjects(tag);
         }
@@ -99,6 +102,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         dialog.setSelectedItem(selectItem);
         FragmentManager manager = getChildFragmentManager();
         dialog.show(manager, "subjects");
+        subjectDialogIsDownloading = false;
     }
 
     @Override
@@ -107,13 +111,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         TextView tvSubject = (TextView) view.findViewById(R.id.sp_select_subject);
         Subject subject = listSubjects.get(subjectIndex);
         tvSubject.setText(subject.getTitle());
-        priceLists.get(tag).setSubject(subject);
-        if(selectedListSubjects.size() > tag) {
-            selectedListSubjects.add(tag, subjectIndex);
-        } else {
-            selectedListSubjects.add(subjectIndex);
-        }
-
+        selectedListSubjects.add(subjectIndex);
     }
 
     @Override
@@ -124,6 +122,8 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 //        if (strAbout.length() < 2) {
 //            isCorrect = false;
 //        }
+
+        List<PriceList> priceLists = new ArrayList<>();
 
         int numEmptyBlock = 0;
 
@@ -178,6 +178,13 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
             } else {
                 if (numWarning > 0) {
                     isCorrect = false;
+                } else {
+                    PriceList priceList = new PriceList();
+                    priceList.setExperience(strExp);
+                    priceList.setPrice(Integer.parseInt(strPrice));
+                    Integer item = selectedListSubjects.get(i - numEmptyBlock);
+                    priceList.setSubject(listSubjects.get(item));
+                    priceLists.add(priceList);
                 }
             }
         }
@@ -186,6 +193,9 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
             isCorrect = false;
         }
 
+        if (isCorrect) {
+            this.priceLists = priceLists;
+        }
 
         return isCorrect;
     }
@@ -194,6 +204,8 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
+        teacherRegistration.setPriceLists(priceLists);
     }
 
     protected void warningColorTextView(TextView textView) {

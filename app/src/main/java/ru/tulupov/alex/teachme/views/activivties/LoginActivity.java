@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
 //        LoginFragments loginFragments = new LoginFragments();
         currRegDataCorrect = loginFragments;
         manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, loginFragments)
+                .replace(R.id.reg_fragment_container, loginFragments, "fullName")
                 .addToBackStack("fullName")
                 .commit();
         nextPrevPanel.setVisibility(View.VISIBLE);
@@ -115,7 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
             Fragment fragment = getFragmentTeacherStep(registerStep);
             currRegDataCorrect = (RegDataCorrect) fragment;
             manager.beginTransaction()
-                    .replace(R.id.reg_fragment_container, fragment)
+                    .replace(R.id.reg_fragment_container, fragment, regFragmentTags[registerStep])
                     .addToBackStack(regFragmentTags[registerStep])
                     .commit();
             registerStep++;
@@ -126,6 +126,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
         registerStep--;
         if (registerStep == 0) {
             nextPrevPanel.setVisibility(View.GONE);
+        } else {
+            currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
+                    .findFragmentByTag(regFragmentTags[registerStep - 1]);
         }
 
         onBackPressed();
