@@ -7,14 +7,18 @@ import java.util.List;
 
 public class TeacherRegistration {
 
-    private TeacherRegistration teacherRegistration;
+    private static TeacherRegistration teacherRegistration;
 
-    public TeacherRegistration getInstance() {
-        if (teacherRegistration != null) {
-            return teacherRegistration;
+    public static TeacherRegistration getInstance() {
+        if (teacherRegistration == null) {
+            teacherRegistration = new TeacherRegistration();
         }
 
-        return new TeacherRegistration();
+        return teacherRegistration;
+    }
+
+    public static void clearInstance() {
+        teacherRegistration = null;
     }
 
     private String firstName;
@@ -26,6 +30,7 @@ public class TeacherRegistration {
     private String district;
     private List<PriceList> priceLists;
 
+    private String description;
     private String login;
     private String password;
     private String email;
@@ -102,6 +107,14 @@ public class TeacherRegistration {
 
     public void setPriceLists(List<PriceList> priceLists) {
         this.priceLists = priceLists;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getLogin() {

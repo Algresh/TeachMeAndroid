@@ -78,6 +78,8 @@
     <string name="error_dont_agreement">Вы не приняли пользовательское соглашение</string>
 
     <string name="message_teacher_add_to_favorites">Учитель добавлен в избранное</string>
+    <string name="reg_warning_message">Поля не заполнены или заполнены не правильно</string>
+    <string name="reg_about_warning_message_">Полу не заполнено</string>
 
     <string-array name="promotion">
         <item>Золотая анкета</item>
@@ -85,6 +87,14 @@
         <item>Медная анкета</item>
         <item>Нет</item>
     </string-array>
+
+    <string-array name="regFragmentTeacherTags">
+        <item>fullName</item>
+        <item>description</item>
+        <item>subjects</item>
+        <item>asdasdas</item>
+    </string-array>
+
 
     <string name="title_dialog_city">Выбор города</string>
     <string name="title_dialog_subject">Выбор предмета</string>

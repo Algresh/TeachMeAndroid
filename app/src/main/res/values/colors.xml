@@ -13,4 +13,6 @@
     <color name="colorBgFAB">#30aef2</color>
 
     <color name="colorHr">#b4b4b4</color>
+    <color name="colorWarning">#ff0000</color>
+    <color name="colorCorrect">#ffffff</color>
 </resources>

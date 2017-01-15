@@ -14,6 +14,7 @@ import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
+import ru.tulupov.alex.teachme.views.fragments.RegDataCorrect;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherAboutFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
@@ -28,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
     protected int registerStep = 0;
     protected LinearLayout nextPrevPanel;
     protected TeacherRegistration teacherRegistration;
+    private String[] regFragmentTags;
+    private  RegDataCorrect currRegDataCorrect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
         nextPrevPanel = (LinearLayout) findViewById(R.id.register_next_prev_panel);
 
         initFragment();
+        initArrayTags();
     }
 
     private void initFragment() {
@@ -64,6 +68,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
                 .addToBackStack("login")
                 .commit();
 
+    }
+
+    private void initArrayTags() {
+        regFragmentTags = getResources().getStringArray(R.array.regFragmentTeacherTags);
     }
 
     @Override
@@ -81,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
         FragmentManager manager = getSupportFragmentManager();
         RegTeacherFullNameFragment loginFragments = new RegTeacherFullNameFragment();
 //        LoginFragments loginFragments = new LoginFragments();
+        currRegDataCorrect = loginFragments;
         manager.beginTransaction()
                 .replace(R.id.reg_fragment_container, loginFragments)
                 .addToBackStack("fullName")
@@ -102,19 +111,20 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
 
     protected void toNextFragment() {
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, getFragmentTeacherStep(registerStep))
-                .addToBackStack(null)
-                .commit();
-        registerStep++;
-
-
+        if (currRegDataCorrect.dataIsCorrect()) {
+            Fragment fragment = getFragmentTeacherStep(registerStep);
+            currRegDataCorrect = (RegDataCorrect) fragment;
+            manager.beginTransaction()
+                    .replace(R.id.reg_fragment_container, fragment)
+                    .addToBackStack(regFragmentTags[registerStep])
+                    .commit();
+            registerStep++;
+        }
     }
 
     protected void toPreviousFragment() {
-        if (registerStep != 0) {
-            registerStep--;
-        } else {
+        registerStep--;
+        if (registerStep == 0) {
             nextPrevPanel.setVisibility(View.GONE);
         }
 

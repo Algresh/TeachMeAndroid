@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,11 +23,12 @@ import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.PriceList;
 import ru.tulupov.alex.teachme.models.Subject;
+import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 
 
 public class RegTeacherSubjectsFragment extends Fragment implements View.OnClickListener,
-        ShowSubject ,FragmentSubjectDialog.SelectSubject {
+        ShowSubject ,FragmentSubjectDialog.SelectSubject, RegDataCorrect {
 
     protected View fragmentView;
     protected LinearLayout subjectsContainer;
@@ -105,6 +108,112 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         Subject subject = listSubjects.get(subjectIndex);
         tvSubject.setText(subject.getTitle());
         priceLists.get(tag).setSubject(subject);
-        selectedListSubjects.add(tag, subjectIndex);
+        if(selectedListSubjects.size() > tag) {
+            selectedListSubjects.add(tag, subjectIndex);
+        } else {
+            selectedListSubjects.add(subjectIndex);
+        }
+
+    }
+
+    @Override
+    public boolean dataIsCorrect() {
+        boolean isCorrect = true;
+
+//        String strAbout = editTextAbout.getText().toString();
+//        if (strAbout.length() < 2) {
+//            isCorrect = false;
+//        }
+
+        int numEmptyBlock = 0;
+
+        for(int i = 0; i < viewList.size(); i++) {
+            int numEmptyField = 0;
+            int numWarning = 0;
+
+            EditText edtExp = (EditText) viewList.get(i).findViewById(R.id.et_reg_teacher_experience);
+            EditText edtPrice = (EditText) viewList.get(i).findViewById(R.id.et_reg_teacher_price);
+            TextView tvSubject = (TextView) viewList.get(i).findViewById(R.id.sp_select_subject);
+            String strSbj = tvSubject.getText().toString();
+            String strExp = edtExp.getText().toString().trim();
+            String strPrice = edtPrice.getText().toString().trim();
+
+            if (strExp.length() == 0 || !strExp.matches(".*\\d.*")) {
+                warningColorEditText(edtExp);
+                numWarning++;
+            } else {
+                correctColorEditText(edtExp);
+            }
+
+
+            if (strPrice.length() == 0 || !strPrice.matches(".*\\d.*")) {
+                warningColorEditText(edtPrice);
+                numWarning++;
+            } else {
+                correctColorEditText(edtPrice);
+            }
+
+            if (strExp.length() == 0) {
+                numEmptyField++;
+            }
+            if (strPrice.length() == 0) {
+                numEmptyField++;
+            }
+
+
+            String textSbj = getResources().getString(R.string.hint_subject);
+            if(strSbj.equals(textSbj)) {
+                warningColorTextView(tvSubject);
+                numEmptyField++;
+                numWarning++;
+            } else {
+                correctColorTextView(tvSubject);
+            }
+
+            if (numEmptyField == 3) {
+                numEmptyBlock++;
+                correctColorTextView(tvSubject);
+                correctColorEditText(edtPrice);
+                correctColorEditText(edtExp);
+            } else {
+                if (numWarning > 0) {
+                    isCorrect = false;
+                }
+            }
+        }
+
+        if (numEmptyBlock == viewList.size()) {
+            isCorrect = false;
+        }
+
+
+        return isCorrect;
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    protected void warningColorTextView(TextView textView) {
+        int colorWarning = ContextCompat.getColor(getContext(), R.color.colorWarning);
+        textView.setTextColor(colorWarning);
+    }
+
+    protected void warningColorEditText(EditText editText) {
+        int colorWarning = ContextCompat.getColor(getContext(), R.color.colorWarning);
+        editText.setTextColor(colorWarning);
+        editText.setHintTextColor(colorWarning);
+    }
+    protected void correctColorTextView(TextView textView) {
+        int colorWarning = ContextCompat.getColor(getContext(), R.color.colorCorrect);
+        textView.setTextColor(colorWarning);
+    }
+
+    protected void correctColorEditText(EditText editText) {
+        int colorWarning = ContextCompat.getColor(getContext(), R.color.colorCorrect);
+        editText.setTextColor(colorWarning);
+        editText.setHintTextColor(colorWarning);
     }
 }
