@@ -68,6 +68,7 @@
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
     <string name="hint_password_confirm">Подтверждение пароля</string>
+    <string name="text_is_differ">Пароли не совпадают</string>
     <string name="hint_experience">Опыт работы</string>
     <string name="hint_price">Стоимость</string>
     <string name="hint_phone">Телефон</string>

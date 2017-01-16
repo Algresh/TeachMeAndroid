@@ -27,7 +27,9 @@ public class FragmentSubwayDialog extends DialogFragment implements DialogInterf
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        listSelected = new ArrayList<>();
+        if (listSelected == null) {
+            listSelected = new ArrayList<>();
+        }
         listener = (SelectSubway) getParentFragment();
         Resources res = getActivity().getResources();
 
@@ -60,13 +62,19 @@ public class FragmentSubwayDialog extends DialogFragment implements DialogInterf
         this.arrSelected = arrSelected;
     }
 
+    public void setListSelected(List<Integer> listSelected) {
+        this.listSelected = listSelected;
+    }
+
     @Override
     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
         if (b) {
             listSelected.add(i);
         } else {
             int index = listSelected.indexOf(i);
-            listSelected.remove(index);
+            if (index >= 0) {
+                listSelected.remove(index);
+            }
         }
     }
 

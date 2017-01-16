@@ -86,6 +86,7 @@ public class ModelMainImpl {
         call.enqueue(new Callback<List<Subway>>() {
             @Override
             public void onResponse(Call<List<Subway>> call, Response<List<Subway>> response) {
+                Log.d(Constants.MY_TAG, response.body() + " id");
                 callback.success(response.body());
             }
 

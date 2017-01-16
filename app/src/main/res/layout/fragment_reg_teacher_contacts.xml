@@ -10,6 +10,8 @@
         android:id="@+id/sc_reg_teacher_leave"
         android:text="@string/switch_leave_house"
         android:textSize="@dimen/font_size_main"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_marginLeft="4dp"
         android:paddingLeft="4dp"
 
@@ -30,6 +32,7 @@
         android:inputType="none"
         android:hint="@string/hint_subway"
         android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -41,6 +44,7 @@
         android:paddingLeft="8dp"
         android:inputType="phone"
         android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -51,6 +55,7 @@
         android:paddingLeft="8dp"
         android:inputType="textEmailAddress"
         android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -60,6 +65,7 @@
         android:textSize="@dimen/font_size_main"
         android:paddingLeft="8dp"
         android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -70,6 +76,7 @@
         android:paddingLeft="8dp"
         android:inputType="textPassword"
         android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -80,8 +87,20 @@
         android:paddingLeft="8dp"
         android:inputType="textPassword"
         android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_pass_is_differ"
+        android:paddingLeft="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_is_differ"
+        android:textSize="12sp"
+        android:textColor="@color/colorWarning"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/tv_reg_teacher_anketa"
