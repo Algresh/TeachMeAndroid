@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="50dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:gravity="center_vertical"
+        android:background="@color/colorBg"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:paddingLeft="16dp"
+        android:text="@string/title_rules"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
+
+    <ScrollView
+        android:background="@color/colorBgLight"
+
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:id="@+id/test_param"
+            android:text=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/reg_teacher_agreement"
+        android:text="@string/switch_adopt_rules"
+        android:padding="16dp"
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

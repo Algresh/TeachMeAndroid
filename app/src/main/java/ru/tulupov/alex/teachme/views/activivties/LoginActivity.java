@@ -16,11 +16,14 @@ import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
 import ru.tulupov.alex.teachme.views.fragments.RegDataCorrect;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherAboutFragment;
+import ru.tulupov.alex.teachme.views.fragments.RegTeacherAgreementFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherContactsFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
-public class LoginActivity extends AppCompatActivity implements LoginView, LoginFragments.LoginFragmentCallback {
+public class LoginActivity extends AppCompatActivity
+        implements LoginView, RegTeacherAgreementFragment.TeacherAgreement,
+        LoginFragments.LoginFragmentCallback {
 
     private LoginPresenter presenter;
 
@@ -145,8 +148,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView, Login
                 return new RegTeacherSubjectsFragment();
             case 3:
                 return new RegTeacherContactsFragment();
+            case 4:
+                return new RegTeacherAgreementFragment();
         }
 
         return null;
+    }
+
+    @Override
+    public void agree() {
+        presenter.registrationTeacher();
     }
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,6 +45,8 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private boolean subwayDialogIsDownloading;
     private int selectedPromotion = 0;
 
+    boolean leaveHouse = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,6 +72,12 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         }
 
         scLeaveHouse = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_leave);
+        scLeaveHouse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                leaveHouse = b;
+            }
+        });
         edtPhone = (EditText) view.findViewById(R.id.edt_reg_teacher_phone);
         edtEmail = (EditText) view.findViewById(R.id.edt_reg_teacher_email);
         edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
@@ -115,6 +124,18 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         }
 
         return arr;
+    }
+
+    public void saveData() {
+        TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
+
+        teacherRegistration.setLeaveHome(leaveHouse);
+        teacherRegistration.setSubways(tvSubway.getText().toString());
+        teacherRegistration.setPhoneNumber(edtPhone.getText().toString());
+        teacherRegistration.setEmail(edtEmail.getText().toString());
+        teacherRegistration.setLogin(edtLogin.getText().toString());
+        teacherRegistration.setPassword(edtPassword.getText().toString());
+        teacherRegistration.setAnketa(selectedPromotion);
     }
 
     @Override
@@ -175,6 +196,10 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
             isCorrect = false;
         } else {
             tvPassDiffer.setVisibility(View.GONE);
+        }
+
+        if (isCorrect) {
+            saveData();
         }
 
         return isCorrect;

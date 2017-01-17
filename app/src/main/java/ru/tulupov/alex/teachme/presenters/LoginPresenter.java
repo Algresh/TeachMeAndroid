@@ -58,4 +58,18 @@ public class LoginPresenter {
         });
     }
 
+    public void registrationTeacher() {
+        model.registerTeacher(new ModelUserInfo.RegTeacherCallBack() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void error(int type) {
+
+            }
+        });
+    }
+
 }

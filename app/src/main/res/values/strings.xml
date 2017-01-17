@@ -95,6 +95,7 @@
         <item>description</item>
         <item>subjects</item>
         <item>contacts</item>
+        <item>agreement</item>
     </string-array>
 
 

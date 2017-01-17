@@ -3,7 +3,9 @@ package ru.tulupov.alex.teachme.models;
 import android.graphics.Bitmap;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TeacherRegistration {
 
@@ -35,6 +37,7 @@ public class TeacherRegistration {
     private String password;
     private String email;
     private String phoneNumber;
+    private String subways;
     private boolean leaveHome;
     private int anketa;
 
@@ -179,5 +182,60 @@ public class TeacherRegistration {
 
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
+    }
+
+    public String getSubways() {
+        return subways;
+    }
+
+    public void setSubways(String subways) {
+        this.subways = subways;
+    }
+
+    public Map<String, String> getMapData() {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("firstName", firstName);
+        map.put("lastName", lastName);
+        map.put("fatherName", fatherName);
+        map.put("city", String.valueOf(city.getId()));
+        map.put("okrug", okrug);
+        map.put("district", district);
+        map.put("birthDate", birthDate);
+        map.put("description", description);
+        map.put("leaveHouse", String.valueOf(leaveHome));
+        map.put("subwayStation", subways);
+        map.put("phoneNumber", phoneNumber);
+        map.put("email", email);
+        map.put("password", password);
+        map.put("login", login);
+        map.put("typeAnketa", String.valueOf(anketa));
+        map.put("priceLIstNum", String.valueOf(getPriceLists().size()));
+
+        return  map;
+    }
+
+    @Override
+    public String toString() {
+        return "TeacherRegistration{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", city=" + city +
+                ", okrug='" + okrug + '\'' +
+                ", district='" + district + '\'' +
+                ", priceLists=" + priceLists +
+                ", description='" + description + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", subways='" + subways + '\'' +
+                ", leaveHome=" + leaveHome +
+                ", anketa=" + anketa +
+                ", enable=" + enable +
+                ", photo=" + photo +
+                '}';
     }
 }

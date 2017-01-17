@@ -42,4 +42,14 @@ public class PriceList {
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
+
+    @Override
+    public String toString() {
+        return "PriceList{" +
+                "id=" + id +
+                ", price=" + price +
+                ", experience='" + experience + '\'' +
+                ", subject=" + subject +
+                '}';
+    }
 }

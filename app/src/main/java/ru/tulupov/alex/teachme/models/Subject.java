@@ -30,4 +30,10 @@ public class Subject {
         this.title = title;
     }
 
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "title='" + title + '\'' +
+                '}';
+    }
 }

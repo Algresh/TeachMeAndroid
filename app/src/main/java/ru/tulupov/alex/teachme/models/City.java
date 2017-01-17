@@ -38,4 +38,12 @@ public class City {
     public void setHasSubway(boolean hasSubway) {
         this.hasSubway = hasSubway;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "title='" + title + '\'' +
+                ", hasSubway=" + hasSubway +
+                '}';
+    }
 }

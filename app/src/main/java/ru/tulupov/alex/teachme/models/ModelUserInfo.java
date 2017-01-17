@@ -1,10 +1,13 @@
 package ru.tulupov.alex.teachme.models;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -25,6 +28,11 @@ public class ModelUserInfo {
 
     public interface ModelCallBack {
         void success(Map fields);
+        void error(int type);
+    }
+
+    public interface RegTeacherCallBack {
+        void success();
         void error(int type);
     }
 
@@ -65,6 +73,44 @@ public class ModelUserInfo {
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
                 Log.d(Constants.MY_TAG, "error: " + t.getMessage());
+            }
+        });
+    }
+
+    public void registerTeacher(final RegTeacherCallBack callBack) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
+//        Bitmap photo = teacherRegistration.getPhoto();
+        Map<String, String> map = teacherRegistration.getMapData();
+        List<PriceList> priceLists = teacherRegistration.getPriceLists();
+        ArrayList<String> listSbj = new ArrayList<>();
+        ArrayList<String> listPrice = new ArrayList<>();
+        ArrayList<String> listExp = new ArrayList<>();
+
+        for (PriceList priceList : priceLists) {
+            listSbj.add(String.valueOf(priceList.getSubject().getId()));
+            listPrice.add(String.valueOf(priceList.getPrice()));
+            listExp.add(priceList.getExperience());
+        }
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.registrationTeacher(map, listSbj, listPrice, listExp);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(Constants.MY_TAG, "reg success");
+                if (response != null && response.body() != null) {
+                    Log.d(Constants.MY_TAG, response.body().toString());
+                }
+                callBack.success();
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d(Constants.MY_TAG, "reg fail " + t.getMessage());
             }
         });
     }
