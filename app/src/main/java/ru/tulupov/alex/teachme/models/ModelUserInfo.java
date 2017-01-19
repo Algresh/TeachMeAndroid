@@ -34,6 +34,12 @@ public class ModelUserInfo {
     public static final int TYPE_ERROR_PAS_LOG_ERR = 2;
     public static final int TYPE_ERROR_OTHER = -1;
 
+
+    public static final String TYPE_ERROR_LOGIN = "login";
+    public static final String TYPE_ERROR_EMAIL = "email";
+    public static final String TYPE_ERROR_BOTH = "bothError";
+    public static final String TYPE_CORRECT_BOTH = "bothCorrect";
+
     public interface ModelCallBack {
         void success(Map fields);
         void error(int type);
@@ -50,8 +56,13 @@ public class ModelUserInfo {
     }
 
     public interface RegTeacherConfirmCallBack {
-        void success();
+        void success(Map fields);
         void error(int type);
+    }
+
+    public interface CheckLoginEmailCallBack {
+        void success(Map fields);
+        void error();
     }
 
     public void login(String login, String password, final ModelCallBack callback) {
@@ -212,7 +223,11 @@ public class ModelUserInfo {
                 if (response.code() == 403) {
                     callback.error(TYPE_ERROR_OTHER);
                 } else {
-                    callback.success();
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
                 }
             }
 
@@ -221,6 +236,41 @@ public class ModelUserInfo {
                 callback.error(TYPE_ERROR_OTHER);
             }
         });
+    }
+
+    public void checkEmailAndLogin(String login, String email, final CheckLoginEmailCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.checkEmailAndLogin(login, email);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    String json = response.body().toString();
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                } else {
+                    callback.error();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error();
+            }
+        });
+
+
     }
 
 

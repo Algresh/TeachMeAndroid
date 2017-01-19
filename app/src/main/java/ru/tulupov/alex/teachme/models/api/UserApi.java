@@ -46,4 +46,7 @@ public interface UserApi {
             @Part("accessToken") RequestBody accessToken,
             @Part MultipartBody.Part file
     );
+
+    @GET("/api/check/login/email")
+    Call<Object> checkEmailAndLogin(@Query("login") String login, @Query("email") String email);
 }

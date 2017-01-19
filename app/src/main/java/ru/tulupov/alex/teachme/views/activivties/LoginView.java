@@ -10,4 +10,7 @@ public interface LoginView {
 
     void registerConfirmTeacherSuccess();
     void registerConfirmTeacherError();
+
+    void emailAndLoginIsChecked(String type);
+    void emailAndLoginIsCheckedError();
 }

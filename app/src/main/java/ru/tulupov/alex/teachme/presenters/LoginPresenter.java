@@ -1,8 +1,12 @@
 package ru.tulupov.alex.teachme.presenters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Map;
 
 import ru.tulupov.alex.teachme.Constants;
@@ -94,20 +98,83 @@ public class LoginPresenter {
        });
     }
 
-    public void registerConfirmationTeacher(String code) {
-        TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
+    public void registerConfirmationTeacher(String code, final Context context) {
+        final TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
         String accessToken = teacherRegistration.getAccessToken();
-
 
         model.registerConfirmationTeacher(accessToken, code, new ModelUserInfo.RegTeacherConfirmCallBack() {
             @Override
-            public void success() {
+            public void success(Map fields) {
+                String type_user = (String) fields.get("type_user");
+                Double enable = (Double) fields.get("enable");
+                String accessToken = (String) fields.get("access_token");
+                Double userId = (Double) fields.get("id");
+
+                String firstName = (String) fields.get("firstName");
+                String fatherName = (String) fields.get("fatherName");
+                String lastName = (String) fields.get("lastName");
+                String login = (String) fields.get("login");
+
+                User user = new TeacherUser(context, type_user, userId.intValue(), accessToken,  enable.intValue(),
+                        firstName, lastName, fatherName, login);
+
+                Bitmap photo = teacherRegistration.getPhoto();
+                try {
+                    FileOutputStream out = context.openFileOutput("avatar.png", Context.MODE_PRIVATE);
+                    photo.compress(Bitmap.CompressFormat.PNG, 100, out);
+                    out.flush();
+                    out.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException ignored) {
+
+                }
+
+                MyApplications.setUser(user);
+
                 view.registerConfirmTeacherSuccess();
             }
 
             @Override
             public void error(int type) {
                 view.registerConfirmTeacherError();
+            }
+        });
+    }
+
+    public void checkEmailAndLogin(String login, String email) {
+        model.checkEmailAndLogin(login, email, new ModelUserInfo.CheckLoginEmailCallBack() {
+            @Override
+            public void success(Map fields) {
+                Double login = (Double) fields.get("login");
+                Double email = (Double) fields.get("email");
+
+                int err = 0;
+                if (login == 1) err++;
+                if (email == 1) err = err + 2;
+
+                switch (err) {
+                    case 0:
+                        view.emailAndLoginIsChecked(ModelUserInfo.TYPE_CORRECT_BOTH);
+                        break;
+                    case 1:
+                        view.emailAndLoginIsChecked(ModelUserInfo.TYPE_ERROR_LOGIN);
+                        break;
+                    case 2:
+                        view.emailAndLoginIsChecked(ModelUserInfo.TYPE_ERROR_EMAIL);
+                        break;
+                    case 3:
+                        view.emailAndLoginIsChecked(ModelUserInfo.TYPE_ERROR_BOTH);
+                        break;
+
+                }
+
+
+            }
+
+            @Override
+            public void error() {
+                view.emailAndLoginIsCheckedError();
             }
         });
     }

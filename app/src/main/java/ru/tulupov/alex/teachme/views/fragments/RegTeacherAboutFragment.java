@@ -18,6 +18,7 @@ public class RegTeacherAboutFragment extends Fragment implements  RegDataCorrect
 
 
     private EditText editTextAbout;
+    private String textAbout = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,6 +26,7 @@ public class RegTeacherAboutFragment extends Fragment implements  RegDataCorrect
 
         View view = inflater.inflate(R.layout.fragment_reg_teacher_about, container, false);
         editTextAbout = (EditText) view.findViewById(R.id.et_reg_teacher_about);
+        editTextAbout.setText(textAbout);
 
         return view;
     }
@@ -33,7 +35,8 @@ public class RegTeacherAboutFragment extends Fragment implements  RegDataCorrect
     public void onDestroyView() {
         super.onDestroyView();
         TeacherRegistration teacher = TeacherRegistration.getInstance();
-        teacher.setDescription(editTextAbout.getText().toString());
+        textAbout = editTextAbout.getText().toString();
+        teacher.setDescription(textAbout);
     }
 
     @Override

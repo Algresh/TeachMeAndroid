@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
+import ru.tulupov.alex.teachme.models.ModelUserInfo;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
@@ -36,6 +37,8 @@ public class LoginActivity extends AppCompatActivity
     protected LinearLayout nextPrevPanel;
     private String[] regFragmentTags;
     private  RegDataCorrect currRegDataCorrect;
+
+    private boolean checkingLoginEmail = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,22 +133,37 @@ public class LoginActivity extends AppCompatActivity
     }
 
     protected void toNextFragment() {
-        FragmentManager manager = getSupportFragmentManager();
 
         if (registerStep == 5) {
             presenter.registrationTeacher();
         }
 
         if (currRegDataCorrect.dataIsCorrect()) {
-            Fragment fragment = getFragmentTeacherStep(registerStep);
-            if (fragment != null) {
-                currRegDataCorrect = (RegDataCorrect) fragment;
-                manager.beginTransaction()
-                        .replace(R.id.reg_fragment_container, fragment, regFragmentTags[registerStep])
-                        .addToBackStack(regFragmentTags[registerStep])
-                        .commit();
-                registerStep++;
+            if (registerStep == 4) {
+                if (checkingLoginEmail) {
+                    return;
+                }
+                checkingLoginEmail = true;
+                RegTeacherContactsFragment fragment = (RegTeacherContactsFragment) currRegDataCorrect;
+                String login = fragment.getLogin();
+                String email = fragment.getEmail();
+                presenter.checkEmailAndLogin(login, email);
+            } else {
+                setUpNextFragment();
             }
+        }
+    }
+
+    protected void setUpNextFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = getFragmentTeacherStep(registerStep);
+        if (fragment != null) {
+            currRegDataCorrect = (RegDataCorrect) fragment;
+            manager.beginTransaction()
+                    .replace(R.id.reg_fragment_container, fragment, regFragmentTags[registerStep])
+                    .addToBackStack(regFragmentTags[registerStep])
+                    .commit();
+            registerStep++;
         }
     }
 
@@ -181,7 +199,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void codeConfirm(String code) {
-        presenter.registerConfirmationTeacher(code);
+        presenter.registerConfirmationTeacher(code, this);
     }
 
     @Override
@@ -192,5 +210,31 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void registerConfirmTeacherError() {
 
+    }
+
+    @Override
+    public void emailAndLoginIsChecked(String type) {
+        checkingLoginEmail = false;
+        RegTeacherContactsFragment fragment = (RegTeacherContactsFragment) currRegDataCorrect;
+        fragment.showLoginEmailNotExisted();
+        if (type.equals(ModelUserInfo.TYPE_CORRECT_BOTH)) {
+            setUpNextFragment();
+        }
+        if (type.equals(ModelUserInfo.TYPE_ERROR_EMAIL)) {
+            fragment.showEmailExisted();
+        }
+        if (type.equals(ModelUserInfo.TYPE_ERROR_LOGIN)) {
+            fragment.showLoginExisted();
+        }
+        if (type.equals(ModelUserInfo.TYPE_ERROR_BOTH)) {
+            fragment.showLoginExisted();
+            fragment.showEmailExisted();
+
+        }
+    }
+
+    @Override
+    public void emailAndLoginIsCheckedError() {
+        checkingLoginEmail = false;
     }
 }

@@ -46,7 +46,10 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
         View viewSubject = layoutInflater.inflate(R.layout.reg_teacher_subject, null);
         TextView tvSubjects = (TextView) viewSubject.findViewById(R.id.sp_select_subject);
+
+        String strTvSubject = getContext().getResources().getString(R.string.hint_subject);
         tvSubjects.setTag(numSubjects);
+        tvSubjects.setText(strTvSubject);
         tvSubjects.setOnClickListener(this);
 
         viewList.add(viewSubject);
@@ -55,12 +58,43 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         numSubjects++;
     }
 
+    private void addSubjects() {
+//        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+
+//        for (int i = 0; i < priceLists.size(); i++) {
+//            View viewSubject = layoutInflater.inflate(R.layout.reg_teacher_subject, null);
+//            TextView tvSubjects = (TextView) viewSubject.findViewById(R.id.sp_select_subject);
+//            EditText edtExp = (EditText) viewSubject.findViewById(R.id.et_reg_teacher_experience);
+//            EditText edtPrice = (EditText) viewSubject.findViewById(R.id.et_reg_teacher_price);
+//            tvSubjects.setTag(numSubjects);
+//            tvSubjects.setOnClickListener(this);
+//
+//            PriceList priceList = priceLists.get(i);
+//            tvSubjects.setText(priceList.getSubject().getTitle());
+//            edtExp.setText(priceList.getExperience());
+//            edtPrice.setText(String.valueOf(priceList.getPrice()));
+//
+//            viewList.add(viewSubject);
+//            subjectsContainer.addView(viewSubject);
+//            selectedListSubjects.add(priceList.getSubject().getId());
+//            numSubjects++;
+//        }
+
+        for(View view : viewList) {
+            subjectsContainer.addView(view);
+        }
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        presenter = new CitySubjectPresenter();
-        viewList = new ArrayList<>();
-        selectedListSubjects = new ArrayList<>();
+        if (priceLists == null) {
+            presenter = new CitySubjectPresenter();
+            viewList = new ArrayList<>();
+            selectedListSubjects = new ArrayList<>();
+        }
+//        numSubjects = 0;
         presenter.onCreate(null, this, null);
         fragmentView = inflater.inflate(R.layout.fragment_reg_teacher_subjects, container, false);
         subjectsContainer = (LinearLayout) fragmentView.findViewById(R.id.ll_subjects);
@@ -72,7 +106,11 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
                 }
             }
         });
-        addSubject();
+        if(priceLists == null) {
+            addSubject();
+        } else {
+            addSubjects();
+        }
         return fragmentView;
     }
 
@@ -206,6 +244,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         super.onDestroyView();
         TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
         teacherRegistration.setPriceLists(priceLists);
+        subjectsContainer.removeAllViews();
     }
 
     protected void warningColorTextView(TextView textView) {

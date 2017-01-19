@@ -69,6 +69,8 @@
     <string name="hint_password">Пароль</string>
     <string name="hint_password_confirm">Подтверждение пароля</string>
     <string name="text_is_differ">Пароли не совпадают</string>
+    <string name="text_login_existed">Такой логин уже существует</string>
+    <string name="text_email_existed">Этот email уже используется</string>
     <string name="hint_experience">Опыт работы</string>
     <string name="hint_price">Стоимость</string>
     <string name="hint_phone">Телефон</string>
@@ -88,10 +90,10 @@
     <string name="tv_confirm">Код</string>
 
     <string-array name="promotion">
+        <item>Нет</item>
         <item>Золотая анкета</item>
         <item>Серебрянная анкета</item>
         <item>Медная анкета</item>
-        <item>Нет</item>
     </string-array>
 
     <string-array name="regFragmentTeacherTags">

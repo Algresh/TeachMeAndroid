@@ -1,6 +1,7 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,8 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private EditText edtPasswordConfirm;
     private TextView tvAnketa;
     private TextView tvPassDiffer;
+    private TextView tvLoginExisted;
+    private TextView tvEmailExisted;
 
     private CitySubjectPresenter presenter;
 
@@ -53,8 +56,22 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
                              Bundle savedInstanceState) {
         selectedCity = TeacherRegistration.getInstance().getCity();
         View view = inflater.inflate(R.layout.fragment_reg_teacher_contacts, container, false);
+        Resources res = getResources();
 
         tvSubway = (TextView) view.findViewById(R.id.et_reg_teacher_subway);
+        if (listSelected != null && listSelected.size() > 0) {
+            String strSub = "";
+            for (Integer item : listSelected) {
+                strSub = strSub + listSubways.get(item).getTitle() + " ";
+            }
+            tvSubway.setText(strSub);
+        }
+
+
+
+        /**
+         * @TODO проверить работает ли все когда нет метро у города!!!
+         */
         if (selectedCity.isHasSubway()) {
 
             tvSubway.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +88,8 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
             tvSubway.setVisibility(View.GONE);
         }
 
+
+
         scLeaveHouse = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_leave);
         scLeaveHouse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -84,7 +103,13 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         edtPassword = (EditText) view.findViewById(R.id.edt_reg_teacher_password);
         edtPasswordConfirm = (EditText) view.findViewById(R.id.edt_reg_teacher_passwordConfirm);
         tvPassDiffer = (TextView) view.findViewById(R.id.tv_pass_is_differ);
+        tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
+        tvEmailExisted = (TextView) view.findViewById(R.id.tv_email_existed);
         tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
+        if (selectedPromotion != 0) {
+            String[] arr = res.getStringArray(R.array.promotion);
+            tvAnketa.setText(arr[selectedPromotion]);
+        }
         tvAnketa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,4 +271,26 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         tvAnketa.setText(strPromotion);
 
     }
+
+    public String getEmail() {
+        return  edtEmail.getText().toString();
+    }
+
+    public String getLogin() {
+        return  edtLogin.getText().toString();
+    }
+
+    public void showLoginExisted() {
+        tvLoginExisted.setVisibility(View.VISIBLE);
+    }
+
+    public void showEmailExisted() {
+        tvEmailExisted.setVisibility(View.VISIBLE);
+    }
+
+    public void showLoginEmailNotExisted() {
+        tvLoginExisted.setVisibility(View.GONE);
+        tvEmailExisted.setVisibility(View.GONE);
+    }
+
 }

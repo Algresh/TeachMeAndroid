@@ -48,6 +48,7 @@ public class RegTeacherFullNameFragment extends Fragment
     private int indexSelectedCity = 0;
     private Bitmap bitmapPhoto;
     private boolean cityDialogIsDownloading = false;
+    private DatePickerFragment dialog;
 
     View.OnClickListener selectAvatar = new View.OnClickListener() {
         @Override
@@ -114,9 +115,11 @@ public class RegTeacherFullNameFragment extends Fragment
         etBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerFragment dialog = new DatePickerFragment();
-                dialog.setEditTextDate(etBirthday);
-                dialog.show(getChildFragmentManager(), "DatePickerFragment");
+                if (dialog == null || dialog.isCancelable()) {
+                    dialog = new DatePickerFragment();
+                    dialog.setEditTextDate(etBirthday);
+                    dialog.show(getChildFragmentManager(), "DatePickerFragment");
+                }
             }
         });
         etFirstName = (EditText) view.findViewById(R.id.register_teacher_first_name);
