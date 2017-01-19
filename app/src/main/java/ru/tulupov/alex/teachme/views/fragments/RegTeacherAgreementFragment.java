@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
@@ -18,7 +19,8 @@ import ru.tulupov.alex.teachme.models.TeacherRegistration;
 public class RegTeacherAgreementFragment extends Fragment implements RegDataCorrect{
 
     SwitchCompat swAgreement;
-    TeacherAgreement listener;
+
+    private boolean isAgree = false;
 
     public RegTeacherAgreementFragment() {
     }
@@ -33,12 +35,7 @@ public class RegTeacherAgreementFragment extends Fragment implements RegDataCorr
         swAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    listener.agree();
-                }
-                else {
-
-                }
+                isAgree = isChecked;
             }
         });
         return view;
@@ -46,17 +43,18 @@ public class RegTeacherAgreementFragment extends Fragment implements RegDataCorr
 
     @Override
     public void onAttach(Activity activity) {
-        listener = (TeacherAgreement) activity;
+//        listener = (TeacherAgreement) activity;
         super.onAttach(activity);
     }
 
     @Override
     public boolean dataIsCorrect() {
-        return false;
-    }
+        if (!isAgree) {
+            String str = getContext().getResources().getString(R.string.error_dont_agreement);
+            Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+        }
 
-    public interface TeacherAgreement {
-        void agree();
+        return isAgree;
     }
 
 }

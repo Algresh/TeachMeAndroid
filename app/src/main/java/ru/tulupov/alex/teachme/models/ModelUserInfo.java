@@ -6,10 +6,18 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +40,16 @@ public class ModelUserInfo {
     }
 
     public interface RegTeacherCallBack {
+        void success(Map fields);
+        void error(int type);
+    }
+
+    public interface RegTeacherPhotoCallBack {
+        void success();
+        void error(int type);
+    }
+
+    public interface RegTeacherConfirmCallBack {
         void success();
         void error(int type);
     }
@@ -77,13 +95,12 @@ public class ModelUserInfo {
         });
     }
 
-    public void registerTeacher(final RegTeacherCallBack callBack) {
+    public void registerTeacher(final RegTeacherCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
-//        Bitmap photo = teacherRegistration.getPhoto();
         Map<String, String> map = teacherRegistration.getMapData();
         List<PriceList> priceLists = teacherRegistration.getPriceLists();
         ArrayList<String> listSbj = new ArrayList<>();
@@ -102,10 +119,20 @@ public class ModelUserInfo {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
                 Log.d(Constants.MY_TAG, "reg success");
-                if (response != null && response.body() != null) {
-                    Log.d(Constants.MY_TAG, response.body().toString());
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
                 }
-                callBack.success();
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                }
             }
 
             @Override
@@ -114,4 +141,87 @@ public class ModelUserInfo {
             }
         });
     }
+
+    public void setPhoto(String accessToken, String id, final RegTeacherPhotoCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
+        Bitmap photo = teacherRegistration.getPhoto();
+        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), stream.toByteArray());
+
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("picture", "avatar", requestFile);
+
+        RequestBody accessTokenBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), accessToken);
+
+        RequestBody idBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), id);
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.registerPhotoTeacher(idBody, accessTokenBody, body);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(Constants.MY_TAG, "success Photo");
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    callback.success();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error(TYPE_ERROR_OTHER);
+            }
+        });
+
+    }
+
+    public void registerConfirmationTeacher(String accessToken, String code, final RegTeacherConfirmCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.registrationConfirmationTeacher(accessToken, code);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    callback.success();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error(TYPE_ERROR_OTHER);
+            }
+        });
+    }
+
+
 }

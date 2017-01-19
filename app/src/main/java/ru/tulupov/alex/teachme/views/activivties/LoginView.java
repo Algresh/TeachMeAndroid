@@ -4,4 +4,10 @@ public interface LoginView {
 
     void logInSuccess();
     void logInFail();
+
+    void registerTeacherSuccess();
+    void registerTeacherError();
+
+    void registerConfirmTeacherSuccess();
+    void registerConfirmTeacherError();
 }

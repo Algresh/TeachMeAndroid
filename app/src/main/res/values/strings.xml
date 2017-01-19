@@ -83,6 +83,10 @@
     <string name="reg_warning_message">Поля не заполнены или заполнены не правильно</string>
     <string name="reg_about_warning_message_">Полу не заполнено</string>
 
+    <string name="text_code_confirmation">Вам на почту пришло письмо с кодом</string>
+    <string name="btn_confirm">Подтвердить</string>
+    <string name="tv_confirm">Код</string>
+
     <string-array name="promotion">
         <item>Золотая анкета</item>
         <item>Серебрянная анкета</item>

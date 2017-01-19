@@ -9,11 +9,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.io.FileOutputStream;
+
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
+import ru.tulupov.alex.teachme.views.fragments.RegConfirmationFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegDataCorrect;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherAboutFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherAgreementFragment;
@@ -22,8 +25,7 @@ import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
 public class LoginActivity extends AppCompatActivity
-        implements LoginView, RegTeacherAgreementFragment.TeacherAgreement,
-        LoginFragments.LoginFragmentCallback {
+        implements LoginView, LoginFragments.LoginFragmentCallback, RegConfirmationFragment.CodeConfirmation {
 
     private LoginPresenter presenter;
 
@@ -88,6 +90,21 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
+    public void registerTeacherSuccess() {
+        FragmentManager manager = getSupportFragmentManager();
+        nextPrevPanel.setVisibility(View.GONE);
+        Fragment fragment = new RegConfirmationFragment();
+        manager.beginTransaction()
+                .replace(R.id.reg_fragment_container, fragment)
+                .commit();
+    }
+
+    @Override
+    public void registerTeacherError() {
+
+    }
+
+    @Override
     public void registerClick() {
         FragmentManager manager = getSupportFragmentManager();
         RegTeacherFullNameFragment loginFragments = new RegTeacherFullNameFragment();
@@ -114,14 +131,21 @@ public class LoginActivity extends AppCompatActivity
 
     protected void toNextFragment() {
         FragmentManager manager = getSupportFragmentManager();
+
+        if (registerStep == 5) {
+            presenter.registrationTeacher();
+        }
+
         if (currRegDataCorrect.dataIsCorrect()) {
             Fragment fragment = getFragmentTeacherStep(registerStep);
-            currRegDataCorrect = (RegDataCorrect) fragment;
-            manager.beginTransaction()
-                    .replace(R.id.reg_fragment_container, fragment, regFragmentTags[registerStep])
-                    .addToBackStack(regFragmentTags[registerStep])
-                    .commit();
-            registerStep++;
+            if (fragment != null) {
+                currRegDataCorrect = (RegDataCorrect) fragment;
+                manager.beginTransaction()
+                        .replace(R.id.reg_fragment_container, fragment, regFragmentTags[registerStep])
+                        .addToBackStack(regFragmentTags[registerStep])
+                        .commit();
+                registerStep++;
+            }
         }
     }
 
@@ -156,7 +180,17 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
-    public void agree() {
-        presenter.registrationTeacher();
+    public void codeConfirm(String code) {
+        presenter.registerConfirmationTeacher(code);
+    }
+
+    @Override
+    public void registerConfirmTeacherSuccess() {
+        Log.d(Constants.MY_TAG, "full registration success");
+    }
+
+    @Override
+    public void registerConfirmTeacherError() {
+
     }
 }

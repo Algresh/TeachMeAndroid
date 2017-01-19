@@ -44,6 +44,8 @@ public class TeacherRegistration {
     private int enable;
     private Bitmap photo;
 
+    private String accessToken;
+
     private TeacherRegistration () {
 
     }
@@ -190,6 +192,14 @@ public class TeacherRegistration {
 
     public void setSubways(String subways) {
         this.subways = subways;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public Map<String, String> getMapData() {
