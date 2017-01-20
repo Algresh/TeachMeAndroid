@@ -155,7 +155,11 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
 
         teacherRegistration.setLeaveHome(leaveHouse);
-        teacherRegistration.setSubways(tvSubway.getText().toString());
+        String strSubwayIds = "";
+        for (int i = 0; i < listSelected.size(); i ++) {
+            strSubwayIds = strSubwayIds + listSubways.get( listSelected.get(i) ).getId() + " ";
+        }
+        teacherRegistration.setSubways(strSubwayIds);
         teacherRegistration.setPhoneNumber(edtPhone.getText().toString());
         teacherRegistration.setEmail(edtEmail.getText().toString());
         teacherRegistration.setLogin(edtLogin.getText().toString());
@@ -168,9 +172,10 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         boolean isCorrect = true;
 
         String strSubway = tvSubway.getText().toString().trim();
-        String textSubway = getResources().getString(R.string.hint_subject);
-        if(strSubway.equals(textSubway)) {
+        String textSubway = getResources().getString(R.string.hint_subway);
+        if(strSubway.equals(textSubway) || listSelected == null) {
             warningColorTextView(tvSubway);
+            isCorrect = false;
         } else {
             correctColorTextView(tvSubway);
         }
@@ -179,6 +184,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         String textAnketa = getResources().getString(R.string.btn_select_promotion);
         if(strAnketa.equals(textAnketa)) {
             warningColorTextView(tvAnketa);
+            isCorrect = false;
         } else {
             correctColorTextView(tvAnketa);
         }

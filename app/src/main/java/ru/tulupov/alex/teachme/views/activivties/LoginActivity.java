@@ -1,5 +1,6 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,8 @@ public class LoginActivity extends AppCompatActivity
     private  RegDataCorrect currRegDataCorrect;
 
     private boolean checkingLoginEmail = false;
+
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void registerTeacherSuccess() {
+        pDialog.dismiss();
         FragmentManager manager = getSupportFragmentManager();
         nextPrevPanel.setVisibility(View.GONE);
         Fragment fragment = new RegConfirmationFragment();
@@ -104,7 +108,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void registerTeacherError() {
-
+        pDialog.dismiss();
     }
 
     @Override
@@ -135,6 +139,9 @@ public class LoginActivity extends AppCompatActivity
     protected void toNextFragment() {
 
         if (registerStep == 5) {
+            pDialog = new ProgressDialog(this);
+            pDialog.setMessage("");
+            pDialog.show();
             presenter.registrationTeacher();
         }
 
