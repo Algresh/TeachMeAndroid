@@ -242,4 +242,33 @@ public class LoginPresenter {
         });
     }
 
+    public void forgotPassword(String email) {
+        model.forgotPassword(email, new ModelUserInfo.ForgotPasswordCallBack() {
+            @Override
+            public void success(Map fields) {
+                String typeUser = (String) fields.get("typeUser");
+
+                view.forgotPassEmailSuccess(typeUser);
+            }
+
+            @Override
+            public void error() {
+                view.forgotPassEmailError();
+            }
+        });
+    }
+
+    public void forgotPasswordConfirm(String email, String typeUser, String newPassword, String code) {
+        model.forgotPasswordConfirmation(email, typeUser, newPassword, code, new ModelUserInfo.ForgotPasswordConfirmCallBack() {
+            @Override
+            public void success() {
+                view.forgotPassConfirmSuccess();
+            }
+
+            @Override
+            public void error(int type) {
+                view.forgotPassConfirmError();
+            }
+        });
+    }
 }

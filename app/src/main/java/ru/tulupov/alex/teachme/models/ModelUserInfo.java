@@ -76,6 +76,16 @@ public class ModelUserInfo {
         void error(int type);
     }
 
+    public interface ForgotPasswordCallBack {
+        void success(Map fields);
+        void error();
+    }
+
+    public interface ForgotPasswordConfirmCallBack {
+        void success();
+        void error(int type);
+    }
+
     public void login(String login, String password, final ModelCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -352,9 +362,67 @@ public class ModelUserInfo {
                 callback.error();
             }
         });
-
-
     }
 
+    public void forgotPassword(String email, final ForgotPasswordCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.forgotPassword(email);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    String json = response.body().toString();
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                } else {
+                    callback.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void forgotPasswordConfirmation (String email, String userType, String newPassword,
+                                            String code, final ForgotPasswordConfirmCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.forgotPasswordConfirmation(email, userType, newPassword, code);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    callback.success();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error(TYPE_ERROR_OTHER);
+            }
+        });
+    }
 }

@@ -19,4 +19,9 @@ public interface LoginView {
 
     void registerConfirmPupilSuccess();
     void registerConfirmPupilError();
+
+    void forgotPassEmailSuccess(String typeUser);
+    void forgotPassEmailError();
+    void forgotPassConfirmSuccess();
+    void forgotPassConfirmError();
 }

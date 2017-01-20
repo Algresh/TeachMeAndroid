@@ -20,6 +20,7 @@ import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.models.user.User;
 import ru.tulupov.alex.teachme.presenters.LoginPresenter;
 import ru.tulupov.alex.teachme.views.fragments.CheckLoginEmailExisted;
+import ru.tulupov.alex.teachme.views.fragments.ForgotPasswordFragment;
 import ru.tulupov.alex.teachme.views.fragments.LoginFragments;
 import ru.tulupov.alex.teachme.views.fragments.RegConfirmationFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegDataCorrect;
@@ -33,7 +34,8 @@ import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
 public class LoginActivity extends AppCompatActivity
         implements LoginView, LoginFragments.LoginFragmentCallback,
-        RegConfirmationFragment.CodeConfirmation, RegSelectTypeProfile.SelectTypeProfile {
+        RegConfirmationFragment.CodeConfirmation, RegSelectTypeProfile.SelectTypeProfile,
+        ForgotPasswordFragment.ForgotPass {
 
     private LoginPresenter presenter;
 
@@ -49,6 +51,10 @@ public class LoginActivity extends AppCompatActivity
     private boolean checkingLoginEmail = false;
 
     private ProgressDialog pDialog;
+
+    private String forgotPasswordNewPass;
+    private String forgotPasswordType;
+    private String forgotPasswordEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +146,12 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void forgotPasswordClick() {
-
+        FragmentManager manager = getSupportFragmentManager();
+        ForgotPasswordFragment fragment = new ForgotPasswordFragment();
+        manager.beginTransaction()
+                .replace(R.id.reg_fragment_container, fragment, "forgotPassword")
+                .addToBackStack("forgotPassword")
+                .commit();
     }
 
     @Override
@@ -264,10 +275,13 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void codeConfirm(String code) {
-        if (registerUserType.equals( User.TYPE_USER_TEACHER)) {
+        if (registerUserType != null && registerUserType.equals( User.TYPE_USER_TEACHER)) {
             presenter.registerConfirmationTeacher(code, this);
-        }else if (registerUserType.equals( User.TYPE_USER_PUPIL)) {
+        }else if (registerUserType != null && registerUserType.equals( User.TYPE_USER_PUPIL)) {
             presenter.registerConfirmationPupil(code, this);
+        } else {
+            presenter.forgotPasswordConfirm(forgotPasswordEmail, forgotPasswordType,
+                    forgotPasswordNewPass, code);
         }
     }
 
@@ -337,6 +351,39 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
+    public void forgotPassEmailSuccess(String typeUser) {
+        forgotPasswordType = typeUser;
+
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = new RegConfirmationFragment();
+        manager.beginTransaction()
+                .replace(R.id.reg_fragment_container, fragment)
+                .commit();
+    }
+
+    @Override
+    public void forgotPassEmailError() {
+
+    }
+
+    @Override
+    public void forgotPassConfirmSuccess() {
+        Log.d(Constants.MY_TAG, "pass change");
+    }
+
+    @Override
+    public void forgotPassConfirmError() {
+
+    }
+
+    @Override
+    public void checkEmail(String email, String pass) {
+        forgotPasswordEmail = email;
+        forgotPasswordNewPass = pass;
+        presenter.forgotPassword(email);
+    }
+
+    @Override
     public void selectTeacher() {
         registerUserType = User.TYPE_USER_TEACHER;
 
@@ -373,4 +420,6 @@ public class LoginActivity extends AppCompatActivity
 
         registerStep++;
     }
+
+
 }

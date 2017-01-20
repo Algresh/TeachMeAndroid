@@ -67,6 +67,7 @@
     <string name="hint_email">e-mail</string>
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
+    <string name="hint_new_password">Новый пароль</string>
     <string name="hint_password_confirm">Подтверждение пароля</string>
     <string name="text_is_differ">Пароли не совпадают</string>
     <string name="text_login_existed">Такой логин уже существует</string>

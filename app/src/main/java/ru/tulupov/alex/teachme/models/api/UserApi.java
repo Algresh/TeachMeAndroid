@@ -37,6 +37,19 @@ public interface UserApi {
     Call<Object> registrationPupil(@FieldMap Map<String, String> map);
 
     @FormUrlEncoded
+    @POST("/api/forgot/password")
+    Call<Object> forgotPassword(@Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("/api/forgot/password/confirmation")
+    Call<Object> forgotPasswordConfirmation(
+            @Field("email") String email,
+            @Field("typeUser") String typeUser,
+            @Field("newPassword") String newPassword,
+            @Field("code") String code
+    );
+
+    @FormUrlEncoded
     @POST("/api/register/confirmation/teacher")
     Call<Object> registrationConfirmationTeacher(
             @Field("accessToken") String accessToken,
