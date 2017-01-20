@@ -11,18 +11,20 @@ public class TeacherUser extends User {
     public static final String PREF_USER_FIRST_NAME= "pref_first_name";
     public static final String PREF_USER_LAST_NAME = "pref_last_name";
     public static final String PREF_USER_FATHER_NAME = "pref_father_name";
-    public static final String PREF_USER_LOGIN = "pref_login";
 
     private String firstName;
     private String lastName;
     private String fatherName;
-    private String login;
+
 
     public TeacherUser(){
 
     }
 
-    public TeacherUser(Context context, String typeUser, int userId, String accessToken, int enable, String firstName, String lastName, String fatherName, String login) {
+    public TeacherUser(Context context, String typeUser, int userId, String accessToken, int enable,
+                       String firstName, String lastName, String fatherName, String login,
+                       String email, String cityTitle, int cityId) {
+
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREF_USER_TYPE_USER, typeUser);
@@ -33,6 +35,9 @@ public class TeacherUser extends User {
         editor.putString(PREF_USER_FATHER_NAME, fatherName);
         editor.putString(PREF_USER_LOGIN, login);
         editor.putInt(PREF_USER_ENABLE, enable);
+        editor.putString(PREF_USER_EMAIL, email);
+        editor.putString(PREF_USER_CITY_TITLE, cityTitle);
+        editor.putInt(PREF_USER_CITY_ID, cityId);
         editor.apply();
 
         this.firstName = firstName;
@@ -43,6 +48,10 @@ public class TeacherUser extends User {
         this.accessToken = accessToken;
         this.userId = userId;
         this.enable = enable;
+        this.email = email;
+        this.cityTitle = cityTitle;
+        this.cityId = cityId;
+        this.login = login;
     }
 
     @Override
@@ -143,7 +152,47 @@ public class TeacherUser extends User {
 
 
 
+    @Override
+    public String getEmail(Context context) {
+        if (email != null) {
+            return email;
+        }
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_USER_EMAIL, "");
+    }
 
+    @Override
+    public void setEmail(Context context, String email) {
+        setStringToPref(context, PREF_USER_EMAIL, email);
+        this.email = email;
+    }
+
+    @Override
+    public String getCityTitle(Context context) {
+        if (cityTitle != null) {
+            return cityTitle;
+        }
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_USER_CITY_TITLE, "");
+    }
+
+    @Override
+    public int getCityId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_USER_CITY_ID, 0);
+    }
+
+    @Override
+    public void setCityTitle(Context context, String cityTitle) {
+        setStringToPref(context, PREF_USER_CITY_TITLE, cityTitle);
+        this.cityTitle = cityTitle;
+    }
+
+    @Override
+    public void setCityId(Context context, int cityId) {
+        setIntToPref(context, PREF_USER_USER_ID, cityId);
+        this.cityId = cityId;
+    }
 
 
 

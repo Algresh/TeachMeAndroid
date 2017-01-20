@@ -104,6 +104,11 @@
         <item>agreement</item>
     </string-array>
 
+    <string-array name="regFragmentPupilTags">
+        <item>contactsPupil</item>
+        <item>agreementPupil</item>
+    </string-array>
+
 
     <string name="title_dialog_city">Выбор города</string>
     <string name="title_dialog_subway">Выбор метро</string>

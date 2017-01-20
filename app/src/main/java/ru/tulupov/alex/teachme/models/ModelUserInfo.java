@@ -27,6 +27,7 @@ import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.models.api.UserApi;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
 import ru.tulupov.alex.teachme.models.user.User;
+import ru.tulupov.alex.teachme.views.fragments.RegPupilContacts;
 
 public class ModelUserInfo {
 
@@ -63,6 +64,16 @@ public class ModelUserInfo {
     public interface CheckLoginEmailCallBack {
         void success(Map fields);
         void error();
+    }
+
+    public interface RegPupilCallBack {
+        void success(Map fields);
+        void error(int type);
+    }
+
+    public interface RegPupilConfirmCallBack {
+        void success(Map fields);
+        void error(int type);
     }
 
     public void login(String login, String password, final ModelCallBack callback) {
@@ -153,6 +164,45 @@ public class ModelUserInfo {
         });
     }
 
+    public void registerPupil(final RegPupilCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        PupilRegistration pupilRegistration = PupilRegistration.getInstance();
+        Map fields = pupilRegistration.getMapData();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.registrationPupil(fields);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(Constants.MY_TAG, "reg success");
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d(Constants.MY_TAG, "reg pupil fail " + t.getMessage());
+                callback.error(TYPE_ERROR_OTHER);
+            }
+        });
+
+    }
+
     public void setPhoto(String accessToken, String id, final RegTeacherPhotoCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -212,6 +262,39 @@ public class ModelUserInfo {
 
         UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registrationConfirmationTeacher(accessToken, code);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error(TYPE_ERROR_OTHER);
+            }
+        });
+    }
+
+    public void registerConfirmationPupil(String accessToken, String code, final RegPupilConfirmCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.registrationConfirmationPupil(accessToken, code);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

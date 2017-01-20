@@ -15,22 +15,36 @@ public abstract class User {
     protected static final String PREF_USER_USER_ID = "pref_user_id";
     protected static final String PREF_USER_ENABLE = "pref_enable";
     public static final String PREF_USER_TYPE_USER = "pref_type";
+    public static final String PREF_USER_CITY_TITLE = "pref_city_title";
+    public static final String PREF_USER_CITY_ID = "pref_city_id";
+    public static final String PREF_USER_EMAIL = "pref_email";
+    public static final String PREF_USER_LOGIN = "pref_login";
 
     public static final int TYPE_ENABLE_ENABLE = 1;
     public static final int TYPE_ENABLE_DISABLE = 0;
 
     protected String typeUser;
     protected String accessToken;
+    protected String cityTitle;
+    protected int cityId;
+    protected String email;
     protected int userId = 0;
     protected int enable;
+    protected String login;
 
     abstract String getAccessToken(Context context);
     abstract int getUserId(Context context);
     abstract int getEnable(Context context);
+    abstract String getCityTitle(Context context);
+    abstract int getCityId(Context context);
+    abstract String getEmail(Context context);
 
     abstract void setAccessToken(Context context, String accessToken);
     abstract void setUserId(Context context, int userId);
     abstract void setEnable(Context context, int enable);
+    abstract void setCityTitle(Context context, String cityTitle);
+    abstract void setCityId(Context context, int cityId);
+    abstract void setEmail(Context context, String email);
 
     public String getTypeUser(Context context) {
         if (typeUser != null) {

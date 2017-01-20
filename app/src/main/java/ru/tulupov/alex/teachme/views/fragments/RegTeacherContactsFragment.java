@@ -25,7 +25,7 @@ import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 
 public class RegTeacherContactsFragment extends Fragment implements ShowSubway, RegDataCorrect,
-        FragmentSubwayDialog.SelectSubway, PromotionDialogFragment.SelectPromotion {
+        FragmentSubwayDialog.SelectSubway, PromotionDialogFragment.SelectPromotion, CheckLoginEmailExisted {
 
     private TextView tvSubway;
     private SwitchCompat scLeaveHouse;
@@ -278,22 +278,27 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
     }
 
+    @Override
     public String getEmail() {
         return  edtEmail.getText().toString();
     }
 
+    @Override
     public String getLogin() {
         return  edtLogin.getText().toString();
     }
 
+    @Override
     public void showLoginExisted() {
         tvLoginExisted.setVisibility(View.VISIBLE);
     }
 
+    @Override
     public void showEmailExisted() {
         tvEmailExisted.setVisibility(View.VISIBLE);
     }
 
+    @Override
     public void showLoginEmailNotExisted() {
         tvLoginExisted.setVisibility(View.GONE);
         tvEmailExisted.setVisibility(View.GONE);

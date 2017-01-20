@@ -12,6 +12,7 @@ import java.util.Map;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.models.ModelUserInfo;
+import ru.tulupov.alex.teachme.models.PupilRegistration;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.models.user.PupilUser;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
@@ -36,19 +37,25 @@ public class LoginPresenter {
                 Double enable = (Double) fields.get("enable");
                 String accessToken = (String) fields.get("access_token");
                 Double userId = (Double) fields.get("id");
+                String login = (String) fields.get("login");
+                String cityTitle = (String) fields.get("cityTitle");
+                String email = (String) fields.get("email");
+                Double cityId = (Double) fields.get("cityId");
 
                 User user;
                 if (type_user.equals(User.TYPE_USER_TEACHER)) {
                     String firstName = (String) fields.get("firstName");
                     String fatherName = (String) fields.get("fatherName");
                     String lastName = (String) fields.get("lastName");
-                    String login = (String) fields.get("login");
 
-                    user = new TeacherUser(context, type_user, userId.intValue(), accessToken,  enable.intValue(),
-                            firstName, lastName, fatherName, login);
+                    user = new TeacherUser(context, type_user, userId.intValue(), accessToken,
+                            enable.intValue(), firstName, lastName, fatherName, login, email, cityTitle,
+                            cityId.intValue()
+                    );
                 } else {
 
-                    user = new PupilUser(context, type_user, userId.intValue(), accessToken, enable.intValue());
+                    user = new PupilUser(context, type_user, userId.intValue(), accessToken,
+                            enable.intValue(), email, cityTitle, cityId.intValue(), login);
                 }
                 Log.d(Constants.MY_TAG, type_user + enable + accessToken + userId);
                 MyApplications.setUser(user);
@@ -98,6 +105,57 @@ public class LoginPresenter {
        });
     }
 
+    public void registrationPupil() {
+        model.registerPupil(new ModelUserInfo.RegPupilCallBack() {
+            @Override
+            public void success(Map fields) {
+                String accessToken = (String) fields.get("access_token");
+                Double userId = (Double) fields.get("id");
+
+                PupilRegistration pupilRegistration = PupilRegistration.getInstance();
+                pupilRegistration.setAccessToken(accessToken);
+
+                view.registerPupilSuccess();
+            }
+
+            @Override
+            public void error(int type) {
+                view.registerPupilError();
+            }
+        });
+    }
+
+    public void registerConfirmationPupil(String code, final Context context) {
+        final PupilRegistration pupilRegistration = PupilRegistration.getInstance();
+        String accessToken = pupilRegistration.getAccessToken();
+
+        model.registerConfirmationPupil(accessToken, code, new ModelUserInfo.RegPupilConfirmCallBack() {
+            @Override
+            public void success(Map fields) {
+                String type_user = (String) fields.get("type_user");
+                Double enable = (Double) fields.get("enable");
+                String accessToken = (String) fields.get("accessToken");
+                Double userId = (Double) fields.get("id");
+                String login = (String) fields.get("login");
+                String cityTitle = (String) fields.get("cityTitle");
+                String email = (String) fields.get("email");
+                Double cityId = (Double) fields.get("cityId");
+
+                PupilUser user = new PupilUser(context, type_user, userId.intValue(), accessToken,
+                        enable.intValue(), email, cityTitle, cityId.intValue(), login);
+
+                MyApplications.setUser(user);
+
+                view.registerConfirmPupilSuccess();
+            }
+
+            @Override
+            public void error(int type) {
+                view.registerConfirmPupilError();
+            }
+        });
+    }
+
     public void registerConfirmationTeacher(String code, final Context context) {
         final TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
         String accessToken = teacherRegistration.getAccessToken();
@@ -109,14 +167,19 @@ public class LoginPresenter {
                 Double enable = (Double) fields.get("enable");
                 String accessToken = (String) fields.get("accessToken");
                 Double userId = (Double) fields.get("id");
+                String cityTitle = (String) fields.get("cityTitle");
+                String email = (String) fields.get("email");
+                Double cityId = (Double) fields.get("cityId");
 
                 String firstName = (String) fields.get("firstName");
                 String fatherName = (String) fields.get("fatherName");
                 String lastName = (String) fields.get("lastName");
                 String login = (String) fields.get("login");
 
-                User user = new TeacherUser(context, type_user, userId.intValue(), accessToken,  enable.intValue(),
-                        firstName, lastName, fatherName, login);
+                User user = new TeacherUser(context, type_user, userId.intValue(), accessToken,
+                        enable.intValue(), firstName, lastName, fatherName, login, email, cityTitle,
+                        cityId.intValue()
+                );
 
                 Bitmap photo = teacherRegistration.getPhoto();
                 try {

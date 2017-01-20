@@ -12,19 +12,28 @@ public class PupilUser extends User {
 
     }
 
-    public PupilUser(Context context, String typeUser, int userId, String accessToken, int enable) {
+    public PupilUser(Context context, String typeUser, int userId, String accessToken, int enable,
+                     String email, String cityTitle, int cityId, String login) {
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREF_USER_TYPE_USER, typeUser);
         editor.putInt(PREF_USER_USER_ID, userId);
         editor.putString(PREF_USER_ACCESS_TOKEN, accessToken);
         editor.putInt(PREF_USER_ENABLE, enable);
+        editor.putString(PREF_USER_EMAIL, email);
+        editor.putString(PREF_USER_CITY_TITLE, cityTitle);
+        editor.putInt(PREF_USER_CITY_ID, cityId);
+        editor.putString(PREF_USER_LOGIN, login);
         editor.apply();
 
         this.typeUser = typeUser;
         this.accessToken = accessToken;
         this.userId = userId;
         this.enable = enable;
+        this.email = email;
+        this.cityTitle = cityTitle;
+        this.cityId = cityId;
+        this.login = login;
     }
 
     @Override
@@ -67,5 +76,60 @@ public class PupilUser extends User {
     public void setEnable(Context context, int enable) {
         setIntToPref(context, PREF_USER_ENABLE, enable);
         this.enable = enable;
+    }
+
+    @Override
+    public String getEmail(Context context) {
+        if (email != null) {
+            return email;
+        }
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_USER_EMAIL, "");
+    }
+
+    @Override
+    public void setEmail(Context context, String email) {
+        setStringToPref(context, PREF_USER_EMAIL, email);
+        this.email = email;
+    }
+
+    @Override
+    public String getCityTitle(Context context) {
+        if (cityTitle != null) {
+            return cityTitle;
+        }
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_USER_CITY_TITLE, "");
+    }
+
+    @Override
+    public int getCityId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_USER_CITY_ID, 0);
+    }
+
+    @Override
+    public void setCityTitle(Context context, String cityTitle) {
+        setStringToPref(context, PREF_USER_CITY_TITLE, cityTitle);
+        this.cityTitle = cityTitle;
+    }
+
+    @Override
+    public void setCityId(Context context, int cityId) {
+        setIntToPref(context, PREF_USER_USER_ID, cityId);
+        this.cityId = cityId;
+    }
+
+    public String getLogin(Context context) {
+        if (login != null) {
+            return login;
+        }
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_USER_LOGIN, "");
+    }
+
+    public void setLogin(Context context, String login) {
+        setStringToPref(context, PREF_USER_LOGIN, login);
+        this.login = login;
     }
 }

@@ -1,0 +1,91 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/register_pupil_city"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:text="@string/hint_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:id="@+id/et_register_pupil_email"
+            android:hint="@string/hint_email"
+            android:textColorHint="@android:color/white"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_email_existed"
+            android:paddingLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_email_existed"
+            android:textSize="12sp"
+            android:textColor="@color/colorWarning"
+            android:visibility="gone"
+            />
+
+        <EditText
+            android:id="@+id/et_register_pupil_login"
+            android:hint="@string/hint_login"
+            android:textColorHint="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_login_existed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_login_existed"
+            android:textSize="12sp"
+            android:textColor="@color/colorWarning"
+            android:visibility="gone"
+            />
+
+        <EditText
+            android:id="@+id/et_register_pupil_password"
+            android:hint="@string/hint_password"
+            android:textColorHint="@android:color/white"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_register_pupil_password_confirm"
+            android:hint="@string/hint_password_confirm"
+            android:textColorHint="@android:color/white"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_pass_is_differ"
+            android:paddingLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_is_differ"
+            android:textSize="12sp"
+            android:textColor="@color/colorWarning"
+            android:visibility="gone"
+            />
+
+    </LinearLayout>
+</ScrollView>

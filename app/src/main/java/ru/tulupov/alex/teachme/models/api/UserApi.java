@@ -33,10 +33,21 @@ public interface UserApi {
     );
 
     @FormUrlEncoded
+    @POST("/api/register/pupil")
+    Call<Object> registrationPupil(@FieldMap Map<String, String> map);
+
+    @FormUrlEncoded
     @POST("/api/register/confirmation/teacher")
     Call<Object> registrationConfirmationTeacher(
             @Field("accessToken") String accessToken,
-            @Field("code")  String code
+            @Field("code") String code
+    );
+
+    @FormUrlEncoded
+    @POST("/api/register/confirmation/pupil")
+    Call<Object> registrationConfirmationPupil(
+            @Field("accessToken") String accessToken,
+            @Field("code") String code
     );
 
     @Multipart

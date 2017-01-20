@@ -13,4 +13,10 @@ public interface LoginView {
 
     void emailAndLoginIsChecked(String type);
     void emailAndLoginIsCheckedError();
+
+    void registerPupilSuccess();
+    void registerPupilError();
+
+    void registerConfirmPupilSuccess();
+    void registerConfirmPupilError();
 }
