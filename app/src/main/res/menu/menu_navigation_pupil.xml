@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_favorites"
+        android:title="@string/navi_favorites"
+        />
+
+    <item
+        android:id="@+id/nav_search_techer"
+        android:title="@string/navi_search_teacher"
+        />
+
+
+    <item
+        android:id="@+id/nav_about"
+        android:title="@string/navi_about"
+        />
+    <item
+        android:id="@+id/nav_feedback"
+        android:title="@string/navi_feedback"
+        />
+</menu>

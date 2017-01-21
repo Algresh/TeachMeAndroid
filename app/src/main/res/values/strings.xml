@@ -90,6 +90,9 @@
     <string name="btn_confirm">Подтвердить</string>
     <string name="tv_confirm">Код</string>
 
+    <string name="select_search_activity_title">Выбор поиска</string>
+    <string name="result_search_activity_title">Результат поиска</string>
+
     <string-array name="promotion">
         <item>Нет</item>
         <item>Золотая анкета</item>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_edit_profile"
+        android:title="@string/navi_edit_profile"
+        />
+    <item
+        android:id="@+id/nav_freeze"
+        android:title="@string/navi_freeze"
+        />
+    <item
+        android:id="@+id/nav_search_profile"
+        android:title="@string/navi_search"
+        />
+    <item
+        android:id="@+id/nav_promotion"
+        android:title="@string/navi_promotion"
+        />
+
+    <item
+        android:id="@+id/nav_about"
+        android:title="@string/navi_about"
+        />
+    <item
+        android:id="@+id/nav_feedback"
+        android:title="@string/navi_feedback"
+        />
+
+
+</menu>

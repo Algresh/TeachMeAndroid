@@ -51,7 +51,7 @@ public abstract class User {
             return typeUser;
         }
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        return preferences.getString(PREF_USER_TYPE_USER, "");
+        return preferences.getString(PREF_USER_TYPE_USER, TYPE_USER_NONE);
     }
 
     public void setTypeUser(Context context, String typeUser) {
