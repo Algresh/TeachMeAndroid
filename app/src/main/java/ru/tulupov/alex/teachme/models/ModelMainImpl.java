@@ -35,6 +35,10 @@ public class ModelMainImpl {
         void error();
     }
 
+    public interface ModelMainTeachersCallBack {
+        void success(List<Teacher> list);
+        void error();
+    }
 
     public void getCities( final ModelMainCitiesCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
@@ -93,6 +97,31 @@ public class ModelMainImpl {
             @Override
             public void onFailure(Call<List<Subway>> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public void getTeachersByCity (int city,int page, final ModelMainTeachersCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MainApi api = retrofit.create(MainApi.class);
+        Call<List<Teacher>> call = api.getTeachersByCity(city, page);
+        call.enqueue(new Callback<List<Teacher>>() {
+            @Override
+            public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Teacher>> call, Throwable t) {
+                callback.error();
             }
         });
     }

@@ -11,9 +11,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.Teacher;
 
@@ -43,11 +46,25 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
         holder.tvPrice.setText("300");
         holder.tvSubjects.setText("asdasdasd");
         holder.tvSubwayStation.setText(teacher.getSubways());
+
+        if (teacher.getPhoto() != null) {
+            Picasso.with(context).load(Constants.DOMAIN_IMAGE + teacher.getPhoto()).into(holder.imgAvatar);
+        }
     }
 
     @Override
     public int getItemCount() {
         return teachers.size();
+    }
+
+    public boolean addNewItems(List<Teacher> newItems) {
+        if(newItems != null && newItems.size() > 0) {
+            teachers.addAll(newItems);
+            notifyItemInserted(teachers.size() - 1);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public class TeacherViewHolder extends RecyclerView.ViewHolder {

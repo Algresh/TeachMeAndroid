@@ -8,6 +8,7 @@ import retrofit2.http.Query;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.Subject;
 import ru.tulupov.alex.teachme.models.Subway;
+import ru.tulupov.alex.teachme.models.Teacher;
 
 public interface MainApi {
 
@@ -19,5 +20,8 @@ public interface MainApi {
 
     @GET("/api/get/subways")
     Call<List<Subway>> getSubways(@Query("city") int id);
+
+    @GET("/api/get/teachers/by/city")
+    Call<List<Teacher>> getTeachersByCity(@Query("city") int id, @Query("page") int page);
 
 }

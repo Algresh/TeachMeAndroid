@@ -19,10 +19,11 @@ public class BaseActivity extends AppCompatActivity {
         if (toolbar != null) {
             toolbar.setTitle(title);
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 
     @Override

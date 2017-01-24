@@ -3,6 +3,7 @@ package ru.tulupov.alex.teachme.views.activivties;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
@@ -17,12 +18,17 @@ public class SplashActivity extends AppCompatActivity {
 
         User user = MyApplications.getUser();
 
+        if (user == null) {
+            user = ((MyApplications) getApplication()).initUser();
+            MyApplications.setUser(user);
+        }
+
         String typeUSer = user.getTypeUser(this);
         Intent intent;
         if (typeUSer.equals(User.TYPE_USER_NONE)) {
-            intent = new Intent(this, MainActivity.class);
-        } else {
             intent = new Intent(this, LoginActivity.class);
+        } else {
+            intent = new Intent(this, SelectSearchActivity.class);
         }
         startActivity(intent);
 

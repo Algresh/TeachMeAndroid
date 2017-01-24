@@ -36,14 +36,14 @@ public abstract class User {
     abstract int getUserId(Context context);
     abstract int getEnable(Context context);
     abstract String getCityTitle(Context context);
-    abstract int getCityId(Context context);
+//    abstract int getCityId(Context context);
     abstract String getEmail(Context context);
 
     abstract void setAccessToken(Context context, String accessToken);
     abstract void setUserId(Context context, int userId);
     abstract void setEnable(Context context, int enable);
     abstract void setCityTitle(Context context, String cityTitle);
-    abstract void setCityId(Context context, int cityId);
+//    abstract void setCityId(Context context, int cityId);
     abstract void setEmail(Context context, String email);
 
     public String getTypeUser(Context context) {
@@ -72,5 +72,16 @@ public abstract class User {
         editor.putInt(param, digit);
         editor.apply();
     }
+
+    public void setCityId(Context context, int cityId) {
+        setIntToPref(context, PREF_USER_USER_ID, cityId);
+        this.cityId = cityId;
+    }
+
+    public int getCityId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getInt(PREF_USER_CITY_ID, 0);
+    }
+
 
 }

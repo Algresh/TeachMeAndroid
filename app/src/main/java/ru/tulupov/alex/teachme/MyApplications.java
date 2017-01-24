@@ -24,6 +24,9 @@ public class MyApplications extends Application {
     }
 
     public static User getUser() {
+        if (user == null) {
+
+        }
         return user;
     }
 
@@ -31,7 +34,7 @@ public class MyApplications extends Application {
         MyApplications.user = user;
     }
 
-    private User initUser() {
+    public User initUser() {
         SharedPreferences preferences = getApplicationContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         String type = preferences.getString(User.PREF_USER_TYPE_USER, "");
         User user = null;

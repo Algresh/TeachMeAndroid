@@ -28,9 +28,7 @@ public class SelectSearchActivity extends BaseNavigationActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectSearchActivity.this, MainActivity.class);
-                intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_MY_CITY);
-                startActivity(intent);
+
             }
         });
         btnQuickSearch = (Button) findViewById(R.id.btn_search_quick);
@@ -44,7 +42,9 @@ public class SelectSearchActivity extends BaseNavigationActivity {
         btnFullSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SelectSearchActivity.this, ListTeachersActivity.class);
+                intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_MY_CITY);
+                startActivity(intent);
             }
         });
 
