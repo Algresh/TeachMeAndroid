@@ -19,6 +19,7 @@ import java.util.List;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.Teacher;
+import ru.tulupov.alex.teachme.views.activivties.ShowTeacherActivity;
 
 
 public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.TeacherViewHolder> {
@@ -34,7 +35,18 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
     @Override
     public TeacherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.teacher_item, parent, false);
-        return new TeacherViewHolder(view);
+        final TeacherViewHolder holder = new TeacherViewHolder(view);
+        holder.getAdapterPosition();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    itemClicked(pos);
+                }
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -67,6 +79,12 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
         }
     }
 
+    private void itemClicked(int pos) {
+        Intent intent = new Intent(context, ShowTeacherActivity.class);
+        intent.putExtra("teacher", teachers.get(pos));
+        context.startActivity(intent);
+    }
+
     public class TeacherViewHolder extends RecyclerView.ViewHolder {
 
         public RelativeLayout rlCard;
@@ -86,5 +104,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
             tvPrice = (TextView) itemView.findViewById(R.id.tv_card_price);
             tvSubwayStation = (TextView) itemView.findViewById(R.id.tv_card_subway_station);
         }
+
+
     }
 }

@@ -8,11 +8,11 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:name=".MyApplications"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".MyApplications"
         android:theme="@style/AppTheme">
         <activity android:name=".views.activivties.MainActivity" />
         <activity
@@ -29,11 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activivties.SelectSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+        <activity
+            android:name=".views.activivties.SelectSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activivties.ListTeachersActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activivties.ShowTeacherActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

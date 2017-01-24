@@ -1,9 +1,12 @@
 package ru.tulupov.alex.teachme.models;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Teacher {
+public class Teacher implements Parcelable {
 
     private String firstName;
     private String lastName;
@@ -21,6 +24,41 @@ public class Teacher {
     private String subways;
     private boolean leaveHome;
     private String photo;
+
+    private String strPriceList;
+    private String strCity;
+
+    public Teacher() {
+    }
+
+    public Teacher(Parcel in) {
+        firstName = in.readString();
+        lastName = in.readString();
+        fatherName = in.readString();
+        birthDate = in.readString();
+        okrug = in.readString();
+        district = in.readString();
+        description = in.readString();
+        email = in.readString();
+        phoneNumber = in.readString();
+        subways = in.readString();
+        leaveHome = in.readByte() != 0;
+        photo = in.readString();
+        strCity = in.readString();
+        strPriceList = in.readString();
+    }
+
+    public static final Creator<Teacher> CREATOR = new Creator<Teacher>() {
+        @Override
+        public Teacher createFromParcel(Parcel in) {
+            return new Teacher(in);
+        }
+
+        @Override
+        public Teacher[] newArray(int size) {
+            return new Teacher[size];
+        }
+    };
 
     public String getFirstName() {
         return firstName;
@@ -72,6 +110,22 @@ public class Teacher {
 
     public String getDistrict() {
         return district;
+    }
+
+    public String getStrPriceList() {
+        return strPriceList;
+    }
+
+    public void setStrPriceList(String strPriceList) {
+        this.strPriceList = strPriceList;
+    }
+
+    public String getStrCity() {
+        return strCity;
+    }
+
+    public void setStrCity(String strCity) {
+        this.strCity = strCity;
     }
 
     public void setDistrict(String district) {
@@ -132,5 +186,33 @@ public class Teacher {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(firstName);
+        parcel.writeString(lastName);
+        parcel.writeString(fatherName);
+        parcel.writeString(birthDate);
+        parcel.writeString(okrug);
+        parcel.writeString(district);
+        parcel.writeString(description);
+        parcel.writeString(email);
+        parcel.writeString(phoneNumber);
+        parcel.writeString(subways);
+        parcel.writeByte((byte) (leaveHome ? 1 : 0));
+        parcel.writeString(photo);
+        parcel.writeString(city.getTitle());
+        String str = "";
+
+        for (PriceList priceList : priceLists) {
+            str = str + priceList.getSubject().getTitle() + " " + priceList.getPrice() + " ";
+        }
+        parcel.writeString(str);
     }
 }
