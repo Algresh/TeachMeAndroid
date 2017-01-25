@@ -64,4 +64,8 @@ public class BaseNavigationActivity extends BaseActivity {
             setSupportActionBar(toolbar);
         }
     }
+
+    protected void logOut() {
+        MyApplications.getUser().clearAllData(this);
+    }
 }

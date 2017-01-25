@@ -13,17 +13,19 @@ public class BaseActivity extends AppCompatActivity {
     protected DrawerLayout drawerLayout;
     protected Toolbar toolbar;
 
-    protected void initToolbar(int idTitle, int idToolbar) {
+    protected void initToolbar(String title, int idToolbar ) {
         toolbar = (Toolbar) findViewById(idToolbar);
-        String title = getResources().getString(idTitle);
         if (toolbar != null) {
             toolbar.setTitle(title);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
 
-
+    protected void initToolbar(int idTitle, int idToolbar) {
+        String title = getResources().getString(idTitle);
+        initToolbar(title, idToolbar);
     }
 
     @Override

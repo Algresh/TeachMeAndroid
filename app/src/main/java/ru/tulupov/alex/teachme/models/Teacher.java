@@ -1,10 +1,15 @@
 package ru.tulupov.alex.teachme.models;
 
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import ru.tulupov.alex.teachme.R;
 
 public class Teacher implements Parcelable {
 
@@ -32,6 +37,10 @@ public class Teacher implements Parcelable {
     }
 
     public Teacher(Parcel in) {
+        String city;
+        int cityId;
+        boolean hasSubway;
+
         firstName = in.readString();
         lastName = in.readString();
         fatherName = in.readString();
@@ -44,8 +53,27 @@ public class Teacher implements Parcelable {
         subways = in.readString();
         leaveHome = in.readByte() != 0;
         photo = in.readString();
-        strCity = in.readString();
-        strPriceList = in.readString();
+        city = in.readString();
+        cityId = in.readInt();
+        hasSubway = in.readByte() != 0;
+        this.city = new City(cityId, city, hasSubway);
+
+        int size = in.readInt();
+
+        priceLists = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            String exp = in.readString();
+            int price = in.readInt();
+            String titleSbj = in.readString();
+
+            PriceList priceList = new PriceList();
+            priceList.setExperience(exp);
+            priceList.setPrice(price);
+            priceList.setSubject(new Subject(titleSbj));
+            priceLists.add(priceList);
+        }
+
+//        strPriceList = in.readString();
     }
 
     public static final Creator<Teacher> CREATOR = new Creator<Teacher>() {
@@ -59,6 +87,42 @@ public class Teacher implements Parcelable {
             return new Teacher[size];
         }
     };
+
+    public String getAge(Resources resources) {
+        String[] dateArr = birthDate.split("\\.");
+        int year = Integer.parseInt(dateArr[2]);
+        int month = Integer.parseInt(dateArr[1]);
+        int day = Integer.parseInt(dateArr[0]);
+
+        /**
+         * @TODO проверить отсчет месяца и дня
+         */
+        Calendar c = Calendar.getInstance();
+        int currYear = c.get(Calendar.YEAR);
+        int currMonth = c.get(Calendar.MONTH);
+        int currDay = c.get(Calendar.DAY_OF_MONTH);
+
+        int age = currYear - year;
+
+        if ((currMonth - month > 0) || (currMonth - month == 0 || currDay - day > 0)) {
+            age--;
+        }
+
+        String typeStrYear;
+
+        if (age % 10 == 1) {
+            typeStrYear = resources.getString(R.string.typeStrYearOne);
+        } else if (age % 10 > 1 && age % 10 < 5) {
+            typeStrYear = resources.getString(R.string.typeStrYearTwo);
+        } else {
+            typeStrYear = resources.getString(R.string.typeStrYearThree);
+        }
+
+        String ageStr = resources.getString(R.string.ageShowTeacher);
+
+        return ageStr + age + " " + typeStrYear;
+
+    }
 
     public String getFirstName() {
         return firstName;
@@ -82,6 +146,10 @@ public class Teacher implements Parcelable {
 
     public void setFatherName(String fatherName) {
         this.fatherName = fatherName;
+    }
+
+    public String getFullName() {
+        return lastName + " " + firstName + " " + fatherName;
     }
 
     public String getBirthDate() {
@@ -208,11 +276,14 @@ public class Teacher implements Parcelable {
         parcel.writeByte((byte) (leaveHome ? 1 : 0));
         parcel.writeString(photo);
         parcel.writeString(city.getTitle());
-        String str = "";
+        parcel.writeInt(city.getId());
+        parcel.writeByte((byte) (city.isHasSubway() ? 1 : 0 ));
+        parcel.writeInt(priceLists.size());
 
         for (PriceList priceList : priceLists) {
-            str = str + priceList.getSubject().getTitle() + " " + priceList.getPrice() + " ";
+            parcel.writeInt(priceList.getPrice());
+            parcel.writeString(priceList.getExperience());
+            parcel.writeString(priceList.getSubject().getTitle());
         }
-        parcel.writeString(str);
     }
 }

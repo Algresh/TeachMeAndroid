@@ -32,19 +32,21 @@ public abstract class User {
     protected int enable;
     protected String login;
 
-    abstract String getAccessToken(Context context);
-    abstract int getUserId(Context context);
-    abstract int getEnable(Context context);
-    abstract String getCityTitle(Context context);
-//    abstract int getCityId(Context context);
-    abstract String getEmail(Context context);
+    public abstract String getAccessToken(Context context);
+    public abstract int getUserId(Context context);
+    public abstract int getEnable(Context context);
+    public abstract String getCityTitle(Context context);
+    //    abstract int getCityId(Context context);
+    public abstract String getEmail(Context context);
 
-    abstract void setAccessToken(Context context, String accessToken);
-    abstract void setUserId(Context context, int userId);
-    abstract void setEnable(Context context, int enable);
-    abstract void setCityTitle(Context context, String cityTitle);
-//    abstract void setCityId(Context context, int cityId);
-    abstract void setEmail(Context context, String email);
+    public abstract void setAccessToken(Context context, String accessToken);
+    public abstract void setUserId(Context context, int userId);
+    public abstract void setEnable(Context context, int enable);
+    public abstract void setCityTitle(Context context, String cityTitle);
+    //    abstract void setCityId(Context context, int cityId);
+    public abstract void setEmail(Context context, String email);
+
+    public abstract void clearAllData (Context context);
 
     public String getTypeUser(Context context) {
         if (typeUser != null) {

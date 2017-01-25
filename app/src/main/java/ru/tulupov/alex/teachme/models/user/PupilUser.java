@@ -36,6 +36,24 @@ public class PupilUser extends User {
         this.login = login;
     }
 
+
+    @Override
+    public void clearAllData(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PREF_USER_TYPE_USER, User.TYPE_USER_NONE);
+
+        editor.remove(PREF_USER_USER_ID);
+        editor.remove(PREF_USER_ACCESS_TOKEN);
+        editor.remove(PREF_USER_LOGIN);
+        editor.remove(PREF_USER_ENABLE);
+        editor.remove(PREF_USER_EMAIL);
+        editor.remove(PREF_USER_CITY_TITLE);
+        editor.remove(PREF_USER_CITY_ID);
+
+        editor.apply();
+    }
+
     @Override
     public String getAccessToken(Context context) {
         if (accessToken != null) {

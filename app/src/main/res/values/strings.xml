@@ -93,6 +93,15 @@
     <string name="select_search_activity_title">Выбор поиска</string>
     <string name="result_search_activity_title">Результат поиска</string>
 
+    <string name="ageShowTeacher">Возраст: </string>
+
+    <string name="typeStrYearOne">Год</string>
+    <string name="typeStrYearTwo">Года</string>
+    <string name="typeStrYearThree">Лет</string>
+
+    <string name="leaveHomeYes">Выезд на дом: Да</string>
+    <string name="leaveHomeNo">Выезд на дом: Нет</string>
+
     <string-array name="promotion">
         <item>Нет</item>
         <item>Золотая анкета</item>

@@ -11,6 +11,10 @@ public class Subject {
         this.title = title;
     }
 
+    public Subject( String title) {
+        this.title = title;
+    }
+
     public Subject() {
     }
 
