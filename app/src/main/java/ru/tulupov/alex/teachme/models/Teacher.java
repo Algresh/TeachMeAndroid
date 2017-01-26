@@ -13,6 +13,7 @@ import ru.tulupov.alex.teachme.R;
 
 public class Teacher implements Parcelable {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String fatherName;
@@ -41,6 +42,7 @@ public class Teacher implements Parcelable {
         int cityId;
         boolean hasSubway;
 
+        id = in.readInt();
         firstName = in.readString();
         lastName = in.readString();
         fatherName = in.readString();
@@ -122,6 +124,14 @@ public class Teacher implements Parcelable {
 
         return ageStr + age + " " + typeStrYear;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -263,6 +273,8 @@ public class Teacher implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeInt(id);
         parcel.writeString(firstName);
         parcel.writeString(lastName);
         parcel.writeString(fatherName);
