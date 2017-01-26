@@ -40,6 +40,11 @@ public class ModelMainImpl {
         void error();
     }
 
+    public interface ModelFavoriteCallBack {
+        void success(int code);
+        void error();
+    }
+
     public void getCities( final ModelMainCitiesCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -121,6 +126,36 @@ public class ModelMainImpl {
 
             @Override
             public void onFailure(Call<List<Teacher>> call, Throwable t) {
+                callback.error();
+            }
+        });
+    }
+
+    public void setFavorite (String accessToken, int id, final ModelFavoriteCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MainApi api = retrofit.create(MainApi.class);
+        Call<Object> call = api.setFavorite(accessToken, id);
+
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() >= 200 && response.code() < 300) {
+                    callback.success(response.code());
+                } else {
+                    callback.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
                 callback.error();
             }
         });

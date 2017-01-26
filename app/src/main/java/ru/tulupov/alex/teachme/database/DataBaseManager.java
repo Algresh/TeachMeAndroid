@@ -34,7 +34,7 @@ public class DataBaseManager {
         Cursor cursor = sqLiteDatabase.query(DATABASE_TABLE_TEACHER, null,
                 TEACHER_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
 
-        int count = cursor.getColumnCount();
+        int count = cursor.getCount();
 
         return count != 0;
     }

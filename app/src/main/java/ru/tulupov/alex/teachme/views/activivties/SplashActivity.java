@@ -22,9 +22,16 @@ public class SplashActivity extends AppCompatActivity {
             user = ((MyApplications) getApplication()).initUser();
             MyApplications.setUser(user);
         }
+        Intent intent;
+
+        if (user == null) {
+            intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return;
+        }
 
         String typeUSer = user.getTypeUser(this);
-        Intent intent;
+
         if (typeUSer.equals(User.TYPE_USER_NONE)) {
             intent = new Intent(this, LoginActivity.class);
         } else {

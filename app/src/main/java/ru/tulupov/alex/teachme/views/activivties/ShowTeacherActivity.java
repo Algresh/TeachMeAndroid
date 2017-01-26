@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,11 +19,14 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import ru.tulupov.alex.teachme.Constants;
+import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.PriceList;
 import ru.tulupov.alex.teachme.models.Teacher;
+import ru.tulupov.alex.teachme.models.user.User;
+import ru.tulupov.alex.teachme.presenters.ShowTeacherPresenter;
 
-public class ShowTeacherActivity extends BaseActivity {
+public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView {
 
     Teacher teacher;
 
@@ -43,6 +47,8 @@ public class ShowTeacherActivity extends BaseActivity {
     ImageButton ibCall;
     ImageButton ibFavorite;
 
+    ShowTeacherPresenter presenter;
+
     private boolean isFavorite = false;
 
     @Override
@@ -50,8 +56,13 @@ public class ShowTeacherActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_teacher);
 
+        presenter = new ShowTeacherPresenter();
+        presenter.onCreate(this);
+
         Intent intent = getIntent();
         teacher = intent.getParcelableExtra("teacher");
+        isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+
         initToolbar(teacher.getFullName(), R.id.toolbarShowTeachers);
 
         tvFullName = (TextView) findViewById(R.id.fullNameShowTeacher);
@@ -108,13 +119,16 @@ public class ShowTeacherActivity extends BaseActivity {
         ibFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                    Toast.makeText(ShowTeacherActivity.this, getString(R.string.message_teacher_add_to_favorites), Toast.LENGTH_SHORT).show();
-                }
-                initFavoriteButton();
+
+                User user = MyApplications.getUser();
+
+                String accessToken = user.getAccessToken(ShowTeacherActivity.this);
+                int id = teacher.getId();
+
+                presenter.setFavorite(accessToken, id);
             }
         });
+        initFavoriteButton();
     }
 
     protected void initFavoriteButton() {
@@ -183,5 +197,33 @@ public class ShowTeacherActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void setFavorite() {
+        isFavorite = !isFavorite;
 
+        if (isFavorite) {
+            Toast.makeText(this, getString(R.string.message_teacher_add_to_favorites), Toast.LENGTH_SHORT).show();
+        }
+
+        initFavoriteButton();
+        presenter.saveFavorite(this, teacher);
+        Log.d(Constants.MY_TAG, "saveFavorite");
+    }
+
+    @Override
+    public void deleteFavorite() {
+        isFavorite = !isFavorite;
+        if (!isFavorite) {
+            Toast.makeText(this, getString(R.string.message_teacher_delete_from_favorites), Toast.LENGTH_SHORT).show();
+        }
+
+        initFavoriteButton();
+        presenter.deleteFavorite(this, teacher.getId());
+        Log.d(Constants.MY_TAG, "deleteFavorite");
+    }
+
+    @Override
+    public void errorFavorite() {
+        Toast.makeText(this, "error favorite", Toast.LENGTH_SHORT).show();
+    }
 }
