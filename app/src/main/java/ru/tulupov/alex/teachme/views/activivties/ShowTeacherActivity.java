@@ -1,13 +1,18 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.PriceList;
 import ru.tulupov.alex.teachme.models.Teacher;
@@ -26,6 +31,7 @@ public class ShowTeacherActivity extends BaseActivity {
     TextView tvSubways;
     TextView tvLeaveHome;
     TextView tvDescription;
+    ImageView ivAvatar;
     LinearLayout llContainer;
 
     @Override
@@ -47,6 +53,7 @@ public class ShowTeacherActivity extends BaseActivity {
         tvSubways = (TextView) findViewById(R.id.subwaysShowTeacher);
         tvLeaveHome = (TextView) findViewById(R.id.leaveHomeShowTeacher);
         tvDescription = (TextView) findViewById(R.id.descriptionShowTeacher);
+        ivAvatar = (ImageView) findViewById(R.id.avatarImageShowTeacher);
         llContainer = (LinearLayout) findViewById(R.id.containerSubjectsShowTeacher);
 
 
@@ -60,14 +67,14 @@ public class ShowTeacherActivity extends BaseActivity {
         tvEmail.setText(teacher.getEmail());
         tvPhone.setText(teacher.getPhoneNumber());
         tvCity.setText(teacher.getCity().getTitle());
-        if (teacher.getOkrug() != null && teacher.getOkrug().equals("")) {
-            tvOkrug.setText(teacher.getEmail());
+        if (teacher.getOkrug() != null && !teacher.getOkrug().equals("")) {
+            tvOkrug.setText(teacher.getOkrug());
         } else {
             tvOkrug.setVisibility(View.GONE);
         }
 
-        if (teacher.getDistrict() != null && teacher.getDistrict().equals("")) {
-            tvDistrict.setText(teacher.getEmail());
+        if (teacher.getDistrict() != null && !teacher.getDistrict().equals("")) {
+            tvDistrict.setText(teacher.getDistrict());
         } else {
             tvDistrict.setVisibility(View.GONE);
         }
@@ -91,15 +98,20 @@ public class ShowTeacherActivity extends BaseActivity {
         /**
          * @TODO добавить опыт (использовать формат стрингов)
          */
+        int colorText = ContextCompat.getColor(this, R.color.colorCorrect);
         for (PriceList item: teacher.getPriceLists()) {
             TextView tvSbj = new TextView(this);
 
-            String str = item.getSubject().getTitle() + " " + item.getPrice() + "руб";
+            tvSbj.setTextColor(colorText);
+
+            String str = item.getSubject().getTitle() + " " + item.getPrice() + " руб";
             tvSbj.setText(str);
             llContainer.addView(tvSbj);
         }
 
-
+        if (teacher.getPhoto() != null) {
+            Picasso.with(this).load(Constants.DOMAIN_IMAGE + teacher.getPhoto()).into(ivAvatar);
+        }
 
     }
 

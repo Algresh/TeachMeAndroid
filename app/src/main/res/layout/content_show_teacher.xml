@@ -5,14 +5,16 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatarImage"
+            android:id="@+id/avatarImageShowTeacher"
             android:layout_width="80dp"
             android:layout_height="80dp"
             tools:src="@drawable/testimage"
@@ -24,7 +26,7 @@
             tools:text="Тулупов Алексей"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/avatarImage"
+            android:layout_alignTop="@+id/avatarImageShowTeacher"
             style="@style/fullNameShowTeacher"/>
 
         <TextView
@@ -86,7 +88,8 @@
         android:id="@+id/containerSubjectsShowTeacher"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        style="@style/containerSubjectsShowTeacher">
 
     </LinearLayout>
 

@@ -17,25 +17,27 @@
     </style>
 
     <style name="fullNameShowTeacher">
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
         <item name="android:textSize">15sp</item>
         <item name="android:layout_marginLeft">112dp</item>
     </style>
 
     <style name="ageTeacher">
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginLeft">112dp</item>
     </style>
 
     <style name="emailShowTeacher">
+        <item name="android:textColor">#fff</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginLeft">112dp</item>
     </style>
 
     <style name="phoneShowTeacher">
+        <item name="android:textColor">#fff</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_marginLeft">112dp</item>
@@ -43,32 +45,36 @@
 
     <style name="cityShowTeacher">
         <item name="android:layout_marginTop">16dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="okrugShowTeacher">
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="districtShowTeacher">
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="subwaysShowTeacher">
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="leaveHomeShowTeacher">
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="descriptionShowTeacher">
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:textColor">#000</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="containerSubjectsShowTeacher">
+        <item name="android:layout_marginTop">8dp</item>
     </style>
 
 </resources>

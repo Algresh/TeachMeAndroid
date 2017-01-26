@@ -62,8 +62,8 @@ public class Teacher implements Parcelable {
 
         priceLists = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            String exp = in.readString();
             int price = in.readInt();
+            String exp = in.readString();
             String titleSbj = in.readString();
 
             PriceList priceList = new PriceList();
