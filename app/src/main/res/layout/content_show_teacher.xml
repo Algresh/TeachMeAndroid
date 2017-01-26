@@ -1,111 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBg"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/avatarImageShowTeacher"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            tools:src="@drawable/testimage"
-            app:civ_border_width="0dp"
-            app:civ_border_color="#FF000000"/>
-
-        <TextView
-            android:id="@+id/fullNameShowTeacher"
-            tools:text="Тулупов Алексей"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/avatarImageShowTeacher"
-            style="@style/fullNameShowTeacher"/>
-
-        <TextView
-            android:id="@+id/ageShowTeacher"
-            tools:text="Возраст 34года"
-            android:layout_below="@+id/fullNameShowTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/ageTeacher"/>
-
-        <TextView
-            android:id="@+id/emailShowTeacher"
-            tools:text="example@yandex.ru"
-            android:layout_below="@+id/ageShowTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/emailShowTeacher"/>
-
-        <TextView
-            android:id="@+id/phoneShowTeacher"
-            tools:text="8 (903) 478-55-99"
-            android:layout_below="@+id/emailShowTeacher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/phoneShowTeacher"/>
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/cityShowTeacher"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Москва"
-        style="@style/cityShowTeacher"/>
+        android:layout_marginBottom="50dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/okrugShowTeacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Округ"
-        style="@style/okrugShowTeacher"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/districtShowTeacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Район"
-        style="@style/districtShowTeacher"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/avatarImageShowTeacher"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    tools:src="@drawable/testimage"
+                    app:civ_border_width="0dp"
+                    app:civ_border_color="#FF000000"/>
 
-    <TextView
-        android:id="@+id/subwaysShowTeacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Медведково"
-        style="@style/subwaysShowTeacher"/>
+                <TextView
+                    android:id="@+id/fullNameShowTeacher"
+                    tools:text="Тулупов Алексей"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/avatarImageShowTeacher"
+                    style="@style/fullNameShowTeacher"/>
+
+                <TextView
+                    android:id="@+id/ageShowTeacher"
+                    tools:text="Возраст 34года"
+                    android:layout_below="@+id/fullNameShowTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/ageTeacher"/>
+
+                <TextView
+                    android:id="@+id/emailShowTeacher"
+                    tools:text="example@yandex.ru"
+                    android:layout_below="@+id/ageShowTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/emailShowTeacher"/>
+
+                <TextView
+                    android:id="@+id/phoneShowTeacher"
+                    tools:text="8 (903) 478-55-99"
+                    android:layout_below="@+id/emailShowTeacher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/phoneShowTeacher"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/cityShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Москва"
+                style="@style/cityShowTeacher"/>
+
+            <TextView
+                android:id="@+id/okrugShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Округ"
+                style="@style/okrugShowTeacher"/>
+
+            <TextView
+                android:id="@+id/districtShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Район"
+                style="@style/districtShowTeacher"/>
+
+            <TextView
+                android:id="@+id/subwaysShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Медведково"
+                style="@style/subwaysShowTeacher"/>
+
+
+            <LinearLayout
+                android:id="@+id/containerSubjectsShowTeacher"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/containerSubjectsShowTeacher">
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/leaveHomeShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Выезд на дом: Да"
+                style="@style/leaveHomeShowTeacher"/>
+
+            <TextView
+                android:id="@+id/descriptionShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Очень много текста"
+                style="@style/descriptionShowTeacher"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
 
 
     <LinearLayout
-        android:id="@+id/containerSubjectsShowTeacher"
-        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom|center_vertical"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/containerSubjectsShowTeacher">
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_teacher_profile_details_favorite"
+            android:src="@drawable/ic_favorite_border"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/btn_teacher_profile_details_sms"
+            android:src="@drawable/ic_email"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/btn_teacher_profile_details_call"
+            android:src="@drawable/ic_phone"
+            android:background="@android:color/transparent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/leaveHomeShowTeacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Выезд на дом: Да"
-        style="@style/leaveHomeShowTeacher"/>
-
-    <TextView
-        android:id="@+id/descriptionShowTeacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Очень много текста"
-        style="@style/descriptionShowTeacher"/>
-
-
-</LinearLayout>
+</RelativeLayout>

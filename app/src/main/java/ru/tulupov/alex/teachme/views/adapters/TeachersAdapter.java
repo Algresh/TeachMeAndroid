@@ -53,7 +53,7 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
     public void onBindViewHolder(TeacherViewHolder holder, int position) {
         Teacher teacher = teachers.get(position);
 
-        String fullName = teacher.getFirstName() + " " + teacher.getLastName() + " " + teacher.getFatherName();
+        String fullName = teacher.getFullName();
         holder.tvFullName.setText(fullName);
         holder.tvPrice.setText("300");
         holder.tvSubjects.setText("asdasdasd");

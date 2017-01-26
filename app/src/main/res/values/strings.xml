@@ -26,6 +26,7 @@
     <string name="btn_add_yet">Добавить еще</string>
     <string name="btn_select_subway">Выбор станции метро</string>
     <string name="btn_select_promotion">Выбор способа продвижения</string>
+    <string name="btn_select_experience">Опыт работы</string>
     <string name="btn_find">Найти</string>
     <string name="btn_prev">Назад</string>
     <string name="btn_profile">Профиль</string>
@@ -102,11 +103,25 @@
     <string name="leaveHomeYes">Выезд на дом: Да</string>
     <string name="leaveHomeNo">Выезд на дом: Нет</string>
 
+    <string name="priceListFormat">%1$s %2$d руб, опыт %3$s</string>
+
+    <string name="noPermissionSMS">Sorry, You don`t have permission for sms sending</string>
+    <string name="noPermissionCall">Sorry, You don`t have permission for call</string>
+
     <string-array name="promotion">
         <item>Нет</item>
         <item>Золотая анкета</item>
         <item>Серебрянная анкета</item>
         <item>Медная анкета</item>
+    </string-array>
+
+    <string-array name="typeExperience">
+        <item>Нет опыта</item>
+        <item>Меньше года</item>
+        <item>Больше года</item>
+        <item>Больше 3-х лет</item>
+        <item>Больше 6-х лет</item>
+        <item>Больше 10-х лет</item>
     </string-array>
 
     <string-array name="regFragmentTeacherTags">

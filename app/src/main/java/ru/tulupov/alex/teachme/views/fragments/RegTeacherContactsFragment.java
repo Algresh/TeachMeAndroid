@@ -156,8 +156,10 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
         teacherRegistration.setLeaveHome(leaveHouse);
         String strSubwayIds = "";
-        for (int i = 0; i < listSelected.size(); i ++) {
-            strSubwayIds = strSubwayIds + listSubways.get( listSelected.get(i) ).getId() + " ";
+        if (listSelected != null && selectedCity.isHasSubway()) {
+            for (int i = 0; i < listSelected.size(); i ++) {
+                strSubwayIds = strSubwayIds + listSubways.get( listSelected.get(i) ).getId() + " ";
+            }
         }
         teacherRegistration.setSubways(strSubwayIds);
         teacherRegistration.setPhoneNumber(edtPhone.getText().toString());
@@ -173,7 +175,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
         String strSubway = tvSubway.getText().toString().trim();
         String textSubway = getResources().getString(R.string.hint_subway);
-        if(strSubway.equals(textSubway) || listSelected == null) {
+        if(selectedCity.isHasSubway() && (strSubway.equals(textSubway) || listSelected == null)) {
             warningColorTextView(tvSubway);
             isCorrect = false;
         } else {

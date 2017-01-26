@@ -28,7 +28,8 @@ import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 
 
 public class RegTeacherSubjectsFragment extends Fragment implements View.OnClickListener,
-        ShowSubject ,FragmentSubjectDialog.SelectSubject, RegDataCorrect {
+        ShowSubject ,FragmentSubjectDialog.SelectSubject, RegDataCorrect,
+        ExperienceDialogFragment.SelectExperience {
 
     protected View fragmentView;
     protected LinearLayout subjectsContainer;
@@ -38,7 +39,8 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     private List<View> viewList;
     private List<PriceList> priceLists;
     private List<Integer> selectedListSubjects;
-    private boolean subjectDialogIsDownloading = false;
+    private List<Integer> selectedListExp;
+    private boolean dialogIsDownloading = false;
 
 
     private void addSubject() {
@@ -46,11 +48,17 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
         View viewSubject = layoutInflater.inflate(R.layout.reg_teacher_subject, null);
         TextView tvSubjects = (TextView) viewSubject.findViewById(R.id.sp_select_subject);
+        TextView tvExp = (TextView) viewSubject.findViewById(R.id.et_reg_teacher_experience);
 
         String strTvSubject = getContext().getResources().getString(R.string.hint_subject);
+        String strTvExp = getContext().getResources().getString(R.string.hint_experience);
         tvSubjects.setTag(numSubjects);
         tvSubjects.setText(strTvSubject);
         tvSubjects.setOnClickListener(this);
+
+        tvExp.setTag(numSubjects);
+        tvExp.setText(strTvExp);
+        tvExp.setOnClickListener(this);
 
         viewList.add(viewSubject);
         subjectsContainer.addView(viewSubject);
@@ -59,27 +67,6 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     }
 
     private void addSubjects() {
-//        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-
-//        for (int i = 0; i < priceLists.size(); i++) {
-//            View viewSubject = layoutInflater.inflate(R.layout.reg_teacher_subject, null);
-//            TextView tvSubjects = (TextView) viewSubject.findViewById(R.id.sp_select_subject);
-//            EditText edtExp = (EditText) viewSubject.findViewById(R.id.et_reg_teacher_experience);
-//            EditText edtPrice = (EditText) viewSubject.findViewById(R.id.et_reg_teacher_price);
-//            tvSubjects.setTag(numSubjects);
-//            tvSubjects.setOnClickListener(this);
-//
-//            PriceList priceList = priceLists.get(i);
-//            tvSubjects.setText(priceList.getSubject().getTitle());
-//            edtExp.setText(priceList.getExperience());
-//            edtPrice.setText(String.valueOf(priceList.getPrice()));
-//
-//            viewList.add(viewSubject);
-//            subjectsContainer.addView(viewSubject);
-//            selectedListSubjects.add(priceList.getSubject().getId());
-//            numSubjects++;
-//        }
-
         for(View view : viewList) {
             subjectsContainer.addView(view);
         }
@@ -93,6 +80,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
             presenter = new CitySubjectPresenter();
             viewList = new ArrayList<>();
             selectedListSubjects = new ArrayList<>();
+            selectedListExp = new ArrayList<>();
         }
 //        numSubjects = 0;
         presenter.onCreate(null, this, null);
@@ -116,10 +104,27 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.sp_select_subject && !subjectDialogIsDownloading) {
-            subjectDialogIsDownloading = true;
+        if (view.getId() == R.id.sp_select_subject && !dialogIsDownloading) {
+            dialogIsDownloading = true;
             Integer tag = (Integer) view.getTag();
             presenter.getListSubjects(tag);
+        }
+
+        if (view.getId() == R.id.et_reg_teacher_experience && !dialogIsDownloading) {
+            dialogIsDownloading = true;
+            Integer tag = (Integer) view.getTag();
+            ExperienceDialogFragment fragment = new ExperienceDialogFragment();
+            fragment.setTagItem(tag);
+            Integer selectItem;
+            if(selectedListExp.size() > tag) {
+                selectItem = selectedListExp.get(tag);
+            } else {
+                selectItem = 0;
+            }
+            fragment.setSelectedItem(selectItem);
+            FragmentManager manager = getChildFragmentManager();
+            fragment.show(manager, "exp");
+            dialogIsDownloading = false;
         }
     }
 
@@ -140,7 +145,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         dialog.setSelectedItem(selectItem);
         FragmentManager manager = getChildFragmentManager();
         dialog.show(manager, "subjects");
-        subjectDialogIsDownloading = false;
+        dialogIsDownloading = false;
     }
 
     @Override
@@ -169,18 +174,20 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
             int numEmptyField = 0;
             int numWarning = 0;
 
-            EditText edtExp = (EditText) viewList.get(i).findViewById(R.id.et_reg_teacher_experience);
+            TextView edtExp = (TextView) viewList.get(i).findViewById(R.id.et_reg_teacher_experience);
             EditText edtPrice = (EditText) viewList.get(i).findViewById(R.id.et_reg_teacher_price);
             TextView tvSubject = (TextView) viewList.get(i).findViewById(R.id.sp_select_subject);
             String strSbj = tvSubject.getText().toString();
             String strExp = edtExp.getText().toString().trim();
             String strPrice = edtPrice.getText().toString().trim();
 
-            if (strExp.length() == 0 || !strExp.matches(".*\\d.*")) {
-                warningColorEditText(edtExp);
+            String textExp = getResources().getString(R.string.hint_experience);
+            if (strExp.equals(textExp)) {
+                warningColorTextView(edtExp);
                 numWarning++;
+                numEmptyField++;
             } else {
-                correctColorEditText(edtExp);
+                correctColorTextView(edtExp);
             }
 
 
@@ -191,9 +198,9 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
                 correctColorEditText(edtPrice);
             }
 
-            if (strExp.length() == 0) {
-                numEmptyField++;
-            }
+//            if (strExp.length() == 0) {
+//                numEmptyField++;
+//            }
             if (strPrice.length() == 0) {
                 numEmptyField++;
             }
@@ -212,16 +219,17 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
                 numEmptyBlock++;
                 correctColorTextView(tvSubject);
                 correctColorEditText(edtPrice);
-                correctColorEditText(edtExp);
+                correctColorTextView(edtExp);
             } else {
                 if (numWarning > 0) {
                     isCorrect = false;
                 } else {
                     PriceList priceList = new PriceList();
-                    priceList.setExperience(strExp);
+                    Integer itemExp = selectedListExp.get(i - numEmptyBlock);
+                    priceList.setExperience(String.valueOf(itemExp));
                     priceList.setPrice(Integer.parseInt(strPrice));
-                    Integer item = selectedListSubjects.get(i - numEmptyBlock);
-                    priceList.setSubject(listSubjects.get(item));
+                    Integer itemSbj = selectedListSubjects.get(i - numEmptyBlock);
+                    priceList.setSubject(listSubjects.get(itemSbj));
                     priceLists.add(priceList);
                 }
             }
@@ -266,5 +274,15 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         int colorWarning = ContextCompat.getColor(getContext(), R.color.colorCorrect);
         editText.setTextColor(colorWarning);
         editText.setHintTextColor(colorWarning);
+    }
+
+    @Override
+    public void selectExperience(int item, int tagItem) {
+        View view = viewList.get(tagItem);
+        TextView tvExp = (TextView) view.findViewById(R.id.et_reg_teacher_experience);
+        String titleExp = getContext().getResources().getStringArray(R.array.typeExperience)[item];
+        tvExp.setText(titleExp);
+        selectedListExp.add(item);
+
     }
 }
