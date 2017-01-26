@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -31,7 +32,10 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        listener = (SelectCity) getParentFragment();
+        Fragment parent = getParentFragment();
+        if (parent != null) {
+            listener = (SelectCity) parent;
+        }
         Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -78,5 +82,13 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
         stockArr = listStr.toArray(stockArr);
 
         return stockArr;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+          listener = (SelectCity) activity;
+        } catch (ClassCastException ignored) {}
     }
 }

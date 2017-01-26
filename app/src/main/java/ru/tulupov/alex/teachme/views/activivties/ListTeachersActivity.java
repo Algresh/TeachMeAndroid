@@ -15,8 +15,12 @@ import ru.tulupov.alex.teachme.models.user.User;
 import ru.tulupov.alex.teachme.presenters.ListTeachersPresenter;
 import ru.tulupov.alex.teachme.views.adapters.TeachersAdapter;
 
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_CITY;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_LEAVE_HOUSE;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_MY_CITY;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_QUICK;
 
 public class ListTeachersActivity extends BaseActivity implements ListTeachersView {
 
@@ -25,10 +29,14 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
     RecyclerView recyclerView;
     LinearLayoutManager manager;
 
+    int typeSearch;
+
     int pages = 0;
     boolean isLastPage = false;
     boolean teachersAreDownloading = false;
     int cityId = 1;
+    int subjectId = 1;
+    boolean leaveHouse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,17 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             presenter.getTeachersByCity(cityId);
             teachersAreDownloading = true;
         }
+
+        if (typeSearch == TYPE_SEARCH_QUICK) {
+            cityId = intent.getIntExtra(SEARCH_FIELD_CITY, -1);
+            subjectId = intent.getIntExtra(SEARCH_FIELD_SUBJECT, -1);
+            leaveHouse = intent.getBooleanExtra(SEARCH_FIELD_LEAVE_HOUSE, false);
+            presenter.getTeachersQuickSearch(cityId, leaveHouse, subjectId);
+            teachersAreDownloading = true;
+        }
+
+
+        this.typeSearch = typeSearch;
 
         addNewItemsByScroll();
 
@@ -95,7 +114,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
 
                     if ((visibleItemCount + pastVisibleItems) >= totalItemCount
                             && !teachersAreDownloading && !isLastPage){
-                        teachersAreDownloading= true;
+                        teachersAreDownloading = true;
                         presenter.addTeachersByCity(cityId, pages);
                         pages++;
                     }

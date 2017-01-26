@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
 import java.util.List;
@@ -22,12 +23,16 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
     protected int selectedItem = 0;
 
     protected List<Subject> listSubject;
-    protected int tag;
+    protected int tag = 0;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        listener = (SelectSubject) getParentFragment();
+        Fragment parent = getParentFragment();
+        if (parent != null) {
+            listener = (SelectSubject) parent;
+        }
+
         Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -74,5 +79,13 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
         }
 
         return arrStr;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (SelectSubject) activity;
+        } catch (ClassCastException ignored) {}
     }
 }

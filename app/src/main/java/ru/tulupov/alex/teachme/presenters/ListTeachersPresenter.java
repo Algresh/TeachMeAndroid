@@ -35,6 +35,24 @@ public class ListTeachersPresenter {
         });
     }
 
+    public void getTeachersQuickSearch(int city, boolean leaveHouse, int subject) {
+        model.getTeachersSeqrchQuick(city, leaveHouse, subject , 0, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.showListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorListTeachers();
+                }
+            }
+        });
+    }
+
     public void addTeachersByCity(int city, int page) {
         model.getTeachersByCity(city, page, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override

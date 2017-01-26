@@ -17,6 +17,11 @@ public class SelectSearchActivity extends BaseNavigationActivity {
     public static final int TYPE_SEARCH_MY_CITY = 0;
     public static final int TYPE_SEARCH_QUICK = 1;
     public static final int TYPE_SEARCH_FULL = 2;
+
+    public static final String SEARCH_FIELD_CITY = "city";
+    public static final String SEARCH_FIELD_SUBJECT = "subject";
+    public static final String SEARCH_FIELD_LEAVE_HOUSE = "leaveHouse";
+
     public static final String TYPE_SEARCH = "typeSearch";
 
     @Override
@@ -35,7 +40,8 @@ public class SelectSearchActivity extends BaseNavigationActivity {
         btnQuickSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SelectSearchActivity.this, QuickSearchActivity.class);
+                startActivity(intent);
             }
         });
         btnFullSearch = (Button) findViewById(R.id.btn_search_all_profiles);

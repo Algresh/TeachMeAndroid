@@ -37,6 +37,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activivties.ShowTeacherActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activivties.QuickSearchActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

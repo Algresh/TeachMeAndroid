@@ -131,6 +131,34 @@ public class ModelMainImpl {
         });
     }
 
+
+
+    public void getTeachersSeqrchQuick (int city, boolean leaveHouse, int subject,
+                                        int page, final ModelMainTeachersCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        MainApi api = retrofit.create(MainApi.class);
+        Call<List<Teacher>> call = api.getTeachersQuckSearch(city,leaveHouse, subject, page);
+        call.enqueue(new Callback<List<Teacher>>() {
+            @Override
+            public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Teacher>> call, Throwable t) {
+                callback.error();
+            }
+        });
+    }
+
     public void setFavorite (String accessToken, int id, final ModelFavoriteCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())

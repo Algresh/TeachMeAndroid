@@ -27,6 +27,14 @@ public interface MainApi {
     @GET("/api/get/teachers/by/city")
     Call<List<Teacher>> getTeachersByCity(@Query("city") int id, @Query("page") int page);
 
+    @GET("/api/quick/search/teachers")
+    Call<List<Teacher>> getTeachersQuckSearch(
+            @Query("city") int idCity,
+            @Query("leaveHouse") boolean leaveHouse,
+            @Query("subject") int idSubject,
+            @Query("page") int page
+    );
+
     @FormUrlEncoded
     @POST("/api/set/favorite")
     Call<Object> setFavorite(@Field("accessToken") String accessToken, @Field("teacherId") int id);
