@@ -21,6 +21,8 @@ public class CitySubjectPresenter {
     private ShowSubject subjectView;
     private ShowSubway subwayView;
 
+    private int cityId;
+
     public void onCreate(ShowCity cityView, ShowSubject subjectView, ShowSubway subwayView) {
         this.cityView = cityView;
         this.subjectView = subjectView;
@@ -69,10 +71,11 @@ public class CitySubjectPresenter {
     }
 
     public void getListSubways(int city) {
-        if (listSubways != null) {
+        if (listSubways != null && city == cityId) {
             subwayView.showSubways(listSubways);
             return;
         }
+        cityId = city;
 
         modelMain.getSubways(city, new ModelMainImpl.ModelMainSubwaysCallBack() {
             @Override

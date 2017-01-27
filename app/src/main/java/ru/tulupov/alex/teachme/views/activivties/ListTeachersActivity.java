@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.Teacher;
@@ -16,9 +20,14 @@ import ru.tulupov.alex.teachme.presenters.ListTeachersPresenter;
 import ru.tulupov.alex.teachme.views.adapters.TeachersAdapter;
 
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_CITY;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_EXPERIENCE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_LEAVE_HOUSE;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PHOTO;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PRICE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBWAY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_FULL;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_MY_CITY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_QUICK;
 
@@ -36,7 +45,11 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
     boolean teachersAreDownloading = false;
     int cityId = 1;
     int subjectId = 1;
+    int expId;
+    int price;
+    String subwaysIds;
     boolean leaveHouse;
+    boolean isPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +78,45 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             teachersAreDownloading = true;
         }
 
+        if (typeSearch == TYPE_SEARCH_FULL) {
+            cityId = intent.getIntExtra(SEARCH_FIELD_CITY, -1);
+            subjectId = intent.getIntExtra(SEARCH_FIELD_SUBJECT, -1);
+            leaveHouse = intent.getBooleanExtra(SEARCH_FIELD_LEAVE_HOUSE, false);
+            expId = intent.getIntExtra(SEARCH_FIELD_EXPERIENCE, -1);
+            isPhoto = intent.getBooleanExtra(SEARCH_FIELD_PHOTO, false);
+            price = intent.getIntExtra(SEARCH_FIELD_PRICE, 10000);
+            subwaysIds = intent.getStringExtra(SEARCH_FIELD_SUBWAY);
+            presenter.getTeachersFullSearch(wrapQuery());
+            teachersAreDownloading = true;
+        }
+
 
         this.typeSearch = typeSearch;
 
         addNewItemsByScroll();
 
+    }
+
+    protected Map<String, String> wrapQuery () {
+        Map<String, String> map = new HashMap<>();
+
+        int leave = 0;
+        int photo = 0;
+        if (leaveHouse) leave = 1;
+        if (isPhoto) photo = 1;
+
+        map.put("city", String.valueOf(cityId));
+        map.put("subject", String.valueOf(subjectId));
+        map.put("leaveHouse", String.valueOf(leave));
+        map.put("photo", String.valueOf(photo));
+        map.put("experience", String.valueOf(expId));
+        map.put("price", String.valueOf(price));
+        map.put("subways", subwaysIds);
+        map.put("page", String.valueOf(pages));
+
+        Log.d(Constants.MY_TAG, cityId + " " + subjectId + " " + leave + " " + photo + " " + expId + " " + price  + " | " + subwaysIds + " | " + " " + pages);
+
+        return map;
     }
 
     @Override

@@ -1,11 +1,13 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
 import java.util.ArrayList;
@@ -30,7 +32,11 @@ public class FragmentSubwayDialog extends DialogFragment implements DialogInterf
         if (listSelected == null) {
             listSelected = new ArrayList<>();
         }
-        listener = (SelectSubway) getParentFragment();
+
+        Fragment parent = getParentFragment();
+        if (parent != null) {
+            listener = (SelectSubway) parent;
+        }
         Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -92,5 +98,13 @@ public class FragmentSubwayDialog extends DialogFragment implements DialogInterf
         stockArr = listStr.toArray(stockArr);
 
         return stockArr;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (SelectSubway) activity;
+        } catch (ClassCastException ignored) {}
     }
 }

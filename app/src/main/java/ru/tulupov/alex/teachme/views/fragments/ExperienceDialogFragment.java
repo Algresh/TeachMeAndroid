@@ -1,11 +1,13 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
 import ru.tulupov.alex.teachme.R;
@@ -21,7 +23,10 @@ public class ExperienceDialogFragment extends DialogFragment implements DialogIn
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        listener = (SelectExperience) getParentFragment();
+        Fragment parent = getParentFragment();
+        if (parent != null) {
+            listener = (SelectExperience) parent;
+        }
         Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -60,5 +65,13 @@ public class ExperienceDialogFragment extends DialogFragment implements DialogIn
 
     public interface SelectExperience {
         void selectExperience(int item, int tagItem);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            listener = (SelectExperience) activity;
+        } catch (ClassCastException ignored) {}
     }
 }

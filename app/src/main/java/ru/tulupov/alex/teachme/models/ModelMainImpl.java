@@ -45,13 +45,18 @@ public class ModelMainImpl {
         void error();
     }
 
-    public void getCities( final ModelMainCitiesCallBack callback) {
+    private MainApi mainApi;
+
+    public ModelMainImpl() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        MainApi api = retrofit.create(MainApi.class);
-        Call<List<City>> call = api.getCities();
+        mainApi = retrofit.create(MainApi.class);
+    }
+
+    public void getCities(final ModelMainCitiesCallBack callback) {
+        Call<List<City>> call = mainApi.getCities();
         call.enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
@@ -66,12 +71,7 @@ public class ModelMainImpl {
     }
 
     public void getSubjects (final ModelMainSubjectsCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MainApi api = retrofit.create(MainApi.class);
-        Call<List<Subject>> call = api.getSubjects();
+        Call<List<Subject>> call = mainApi.getSubjects();
         call.enqueue(new Callback<List<Subject>>() {
             @Override
             public void onResponse(Call<List<Subject>> call, Response<List<Subject>> response) {
@@ -86,33 +86,22 @@ public class ModelMainImpl {
     }
 
     public void getSubways (int city, final ModelMainSubwaysCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MainApi api = retrofit.create(MainApi.class);
-        Call<List<Subway>> call = api.getSubways(city);
+        Call<List<Subway>> call = mainApi.getSubways(city);
         call.enqueue(new Callback<List<Subway>>() {
             @Override
             public void onResponse(Call<List<Subway>> call, Response<List<Subway>> response) {
-                Log.d(Constants.MY_TAG, response.body() + " id");
                 callback.success(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Subway>> call, Throwable t) {
-
+                callback.error();
             }
         });
     }
 
     public void getTeachersByCity (int city,int page, final ModelMainTeachersCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MainApi api = retrofit.create(MainApi.class);
-        Call<List<Teacher>> call = api.getTeachersByCity(city, page);
+        Call<List<Teacher>> call = mainApi.getTeachersByCity(city, page);
         call.enqueue(new Callback<List<Teacher>>() {
             @Override
             public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
@@ -133,14 +122,34 @@ public class ModelMainImpl {
 
 
 
-    public void getTeachersSeqrchQuick (int city, boolean leaveHouse, int subject,
+    public void getTeachersSearchQuick (int city, boolean leaveHouse, int subject,
                                         int page, final ModelMainTeachersCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        int leave = 0;
+        if (leaveHouse) leave = 1;
 
-        MainApi api = retrofit.create(MainApi.class);
-        Call<List<Teacher>> call = api.getTeachersQuckSearch(city,leaveHouse, subject, page);
+        Call<List<Teacher>> call = mainApi.getTeachersQuickSearch(city, leave, subject, page);
+        call.enqueue(new Callback<List<Teacher>>() {
+            @Override
+            public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Teacher>> call, Throwable t) {
+                callback.error();
+            }
+        });
+    }
+
+    public void getTeachersSearchFull (Map<String, String> map, final ModelMainTeachersCallBack callback) {
+
+
+        Call<List<Teacher>> call = mainApi.getTeachersMainSearch(map);
         call.enqueue(new Callback<List<Teacher>>() {
             @Override
             public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
@@ -160,12 +169,7 @@ public class ModelMainImpl {
     }
 
     public void setFavorite (String accessToken, int id, final ModelFavoriteCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        MainApi api = retrofit.create(MainApi.class);
-        Call<Object> call = api.setFavorite(accessToken, id);
+        Call<Object> call = mainApi.setFavorite(accessToken, id);
 
         call.enqueue(new Callback<Object>() {
             @Override

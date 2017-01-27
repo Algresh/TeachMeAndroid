@@ -96,8 +96,8 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
                 if (checkFields()) {
                     Intent intent = new Intent(QuickSearchActivity.this, ListTeachersActivity.class);
                     intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_QUICK);
-                    intent.putExtra(SEARCH_FIELD_CITY, indexSelectedCity);
-                    intent.putExtra(SEARCH_FIELD_SUBJECT, indexSelectedSubject);
+                    intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
+                    intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
                     intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
                     startActivity(intent);
                 }

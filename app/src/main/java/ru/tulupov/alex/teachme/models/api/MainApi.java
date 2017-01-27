@@ -1,13 +1,17 @@
 package ru.tulupov.alex.teachme.models.api;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.Subject;
 import ru.tulupov.alex.teachme.models.Subway;
@@ -28,12 +32,15 @@ public interface MainApi {
     Call<List<Teacher>> getTeachersByCity(@Query("city") int id, @Query("page") int page);
 
     @GET("/api/quick/search/teachers")
-    Call<List<Teacher>> getTeachersQuckSearch(
+    Call<List<Teacher>> getTeachersQuickSearch(
             @Query("city") int idCity,
-            @Query("leaveHouse") boolean leaveHouse,
+            @Query("leaveHouse") int leaveHouse,
             @Query("subject") int idSubject,
             @Query("page") int page
     );
+
+    @GET("/api/search/teachers")
+    Call<List<Teacher>> getTeachersMainSearch(@QueryMap Map<String, String> map);
 
     @FormUrlEncoded
     @POST("/api/set/favorite")

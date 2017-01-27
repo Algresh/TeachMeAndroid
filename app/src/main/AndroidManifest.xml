@@ -40,6 +40,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activivties.QuickSearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activivties.MainSearchActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

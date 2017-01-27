@@ -2,6 +2,7 @@ package ru.tulupov.alex.teachme.presenters;
 
 
 import java.util.List;
+import java.util.Map;
 
 import ru.tulupov.alex.teachme.models.ModelMainImpl;
 import ru.tulupov.alex.teachme.models.Teacher;
@@ -36,7 +37,25 @@ public class ListTeachersPresenter {
     }
 
     public void getTeachersQuickSearch(int city, boolean leaveHouse, int subject) {
-        model.getTeachersSeqrchQuick(city, leaveHouse, subject , 0, new ModelMainImpl.ModelMainTeachersCallBack() {
+        model.getTeachersSearchQuick(city, leaveHouse, subject , 0, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.showListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorListTeachers();
+                }
+            }
+        });
+    }
+
+    public void getTeachersFullSearch(Map<String, String> map) {
+        model.getTeachersSearchFull(map, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override
             public void success(List<Teacher> list) {
                 if (view != null) {

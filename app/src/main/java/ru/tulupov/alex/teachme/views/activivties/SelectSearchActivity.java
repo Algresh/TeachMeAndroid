@@ -21,6 +21,10 @@ public class SelectSearchActivity extends BaseNavigationActivity {
     public static final String SEARCH_FIELD_CITY = "city";
     public static final String SEARCH_FIELD_SUBJECT = "subject";
     public static final String SEARCH_FIELD_LEAVE_HOUSE = "leaveHouse";
+    public static final String SEARCH_FIELD_EXPERIENCE = "exp";
+    public static final String SEARCH_FIELD_PRICE = "price";
+    public static final String SEARCH_FIELD_SUBWAY = "subway";
+    public static final String SEARCH_FIELD_PHOTO = "photo";
 
     public static final String TYPE_SEARCH = "typeSearch";
 
@@ -33,7 +37,8 @@ public class SelectSearchActivity extends BaseNavigationActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(SelectSearchActivity.this, MainSearchActivity.class);
+                startActivity(intent);
             }
         });
         btnQuickSearch = (Button) findViewById(R.id.btn_search_quick);

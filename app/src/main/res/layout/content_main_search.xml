@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_quick_search"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:id="@+id/sp_main_search_city"
+        android:text="@string/hint_city"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:id="@+id/sp_main_search_subject"
+        android:text="@string/hint_subject"
+        android:layout_marginLeft="6dp"
+        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
+    <TextView
+        android:id="@+id/et_main_search_experience"
+        android:text="@string/hint_experience"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <EditText
+        android:id="@+id/et_main_search_price"
+        android:hint="@string/hint_price"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/et_main_search_subway"
+        android:textSize="@dimen/font_size_main"
+        android:paddingLeft="8dp"
+        android:clickable="true"
+        android:inputType="none"
+        android:text="@string/hint_subway"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <View
+        android:id="@+id/et_main_search_subway_line"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sc_main_search_leave"
+        android:text="@string/switch_leave_house"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sc_main_search_photo"
+        android:text="@string/switch_is_photo"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <Button
+        android:id="@+id/btn_main_search_exec"
+        android:background="@drawable/btn_light_blue"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/btn_find"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
