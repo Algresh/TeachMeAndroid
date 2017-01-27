@@ -18,6 +18,7 @@ import java.util.List;
 
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
+import ru.tulupov.alex.teachme.models.PriceList;
 import ru.tulupov.alex.teachme.models.Teacher;
 import ru.tulupov.alex.teachme.views.activivties.ShowTeacherActivity;
 
@@ -55,8 +56,21 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
 
         String fullName = teacher.getFullName();
         holder.tvFullName.setText(fullName);
-        holder.tvPrice.setText("300");
-        holder.tvSubjects.setText("asdasdasd");
+
+        List<PriceList> priceLists = teacher.getPriceLists();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < priceLists.size(); i++) {
+            if (i == 4) break;
+            PriceList priceList = priceLists.get(i);
+            if (i != 0) {
+                stringBuilder.append(", ");
+            }
+            stringBuilder.append(priceList.getSubject().getTitle());
+            stringBuilder.append(" ");
+            stringBuilder.append(priceList.getPrice());
+        }
+
+        holder.tvSubjects.setText(stringBuilder.toString());
         holder.tvSubwayStation.setText(teacher.getSubways());
 
         if (teacher.getPhoto() != null) {
@@ -91,7 +105,6 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
         public ImageView imgAvatar;
         public TextView tvFullName;
         public TextView tvSubjects;
-        public TextView tvPrice;
         public TextView tvSubwayStation;
 
         public TeacherViewHolder(View itemView) {
@@ -101,7 +114,6 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
             imgAvatar = (ImageView) itemView.findViewById(R.id.card_img_avatar);
             tvFullName = (TextView) itemView.findViewById(R.id.tv_card_full_name);
             tvSubjects = (TextView) itemView.findViewById(R.id.tv_card_subjects);
-            tvPrice = (TextView) itemView.findViewById(R.id.tv_card_price);
             tvSubwayStation = (TextView) itemView.findViewById(R.id.tv_card_subway_station);
         }
 

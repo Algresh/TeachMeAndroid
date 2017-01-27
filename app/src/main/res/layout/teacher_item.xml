@@ -44,14 +44,6 @@
         android:layout_toRightOf="@+id/card_img_avatar"
         android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/tv_card_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_card_subjects"
-        android:layout_toRightOf="@+id/card_img_avatar"
-        android:textColor="@android:color/white" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

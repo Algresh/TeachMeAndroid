@@ -1,9 +1,12 @@
 package ru.tulupov.alex.teachme.presenters;
 
 
+import android.content.Context;
+
 import java.util.List;
 import java.util.Map;
 
+import ru.tulupov.alex.teachme.database.DataBaseManager;
 import ru.tulupov.alex.teachme.models.ModelMainImpl;
 import ru.tulupov.alex.teachme.models.Teacher;
 import ru.tulupov.alex.teachme.views.activivties.ListTeachersView;
@@ -54,6 +57,24 @@ public class ListTeachersPresenter {
         });
     }
 
+    public void addTeachersQuickSearch(int city, boolean leaveHouse, int subject, int page) {
+        model.getTeachersSearchQuick(city, leaveHouse, subject , page, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.addToListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorAddListTeachers();
+                }
+            }
+        });
+    }
+
     public void getTeachersFullSearch(Map<String, String> map) {
         model.getTeachersSearchFull(map, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override
@@ -67,6 +88,24 @@ public class ListTeachersPresenter {
             public void error() {
                 if (view != null) {
                     view.errorListTeachers();
+                }
+            }
+        });
+    }
+
+    public void addTeachersFullSearch(Map<String, String> map) {
+        model.getTeachersSearchFull(map, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.addToListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorAddListTeachers();
                 }
             }
         });
@@ -88,5 +127,13 @@ public class ListTeachersPresenter {
                 }
             }
         });
+    }
+
+    public void getListFavoriteTeachers(Context context) {
+        DataBaseManager manager = new DataBaseManager(context);
+        List<Teacher> teacherList =  manager.getFavoriteTeachers();
+        if (view != null){
+            view.showListTeachers(teacherList);
+        }
     }
 }

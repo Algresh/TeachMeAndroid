@@ -1,6 +1,7 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -111,6 +112,8 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void logInSuccess() {
         Log.d(Constants.MY_TAG, "URA");
+        Intent intent = new Intent(this, SelectSearchActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -288,6 +291,8 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void registerConfirmTeacherSuccess() {
         Log.d(Constants.MY_TAG, "full registration success");
+        Intent intent = new Intent(this, SelectSearchActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -343,6 +348,8 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void registerConfirmPupilSuccess() {
         Log.d(Constants.MY_TAG, "full registration success pupil");
+        Intent intent = new Intent(this, SelectSearchActivity.class);
+        startActivity(intent);
     }
 
     @Override

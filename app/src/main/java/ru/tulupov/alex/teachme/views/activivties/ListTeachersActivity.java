@@ -27,6 +27,7 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEA
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBWAY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_FAVORITE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_FULL;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_MY_CITY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_QUICK;
@@ -50,6 +51,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
     String subwaysIds;
     boolean leaveHouse;
     boolean isPhoto;
+    Map<String, String> mapFields;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,13 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             isPhoto = intent.getBooleanExtra(SEARCH_FIELD_PHOTO, false);
             price = intent.getIntExtra(SEARCH_FIELD_PRICE, 10000);
             subwaysIds = intent.getStringExtra(SEARCH_FIELD_SUBWAY);
-            presenter.getTeachersFullSearch(wrapQuery());
+            mapFields = wrapQuery();
+            presenter.getTeachersFullSearch(mapFields);
+            teachersAreDownloading = true;
+        }
+
+        if (typeSearch == TYPE_SEARCH_FAVORITE) {
+            presenter.getListFavoriteTeachers(this);
             teachersAreDownloading = true;
         }
 
@@ -162,11 +170,22 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
                     if ((visibleItemCount + pastVisibleItems) >= totalItemCount
                             && !teachersAreDownloading && !isLastPage){
                         teachersAreDownloading = true;
-                        presenter.addTeachersByCity(cityId, pages);
+                        addNewItems();
                         pages++;
                     }
                 }
             }
         });
+    }
+
+    protected void addNewItems() {
+        if (typeSearch == TYPE_SEARCH_MY_CITY) {
+            presenter.addTeachersByCity(cityId, pages);
+        } else if (typeSearch == TYPE_SEARCH_FULL){
+            mapFields.put("page", String.valueOf(pages));
+            presenter.addTeachersFullSearch(mapFields);
+        } else if (typeSearch == TYPE_SEARCH_QUICK) {
+            presenter.addTeachersQuickSearch(cityId, leaveHouse, subjectId, pages);
+        }
     }
 }

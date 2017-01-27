@@ -18,4 +18,9 @@
         android:title="@string/navi_feedback"
         />
 
+    <item
+        android:id="@+id/nav_logout"
+        android:title="@string/cancel"
+        />
+
 </menu>

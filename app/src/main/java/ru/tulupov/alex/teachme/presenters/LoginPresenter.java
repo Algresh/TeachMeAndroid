@@ -47,10 +47,11 @@ public class LoginPresenter {
                     String firstName = (String) fields.get("firstName");
                     String fatherName = (String) fields.get("fatherName");
                     String lastName = (String) fields.get("lastName");
+                    String photoSrc = (String) fields.get("photoSrc");
 
                     user = new TeacherUser(context, type_user, userId.intValue(), accessToken,
                             enable.intValue(), firstName, lastName, fatherName, login, email, cityTitle,
-                            cityId.intValue()
+                            cityId.intValue(), photoSrc
                     );
                 } else {
 
@@ -175,10 +176,11 @@ public class LoginPresenter {
                 String fatherName = (String) fields.get("fatherName");
                 String lastName = (String) fields.get("lastName");
                 String login = (String) fields.get("login");
+                String photoSrc = (String) fields.get("photoSrc");
 
                 User user = new TeacherUser(context, type_user, userId.intValue(), accessToken,
                         enable.intValue(), firstName, lastName, fatherName, login, email, cityTitle,
-                        cityId.intValue()
+                        cityId.intValue(), photoSrc
                 );
 
                 Bitmap photo = teacherRegistration.getPhoto();

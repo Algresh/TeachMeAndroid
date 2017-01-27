@@ -2,6 +2,15 @@ package ru.tulupov.alex.teachme.models.user;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.widget.ImageView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import ru.tulupov.alex.teachme.R;
 
 import static ru.tulupov.alex.teachme.Constants.APP_PREFERENCES;
 
@@ -11,10 +20,13 @@ public class TeacherUser extends User {
     public static final String PREF_USER_FIRST_NAME= "pref_first_name";
     public static final String PREF_USER_LAST_NAME = "pref_last_name";
     public static final String PREF_USER_FATHER_NAME = "pref_father_name";
+    public static final String PREF_USER_PHOTO_SRC= "pref_photo_src";
 
     private String firstName;
     private String lastName;
     private String fatherName;
+    private Bitmap photo;
+    private String photoSrc;
 
 
     public TeacherUser(){
@@ -23,7 +35,7 @@ public class TeacherUser extends User {
 
     public TeacherUser(Context context, String typeUser, int userId, String accessToken, int enable,
                        String firstName, String lastName, String fatherName, String login,
-                       String email, String cityTitle, int cityId) {
+                       String email, String cityTitle, int cityId, String photoSrc) {
 
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -37,6 +49,7 @@ public class TeacherUser extends User {
         editor.putInt(PREF_USER_ENABLE, enable);
         editor.putString(PREF_USER_EMAIL, email);
         editor.putString(PREF_USER_CITY_TITLE, cityTitle);
+        editor.putString(PREF_USER_PHOTO_SRC, photoSrc);
         editor.putInt(PREF_USER_CITY_ID, cityId);
         editor.apply();
 
@@ -52,6 +65,7 @@ public class TeacherUser extends User {
         this.cityTitle = cityTitle;
         this.cityId = cityId;
         this.login = login;
+        this.photoSrc = photoSrc;
     }
 
     @Override
@@ -171,6 +185,20 @@ public class TeacherUser extends User {
 
 
 
+    public String getPhotoSrc(Context context) {
+        if (photoSrc != null) {
+            return photoSrc;
+        }
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getString(PREF_USER_PHOTO_SRC, "");
+    }
+
+    public void setPhotoSrc(Context context, String photoSrc) {
+        setStringToPref(context, PREF_USER_PHOTO_SRC, photoSrc);
+        this.photoSrc = photoSrc;
+    }
+
+
 
     @Override
     public String getEmail(Context context) {
@@ -214,10 +242,19 @@ public class TeacherUser extends User {
         this.cityId = cityId;
     }
 
+    public Bitmap getPhoto(Context context) {
 
+        if (photo == null) {
+            String fname = "avatar.png";
+            File imageFile = new File(fname);
+            if(imageFile.exists()){
+                photo = BitmapFactory.decodeFile(fname);
+            }
+        }
+        return photo;
+    }
 
-
-
-
-
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
+    }
 }

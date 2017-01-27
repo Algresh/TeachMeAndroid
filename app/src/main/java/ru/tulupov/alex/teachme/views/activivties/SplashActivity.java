@@ -30,14 +30,16 @@ public class SplashActivity extends AppCompatActivity {
             return;
         }
 
-        String typeUSer = user.getTypeUser(this);
+        String typeUser = user.getTypeUser(this);
 
-        if (typeUSer.equals(User.TYPE_USER_NONE)) {
+        if (typeUser.equals(User.TYPE_USER_NONE)) {
             intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         } else {
             intent = new Intent(this, SelectSearchActivity.class);
         }
         startActivity(intent);
+        finish();
 
     }
 }
