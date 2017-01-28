@@ -38,8 +38,8 @@ public class ModelUserInfo {
 
     public static final String TYPE_ERROR_LOGIN = "login";
     public static final String TYPE_ERROR_EMAIL = "email";
-    public static final String TYPE_ERROR_BOTH = "bothError";
-    public static final String TYPE_CORRECT_BOTH = "bothCorrect";
+    public static final String TYPE_ERROR_ALL = "bothError";
+    public static final String TYPE_CORRECT_ALL = "bothCorrect";
 
     public interface ModelCallBack {
         void success(Map fields);
@@ -331,13 +331,13 @@ public class ModelUserInfo {
         });
     }
 
-    public void checkEmailAndLogin(String login, String email, final CheckLoginEmailCallBack callback) {
+    public void checkEmailAndLogin(String login, String email, String phone, final CheckLoginEmailCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserApi api = retrofit.create(UserApi.class);
-        Call<Object> call = api.checkEmailAndLogin(login, email);
+        Call<Object> call = api.checkEmailAndLogin(login, email, phone);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

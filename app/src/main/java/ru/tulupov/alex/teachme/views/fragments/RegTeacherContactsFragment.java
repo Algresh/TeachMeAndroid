@@ -27,6 +27,7 @@ import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 public class RegTeacherContactsFragment extends Fragment implements ShowSubway, RegDataCorrect,
         FragmentSubwayDialog.SelectSubway, PromotionDialogFragment.SelectPromotion, CheckLoginEmailExisted {
 
+    private TextView tvPhoneExisted;
     private TextView tvSubway;
     private SwitchCompat scLeaveHouse;
     private EditText edtPhone;
@@ -67,11 +68,6 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
             tvSubway.setText(strSub);
         }
 
-
-
-        /**
-         * @TODO проверить работает ли все когда нет метро у города!!!
-         */
         if (selectedCity.isHasSubway()) {
 
             tvSubway.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +99,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         edtPassword = (EditText) view.findViewById(R.id.edt_reg_teacher_password);
         edtPasswordConfirm = (EditText) view.findViewById(R.id.edt_reg_teacher_passwordConfirm);
         tvPassDiffer = (TextView) view.findViewById(R.id.tv_pass_is_differ);
+        tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
         tvEmailExisted = (TextView) view.findViewById(R.id.tv_email_existed);
         tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
@@ -290,6 +287,10 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         return  edtLogin.getText().toString();
     }
 
+    public String getPhone() {
+        return  edtPhone.getText().toString();
+    }
+
     @Override
     public void showLoginExisted() {
         tvLoginExisted.setVisibility(View.VISIBLE);
@@ -301,9 +302,15 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     }
 
     @Override
+    public void showPhoneExisted() {
+        tvPhoneExisted.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showLoginEmailNotExisted() {
         tvLoginExisted.setVisibility(View.GONE);
         tvEmailExisted.setVisibility(View.GONE);
+        tvPhoneExisted.setVisibility(View.GONE);
     }
 
 }

@@ -191,6 +191,11 @@ public class RegPupilContacts extends Fragment implements ShowCity,
     }
 
     @Override
+    public void showPhoneExisted() {
+
+    }
+
+    @Override
     public void showLoginEmailNotExisted() {
         tvLoginExisted.setVisibility(View.GONE);
         tvEmailExisted.setVisibility(View.GONE);

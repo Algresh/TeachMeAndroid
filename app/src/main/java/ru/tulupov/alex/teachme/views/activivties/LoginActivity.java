@@ -170,7 +170,7 @@ public class LoginActivity extends AppCompatActivity
             RegPupilContacts fragment = (RegPupilContacts) currRegDataCorrect;
             String login = fragment.getLogin();
             String email = fragment.getEmail();
-            presenter.checkEmailAndLogin(login, email);
+            presenter.checkEmailAndLogin(login, email, "");
         }
 
 
@@ -201,7 +201,8 @@ public class LoginActivity extends AppCompatActivity
                 RegTeacherContactsFragment fragment = (RegTeacherContactsFragment) currRegDataCorrect;
                 String login = fragment.getLogin();
                 String email = fragment.getEmail();
-                presenter.checkEmailAndLogin(login, email);
+                String phone = fragment.getPhone();
+                presenter.checkEmailAndLogin(login, email, phone);
             } else {
                 setUpNextFragmentTeacher();
             }
@@ -301,26 +302,30 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
-    public void emailAndLoginIsChecked(String type) {
+    public void emailAndLoginIsChecked(int err) {
         checkingLoginEmail = false;
         CheckLoginEmailExisted fragment = (CheckLoginEmailExisted) currRegDataCorrect;
         fragment.showLoginEmailNotExisted();
-        if (type.equals(ModelUserInfo.TYPE_CORRECT_BOTH)) {
-            if (registerUserType.equals( User.TYPE_USER_TEACHER)) {
+        if (err == 0) {
+            if (registerUserType.equals(User.TYPE_USER_TEACHER)) {
                 setUpNextFragmentTeacher();
-            } else if (registerUserType.equals( User.TYPE_USER_PUPIL)) {
+            } else if (registerUserType.equals(User.TYPE_USER_PUPIL)) {
                 setUpNextFragmentPupil();
             }
         }
-        if (type.equals(ModelUserInfo.TYPE_ERROR_EMAIL)) {
-            fragment.showEmailExisted();
-        }
-        if (type.equals(ModelUserInfo.TYPE_ERROR_LOGIN)) {
+
+        if (err % 10 == 1) {
             fragment.showLoginExisted();
         }
-        if (type.equals(ModelUserInfo.TYPE_ERROR_BOTH)) {
-            fragment.showLoginExisted();
+        if (err / 10 == 1 || err / 10 == 11) {
             fragment.showEmailExisted();
+        }
+        if (err / 100 == 1) {
+            if (registerUserType.equals(User.TYPE_USER_TEACHER)) {
+                fragment.showPhoneExisted();
+            } else if (registerUserType.equals(User.TYPE_USER_PUPIL)) {
+                setUpNextFragmentPupil();
+            }
         }
     }
 

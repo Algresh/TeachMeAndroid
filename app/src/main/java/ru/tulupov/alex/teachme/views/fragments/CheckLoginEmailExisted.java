@@ -9,5 +9,7 @@ public interface CheckLoginEmailExisted {
 
     void showEmailExisted();
 
+    void showPhoneExisted();
+
     void showLoginEmailNotExisted() ;
 }

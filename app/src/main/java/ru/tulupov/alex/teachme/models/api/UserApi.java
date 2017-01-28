@@ -72,5 +72,9 @@ public interface UserApi {
     );
 
     @GET("/api/check/login/email")
-    Call<Object> checkEmailAndLogin(@Query("login") String login, @Query("email") String email);
+    Call<Object> checkEmailAndLogin(
+            @Query("login") String login,
+            @Query("email") String email,
+            @Query("numberPhone") String phone
+    );
 }
