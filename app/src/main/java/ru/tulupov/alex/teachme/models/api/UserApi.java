@@ -1,6 +1,7 @@
 package ru.tulupov.alex.teachme.models.api;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -17,6 +18,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import ru.tulupov.alex.teachme.models.PriceList;
 
 public interface UserApi {
 
@@ -77,4 +79,16 @@ public interface UserApi {
             @Query("email") String email,
             @Query("numberPhone") String phone
     );
+
+    @GET("/api/get/teacher/fullname")
+    Call<Object> getTeacherFullName(@Query("accessToken") String accessToken);
+
+    @GET("/api/get/teacher/description")
+    Call<Object> getTeacherDescription(@Query("accessToken") String accessToken);
+
+    @GET("/api/get/teacher/pricelist")
+    Call<List<PriceList>> getTeacherPriceList(@Query("accessToken") String accessToken);
+
+    @GET("/api/get/teacher/contacts")
+    Call<Object> getTeacherContacts(@Query("accessToken") String accessToken);
 }

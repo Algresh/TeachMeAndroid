@@ -18,9 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
@@ -45,10 +48,13 @@ public class RegTeacherFullNameFragment extends Fragment
     private List<City> listCities;
 
     private City selectedCity;
-    private int indexSelectedCity = 0;
+    private int indexSelectedCity = -1;
     private Bitmap bitmapPhoto;
     private boolean cityDialogIsDownloading = false;
     private DatePickerFragment dialog;
+
+    //только для изменения профиля
+    private Map map;
 
     View.OnClickListener selectAvatar = new View.OnClickListener() {
         @Override
@@ -142,8 +148,40 @@ public class RegTeacherFullNameFragment extends Fragment
         view.findViewById(R.id.avatarImageText).setOnClickListener(selectAvatar);
 
         initFields();
+        initData();
 
         return view;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    //используется только при изменении профиля так как только тогда map != null
+    protected void initData() {
+        if (map != null) {
+            String firstName = (String) map.get("firstName");
+            String lastName = (String) map.get("lastName");
+            String fatherName = (String) map.get("fatherName");
+            Double cityId = (Double) map.get("cityId");
+            String cityTitle = (String) map.get("cityTitle");
+            Double cityHasSub = (Double) map.get("cityHasSub");
+            String birthDate = (String) map.get("birthDate");
+            String okrug = (String) map.get("okrug");
+            String district = (String) map.get("district");
+            String photo = (String) map.get("photo");
+
+            etFirstName.setText(firstName);
+            etLastName.setText(lastName);
+            etFatherName.setText(fatherName);
+            etBirthday.setText(birthDate);
+            selectedCity = new City(cityId.intValue(), cityTitle, cityHasSub != 0);
+            etOkrug.setText(okrug);
+            etDistrict.setText(district);
+            etCity.setText(cityTitle);
+
+            Picasso.with(getContext()).load(Constants.DOMAIN_IMAGE + photo).into(ivAvatar);
+        }
     }
 
     @Override

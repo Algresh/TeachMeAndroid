@@ -86,6 +86,16 @@ public class ModelUserInfo {
         void error(int type);
     }
 
+    public interface ChangeTeacherCallBack {
+        void success(Map map);
+        void error();
+    }
+
+    public interface ChangeTeacherPriceListCallBack {
+        void success(List<PriceList> lists);
+        void error();
+    }
+
     public void login(String login, String password, final ModelCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -424,5 +434,137 @@ public class ModelUserInfo {
                 callback.error(TYPE_ERROR_OTHER);
             }
         });
+    }
+
+
+
+    public void getTeacherFullName(final String accessToken, final ChangeTeacherCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.getTeacherFullName(accessToken);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    String json = response.body().toString();
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                } else {
+                    callback.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error();
+            }
+        });
+
+    }
+
+    public void getTeacherContacts(final String accessToken, final ChangeTeacherCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.getTeacherContacts(accessToken);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    String json = response.body().toString();
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                } else {
+                    callback.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error();
+            }
+        });
+
+    }
+
+    public void getTeacherDescription(final String accessToken, final ChangeTeacherCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.getTeacherDescription(accessToken);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    String json = response.body().toString();
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    callback.success(fields);
+                } else {
+                    callback.error();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error();
+            }
+        });
+
+    }
+
+    public void getTeacherDescription(final String accessToken, final ChangeTeacherPriceListCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<List<PriceList>> call = api.getTeacherPriceList(accessToken);
+        call.enqueue(new Callback<List<PriceList>>() {
+            @Override
+            public void onResponse(Call<List<PriceList>> call, Response<List<PriceList>> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    callback.success(response.body());
+                } else {
+                    callback.error();
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<List<PriceList>> call, Throwable t) {
+                callback.error();
+            }
+        });
+
     }
 }

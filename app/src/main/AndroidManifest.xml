@@ -44,7 +44,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activivties.MainSearchActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.activivties.ChangeTeacherProfileActivity"></activity>
     </application>
 
 </manifest>

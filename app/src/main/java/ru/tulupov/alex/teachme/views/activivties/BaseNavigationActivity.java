@@ -83,6 +83,10 @@ public class BaseNavigationActivity extends BaseActivity {
                     case R.id.nav_logout:
                         logOut();
                         intent = new Intent(BaseNavigationActivity.this, LoginActivity.class);
+                        break;
+                    case R.id.nav_edit_profile:
+                        intent = new Intent(BaseNavigationActivity.this, ChangeTeacherProfileActivity.class);
+                        break;
                 }
 
                 startActivity(intent);
