@@ -40,7 +40,7 @@ public class RegTeacherAboutFragment extends Fragment implements  RegDataCorrect
     }
 
     public void setTextAbout(String textAbout) {
-        this.textAbout = textAbout;
+        this.textAbout = textAbout.replace("\0", " ");
     }
 
     public String getTextAbout() {

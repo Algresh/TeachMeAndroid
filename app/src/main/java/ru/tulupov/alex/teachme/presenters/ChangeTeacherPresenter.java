@@ -1,5 +1,7 @@
 package ru.tulupov.alex.teachme.presenters;
 
+import android.graphics.Bitmap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -107,7 +109,7 @@ public class ChangeTeacherPresenter {
         });
     }
 
-    public void showTeacherConstsnts(String accessToken) {
+    public void showTeacherContacts(String accessToken) {
         model.getTeacherContacts(accessToken, new ModelUserInfo.ChangeTeacherCallBack() {
             @Override
             public void success(Map map) {
@@ -132,6 +134,34 @@ public class ChangeTeacherPresenter {
                 if (view != null) {
                     view.changeFullNameSuccess(map);
                 }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.changeFullNameError();
+                }
+            }
+        });
+    }
+
+    public void changeTeacherFullName(final String accessToken, final Bitmap photo, final int userId, Map<String, String> map) {
+        model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherCallBack() {
+            @Override
+            public void success(final Map map) {
+                model.setPhoto(accessToken, String.valueOf(userId), photo, new ModelUserInfo.RegTeacherPhotoCallBack() {
+                    @Override
+                    public void success() {
+                        if (view != null) {
+                            view.changeFullNameSuccess(map);
+                        }
+                    }
+
+                    @Override
+                    public void error(int type) {
+
+                    }
+                });
             }
 
             @Override

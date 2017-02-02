@@ -275,6 +275,56 @@ public class ModelUserInfo {
 
     }
 
+    public void setPhoto(String accessToken, String id, Bitmap photo, final RegTeacherPhotoCallBack callback) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+        RequestBody requestFile =
+                RequestBody.create(MediaType.parse("multipart/form-data"), stream.toByteArray());
+
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("picture", "avatar", requestFile);
+
+        RequestBody accessTokenBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), accessToken);
+
+        RequestBody idBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), id);
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.registerPhotoTeacher(idBody, accessTokenBody, body);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                Log.d(Constants.MY_TAG, "success Photo");
+                if(response == null || response.body() == null) {
+                    callback.error(TYPE_ERROR_OTHER);
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error(TYPE_ERROR_OTHER);
+                } else {
+                    callback.success();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error(TYPE_ERROR_OTHER);
+            }
+        });
+
+    }
+
     public void registerConfirmationTeacher(String accessToken, String code, final RegTeacherConfirmCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())

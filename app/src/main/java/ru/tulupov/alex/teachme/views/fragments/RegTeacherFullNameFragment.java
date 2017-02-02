@@ -56,6 +56,7 @@ public class RegTeacherFullNameFragment extends Fragment
 
     //только для изменения профиля
     private Map map;
+    private boolean photoChanged = false;
 
     View.OnClickListener selectAvatar = new View.OnClickListener() {
         @Override
@@ -103,6 +104,7 @@ public class RegTeacherFullNameFragment extends Fragment
                         selectedImage = null;
                         ivAvatar.setImageBitmap(smallBitmap);
                         bitmapPhoto = smallBitmap;
+                        photoChanged = true;
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -158,6 +160,14 @@ public class RegTeacherFullNameFragment extends Fragment
         this.map = map;
     }
 
+    public boolean isPhotoChanged() {
+        return photoChanged;
+    }
+
+    public Bitmap getBitmapPhoto() {
+        return bitmapPhoto;
+    }
+
     //используется только при изменении профиля так как только тогда map != null
     protected void initData() {
         if (map != null) {
@@ -172,14 +182,19 @@ public class RegTeacherFullNameFragment extends Fragment
             String district = (String) map.get("district");
             String photo = (String) map.get("photo");
 
-            etFirstName.setText(firstName);
-            etLastName.setText(lastName);
-            etFatherName.setText(fatherName);
+            etFirstName.setText(firstName.replace("\0", " "));
+            etLastName.setText(lastName.replace("\0", " "));
+            etFatherName.setText(fatherName.replace("\0", " "));
             etBirthday.setText(birthDate);
-            selectedCity = new City(cityId.intValue(), cityTitle, cityHasSub);
-            etOkrug.setText(okrug);
-            etDistrict.setText(district);
-            etCity.setText(cityTitle);
+            selectedCity = new City(cityId.intValue(), cityTitle.replace("\0", " "), cityHasSub);
+            if (okrug != null) {
+                etOkrug.setText(okrug.replace("\0", " "));
+            }
+
+            if (district != null) {
+                etDistrict.setText(district.replace("\0", " "));
+            }
+            etCity.setText(cityTitle.replace("\0", " "));
 
             Picasso.with(getContext()).load(Constants.DOMAIN_IMAGE + photo).into(ivAvatar);
         }

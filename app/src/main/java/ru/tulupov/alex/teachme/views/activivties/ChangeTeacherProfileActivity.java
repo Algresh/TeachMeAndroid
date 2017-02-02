@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Map;
@@ -106,19 +107,18 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
     protected void toNextFragmentTeacher() {
 
-//        if (registerStep == 5) {
-//            pDialog = new ProgressDialog(this);
-//            pDialog.setMessage("");
-//            pDialog.show();
-////            presenter.registrationTeacher();
-//        }
-
         if (currRegDataCorrect.dataIsCorrect()) {
             if (registerStep == 1) {
                 RegTeacherFullNameFragment fragment = (RegTeacherFullNameFragment) currRegDataCorrect;
                 Map<String, String> map = fragment.getDataMap();
                 String accessToken = MyApplications.getUser().getAccessToken(this);
-                presenter.changeTeacherFullName(accessToken, map);
+                if (fragment.isPhotoChanged()) {
+                    int userId = MyApplications.getUser().getUserId(this);
+                    Log.d(Constants.MY_TAG, userId + "");
+                    presenter.changeTeacherFullName(accessToken, fragment.getBitmapPhoto(), userId, map);
+                } else {
+                    presenter.changeTeacherFullName(accessToken, map);
+                }
             }
 
             if (registerStep == 2) {
@@ -141,8 +141,17 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
                 }
                 checkingLoginEmail = true;
                 ChangeTeacherContactsFragment fragment = (ChangeTeacherContactsFragment) currRegDataCorrect;
-                String login = fragment.getLogin();
-                String phone = fragment.getPhone();
+                String login = "";
+                String phone = "";
+
+                if (fragment.isChangedLogin()) {
+                    login = fragment.getLogin();
+                }
+
+                if (fragment.isChangedPhone()) {
+                    phone = fragment.getPhone();
+                }
+
                 presenter.checkEmailAndLogin(login, "", phone);
             }
         }
@@ -160,10 +169,10 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
         teacherUser.setCityId(this, cityId.intValue());
-        teacherUser.setCityTitle(this, cityTitle);
-        teacherUser.setFirstName(this, firstName);
-        teacherUser.setLastName(this, lastName);
-        teacherUser.setFatherName(this, fatherName);
+        teacherUser.setCityTitle(this, cityTitle.replace("\0", " "));
+        teacherUser.setFirstName(this, firstName.replace("\0", " "));
+        teacherUser.setLastName(this, lastName.replace("\0", " "));
+        teacherUser.setFatherName(this, fatherName.replace("\0", " "));
         teacherUser.setPhotoSrc(this, photo);
         teacherUser.setCityHasSub(this, cityHasSub);
 
@@ -238,7 +247,9 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         String login = (String) map.get("login");
 
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
-        teacherUser.setLogin(this, login);
+        teacherUser.setLogin(this, login.replace("\0", " "));
+        Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
@@ -260,7 +271,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     @Override
     public void changeSubjectsSuccess() {
         String accessToken = MyApplications.getUser().getAccessToken(this);
-        presenter.showTeacherConstsnts(accessToken);
+        presenter.showTeacherContacts(accessToken);
     }
 
     @Override
@@ -317,7 +328,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         if (err == 0) {
             Map<String, String> map = fragment.getDataMap();
             String accessToken = MyApplications.getUser().getAccessToken(this);
-            presenter.changeTeacherFullName(accessToken, map);
+            presenter.changeTeacherContacts(accessToken, map);
 
         }
 

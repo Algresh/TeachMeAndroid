@@ -41,6 +41,7 @@ public class LoginPresenter {
                 String cityTitle = (String) fields.get("cityTitle");
                 String email = (String) fields.get("email");
                 Double cityId = (Double) fields.get("cityId");
+                Boolean cityHasSub = (Boolean) fields.get("cityHasSub");
 
                 User user;
                 if (type_user.equals(User.TYPE_USER_TEACHER)) {
@@ -58,6 +59,7 @@ public class LoginPresenter {
                     user = new PupilUser(context, type_user, userId.intValue(), accessToken,
                             enable.intValue(), email, cityTitle, cityId.intValue(), login);
                 }
+                user.setCityHasSub(context, cityHasSub);
                 Log.d(Constants.MY_TAG, type_user + enable + accessToken + userId);
                 MyApplications.setUser(user);
 

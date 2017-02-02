@@ -1,6 +1,7 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,6 +50,9 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
     boolean leaveHouse = false;
 
+    private String oldLogin;
+    private int oldPhone;
+
     private Map map;
 
     @Override
@@ -67,10 +71,11 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         tvSubway = (TextView) view.findViewById(R.id.et_reg_teacher_subway);
 
-
         String subwayStation = (String) map.get("subwayStation");
         Double phoneNumber = (Double) map.get("phoneNumber");
+        oldPhone = phoneNumber.intValue();
         String login = (String) map.get("login");
+        oldLogin = login;
         Double typeAnketa = (Double) map.get("typeAnketa");
         Boolean leave = (Boolean) map.get("leaveHouse");
 
@@ -85,12 +90,10 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
                     }
                 }
             });
-            tvSubway.setText(subwayStation);
+            tvSubway.setText(subwayStation.replace("\0", " "));
         } else  {
             tvSubway.setVisibility(View.GONE);
         }
-
-
 
         scLeaveHouse = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_leave);
         scLeaveHouse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -103,7 +106,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         edtPhone = (EditText) view.findViewById(R.id.edt_reg_teacher_phone);
         edtPhone.setText(String.valueOf(phoneNumber.intValue()));
         edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
-        edtLogin.setText(login);
+        edtLogin.setText(login.replace("\0", " "));
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
         int index = typeAnketa.intValue();
@@ -178,6 +181,21 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         return map;
     }
 
+    public boolean isChangedLogin() {
+        if (oldLogin.equals(edtLogin.getText().toString())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isChangedPhone() {
+        if (oldPhone == Integer.parseInt(edtPhone.getText().toString())) {
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     public boolean dataIsCorrect() {
@@ -185,7 +203,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         String strSubway = tvSubway.getText().toString().trim();
         String textSubway = getResources().getString(R.string.hint_subway);
-        if(selectedCity.isHasSubway() && (strSubway.equals(textSubway) || listSelected == null)) {
+        if(selectedCity.isHasSubway() && strSubway.equals(textSubway)) {
             warningColorTextView(tvSubway);
             isCorrect = false;
         } else {
