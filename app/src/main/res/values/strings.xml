@@ -73,6 +73,7 @@
     <string name="text_is_differ">Пароли не совпадают</string>
     <string name="text_login_existed">Такой логин уже существует</string>
     <string name="text_email_existed">Этот email уже используется</string>
+    <string name="text_phone_existed">Этот телефон уже используется</string>
     <string name="hint_experience">Опыт работы</string>
     <string name="hint_price">Стоимость</string>
     <string name="hint_phone">Телефон</string>

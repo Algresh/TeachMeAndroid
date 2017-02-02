@@ -238,7 +238,7 @@ public class TeacherUser extends User {
 
     @Override
     public void setCityId(Context context, int cityId) {
-        setIntToPref(context, PREF_USER_USER_ID, cityId);
+        setIntToPref(context, PREF_USER_CITY_ID, cityId);
         this.cityId = cityId;
     }
 

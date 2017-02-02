@@ -39,6 +39,14 @@ public class RegTeacherAboutFragment extends Fragment implements  RegDataCorrect
         teacher.setDescription(textAbout);
     }
 
+    public void setTextAbout(String textAbout) {
+        this.textAbout = textAbout;
+    }
+
+    public String getTextAbout() {
+        return editTextAbout.getText().toString();
+    }
+
     @Override
     public boolean dataIsCorrect() {
         boolean isCorrect = true;

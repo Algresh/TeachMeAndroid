@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -165,7 +166,7 @@ public class RegTeacherFullNameFragment extends Fragment
             String fatherName = (String) map.get("fatherName");
             Double cityId = (Double) map.get("cityId");
             String cityTitle = (String) map.get("cityTitle");
-            Double cityHasSub = (Double) map.get("cityHasSub");
+            Boolean cityHasSub = (Boolean) map.get("cityHasSub");
             String birthDate = (String) map.get("birthDate");
             String okrug = (String) map.get("okrug");
             String district = (String) map.get("district");
@@ -175,13 +176,27 @@ public class RegTeacherFullNameFragment extends Fragment
             etLastName.setText(lastName);
             etFatherName.setText(fatherName);
             etBirthday.setText(birthDate);
-            selectedCity = new City(cityId.intValue(), cityTitle, cityHasSub != 0);
+            selectedCity = new City(cityId.intValue(), cityTitle, cityHasSub);
             etOkrug.setText(okrug);
             etDistrict.setText(district);
             etCity.setText(cityTitle);
 
             Picasso.with(getContext()).load(Constants.DOMAIN_IMAGE + photo).into(ivAvatar);
         }
+    }
+
+    public Map<String, String> getDataMap() {
+        Map<String, String> map = new HashMap<>();
+
+        map.put("firstName", etFirstName.getText().toString());
+        map.put("lastName", etLastName.getText().toString());
+        map.put("fatherName", etFatherName.getText().toString());
+        map.put("birthDate", etBirthday.getText().toString());
+        map.put("city", String.valueOf(selectedCity.getId()));
+        map.put("okrug", etOkrug.getText().toString());
+        map.put("district", etDistrict.getText().toString());
+
+        return map;
     }
 
     @Override

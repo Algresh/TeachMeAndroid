@@ -40,7 +40,11 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
     private List<PriceList> priceLists;
     private List<Integer> selectedListSubjects;
     private List<Integer> selectedListExp;
+
+    private List<Subject> selectedObjSubjects;
     private boolean dialogIsDownloading = false;
+
+    private boolean isUpdating = false;
 
 
     private void addSubject() {
@@ -73,14 +77,52 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
     }
 
+    private void addAndFillSubjects() {
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+
+        for (PriceList item : priceLists) {
+            View viewSubject = layoutInflater.inflate(R.layout.reg_teacher_subject, null);
+            TextView tvSubjects = (TextView) viewSubject.findViewById(R.id.sp_select_subject);
+            tvSubjects.setOnClickListener(this);
+            tvSubjects.setTag(numSubjects);
+            TextView tvExp = (TextView) viewSubject.findViewById(R.id.et_reg_teacher_experience);
+            tvExp.setOnClickListener(this);
+            EditText etPrice = (EditText) viewSubject.findViewById(R.id.et_reg_teacher_price);
+            tvExp.setTag(numSubjects);
+
+            tvSubjects.setText(item.getSubject().getTitle());
+
+            int index = Integer.parseInt(item.getExperience());
+            selectedListExp.add(index);
+            String strExp = getResources().getStringArray(R.array.typeExperience)[index];
+            tvExp.setText(strExp);
+
+            etPrice.setText(String.valueOf(item.getPrice()));
+
+            viewList.add(viewSubject);
+            subjectsContainer.addView(viewSubject);
+            selectedObjSubjects.add(item.getSubject());
+
+
+            numSubjects++;
+        }
+    }
+
+    /**
+     *
+     * @TODO проверить работает ли регистрация!!
+     */
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (priceLists == null) {
+        if (priceLists == null || isUpdating) {
             presenter = new CitySubjectPresenter();
             viewList = new ArrayList<>();
             selectedListSubjects = new ArrayList<>();
             selectedListExp = new ArrayList<>();
+            selectedObjSubjects = new ArrayList<>();
         }
 //        numSubjects = 0;
         presenter.onCreate(null, this, null);
@@ -89,7 +131,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         fragmentView.findViewById(R.id.btn_reg_teacher_add_subject).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selectedListSubjects.size() == viewList.size()) {
+                if (selectedObjSubjects.size() == viewList.size()) {
                     addSubject();
                 }
             }
@@ -97,9 +139,26 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         if(priceLists == null) {
             addSubject();
         } else {
-            addSubjects();
+            if (!isUpdating) {
+                addSubjects();
+            } else {
+                addAndFillSubjects();
+            }
+
         }
         return fragmentView;
+    }
+
+    public void isUpdating() {
+        isUpdating = true;
+    }
+
+    public void setPriceLists(List<PriceList> priceLists) {
+        this.priceLists = priceLists;
+    }
+
+    public List<PriceList> getPriceLists() {
+        return priceLists;
     }
 
     @Override
@@ -153,6 +212,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
         View view = viewList.get(tag);
         TextView tvSubject = (TextView) view.findViewById(R.id.sp_select_subject);
         Subject subject = listSubjects.get(subjectIndex);
+        selectedObjSubjects.add(subject);
         tvSubject.setText(subject.getTitle());
         selectedListSubjects.add(subjectIndex);
     }
@@ -228,8 +288,8 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
                     Integer itemExp = selectedListExp.get(i - numEmptyBlock);
                     priceList.setExperience(String.valueOf(itemExp));
                     priceList.setPrice(Integer.parseInt(strPrice));
-                    Integer itemSbj = selectedListSubjects.get(i - numEmptyBlock);
-                    priceList.setSubject(listSubjects.get(itemSbj));
+//                    Integer itemSbj = selectedListSubjects.get(i - numEmptyBlock);
+                    priceList.setSubject(selectedObjSubjects.get(i - numEmptyBlock));
                     priceLists.add(priceList);
                 }
             }

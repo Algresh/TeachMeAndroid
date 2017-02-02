@@ -91,4 +91,36 @@ public interface UserApi {
 
     @GET("/api/get/teacher/contacts")
     Call<Object> getTeacherContacts(@Query("accessToken") String accessToken);
+
+
+    @FormUrlEncoded
+    @POST("/api/change/teacher/fullname")
+    Call<Object> changeTeacherFullName(
+            @Field("accessToken") String accessToken,
+            @FieldMap Map<String, String> map
+    );
+
+    @FormUrlEncoded
+    @POST("/api/change/teacher/description")
+    Call<Object> changeTeacherDescriptione(
+            @Field("accessToken") String accessToken,
+            @Field("description") String description
+    );
+
+    @FormUrlEncoded
+    @POST("/api/change/teacher/subjects")
+    Call<Object> changeTeacherSubjects(
+            @Field("accessToken") String accessToken,
+            @Field("priceLIstNum") int priceLIstNum,
+            @Field("priceLIstSbj[]") ArrayList<String> priceLIstSbj,
+            @Field("priceLIstPrice[]") ArrayList<String> priceLIstPrice,
+            @Field("priceLIstExp[]") ArrayList<String> priceLIstExp
+    );
+
+    @FormUrlEncoded
+    @POST("/api/change/teacher/contacts")
+    Call<Object> changeTeacherContacts(
+            @Field("accessToken") String accessToken,
+            @FieldMap Map<String, String> map
+    );
 }

@@ -30,6 +30,26 @@ public class CitySubjectPresenter {
         modelMain = new ModelMainImpl();
     }
 
+    public List<Subject> getListSubjects () {
+        return listSubjects;
+    }
+
+    public void preUploadSubjects() {
+        if (listSubjects != null) {
+            modelMain.getSubjects(new ModelMainImpl.ModelMainSubjectsCallBack() {
+                @Override
+                public void success(List<Subject> list) {
+                    listSubjects = list;
+                }
+
+                @Override
+                public void error() {
+
+                }
+            });
+        }
+    }
+
     public void getListCities() {
         if (listCities != null) {
             cityView.showCities(listCities);

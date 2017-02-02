@@ -17,6 +17,7 @@ public abstract class User {
     public static final String PREF_USER_TYPE_USER = "pref_type";
     public static final String PREF_USER_CITY_TITLE = "pref_city_title";
     public static final String PREF_USER_CITY_ID = "pref_city_id";
+    public static final String PREF_USER_CITY_HAS_SUBWAY = "pref_city_has_sub";
     public static final String PREF_USER_EMAIL = "pref_email";
     public static final String PREF_USER_LOGIN = "pref_login";
 
@@ -27,6 +28,7 @@ public abstract class User {
     protected String accessToken;
     protected String cityTitle;
     protected int cityId;
+    protected boolean cityHasSub;
     protected String email;
     protected int userId = 0;
     protected int enable;
@@ -75,14 +77,31 @@ public abstract class User {
         editor.apply();
     }
 
+    protected void setBoolToPref(Context context, String param, boolean flag) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(param, flag);
+        editor.apply();
+    }
+
     public void setCityId(Context context, int cityId) {
-        setIntToPref(context, PREF_USER_USER_ID, cityId);
+        setIntToPref(context, PREF_USER_CITY_ID, cityId);
         this.cityId = cityId;
     }
 
     public int getCityId(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         return preferences.getInt(PREF_USER_CITY_ID, 0);
+    }
+
+    public void setCityHasSub(Context context, boolean flag) {
+        setBoolToPref(context, PREF_USER_CITY_HAS_SUBWAY, flag);
+        this.cityHasSub = flag;
+    }
+
+    public boolean getCityHasSub(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_USER_CITY_HAS_SUBWAY, false);
     }
 
 
