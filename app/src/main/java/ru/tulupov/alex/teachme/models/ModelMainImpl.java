@@ -1,9 +1,5 @@
 package ru.tulupov.alex.teachme.models;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +11,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.models.api.MainApi;
-import ru.tulupov.alex.teachme.models.api.UserApi;
 
 
 public class ModelMainImpl {

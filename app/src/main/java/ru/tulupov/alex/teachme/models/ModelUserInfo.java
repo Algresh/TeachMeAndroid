@@ -7,10 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +21,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.models.api.UserApi;
-import ru.tulupov.alex.teachme.models.user.TeacherUser;
-import ru.tulupov.alex.teachme.models.user.User;
-import ru.tulupov.alex.teachme.views.fragments.RegPupilContacts;
 
 public class ModelUserInfo {
 
