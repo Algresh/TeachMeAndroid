@@ -117,6 +117,16 @@ public class ModelUserInfo {
         void errorOther();
     }
 
+    public interface ChangeEmailCallBack {
+        void success();
+        void error();
+    }
+
+    public interface ChangeEmailConfirmCallBack {
+        void success();
+        void error();
+    }
+
     public void login(String login, String password, final ModelCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -798,4 +808,62 @@ public class ModelUserInfo {
         });
 
     }
+
+
+
+
+    public void changeTeacherEmail(String email, String accessToken, final ChangeEmailCallBack callBack) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.changeTeacherEmail(accessToken, email);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callBack.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    callBack.success();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callBack.error();
+            }
+        });
+    }
+
+    public void changeTeacherEmailConfirmation(String code, String accessToken, final ChangeEmailConfirmCallBack callBack) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.changeTeacherEmailConfirmation(accessToken, code);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callBack.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    callBack.success();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callBack.error();
+            }
+        });
+    }
+
 }

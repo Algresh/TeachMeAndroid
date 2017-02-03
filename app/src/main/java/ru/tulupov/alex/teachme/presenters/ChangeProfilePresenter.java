@@ -41,5 +41,41 @@ public class ChangeProfilePresenter {
         });
     }
 
+    public void changeTeacherEmail(String email , String accessToken) {
+        model.changeTeacherEmail(email, accessToken, new ModelUserInfo.ChangeEmailCallBack() {
+            @Override
+            public void success() {
+                if (view != null) {
+                    view.changedEmailSuccess();
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.changedEmailWrongOther();
+                }
+            }
+        });
+    }
+
+    public void changeTeacherEmailConfirmation(String code , String accessToken) {
+        model.changeTeacherEmailConfirmation(code, accessToken, new ModelUserInfo.ChangeEmailConfirmCallBack() {
+            @Override
+            public void success() {
+                if (view != null) {
+                    view.changedEmailConfirmSuccess();
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.changedEmailConfirmWrongOther();
+                }
+            }
+        });
+    }
+
 
 }

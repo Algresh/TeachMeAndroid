@@ -133,4 +133,19 @@ public interface UserApi {
             @Field("accessToken") String accessToken,
             @FieldMap Map<String, String> map
     );
+
+    @FormUrlEncoded
+    @POST("/api/change/teacher/email")
+    Call<Object> changeTeacherEmail(
+            @Field("accessToken") String accessToken,
+            @Field("email") String email
+    );
+
+
+    @FormUrlEncoded
+    @POST("/api/change/teacher/email/confirmation")
+    Call<Object> changeTeacherEmailConfirmation(
+            @Field("accessToken") String accessToken,
+            @Field("code") String code
+    );
 }

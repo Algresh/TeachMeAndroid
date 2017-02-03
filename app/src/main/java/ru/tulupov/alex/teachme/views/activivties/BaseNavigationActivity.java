@@ -85,7 +85,7 @@ public class BaseNavigationActivity extends BaseActivity {
                         intent = new Intent(BaseNavigationActivity.this, LoginActivity.class);
                         break;
                     case R.id.nav_edit_profile:
-                        intent = new Intent(BaseNavigationActivity.this, ChangePasswordActivity.class);
+                        intent = new Intent(BaseNavigationActivity.this, ChangeEmailActivity.class);
                         break;
                 }
 

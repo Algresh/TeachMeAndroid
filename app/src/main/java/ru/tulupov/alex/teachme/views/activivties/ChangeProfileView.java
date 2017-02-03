@@ -9,4 +9,7 @@ public interface ChangeProfileView {
 
     void changedEmailSuccess();
     void changedEmailWrongOther();
+
+    void changedEmailConfirmSuccess();
+    void changedEmailConfirmWrongOther();
 }

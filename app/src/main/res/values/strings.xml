@@ -105,6 +105,10 @@
     <string name="newPassword">Новый пароль</string>
     <string name="confirmPassword">Повторить новый пароль</string>
     <string name="changePasswordTitle">Изменение пароля</string>
+    <string name="changeEmailTitle">Изменение email</string>
+    <string name="changeNewEmail">Новый email</string>
+    <string name="emailModified">Email изменен</string>
+    <string name="emailCodeWrong">Код не верный</string>
 
     <string name="typeStrYearOne">Год</string>
     <string name="typeStrYearTwo">Года</string>

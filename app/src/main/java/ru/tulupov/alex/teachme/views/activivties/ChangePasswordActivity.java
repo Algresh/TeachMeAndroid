@@ -81,6 +81,16 @@ public class ChangePasswordActivity extends BaseNavigationActivity implements Ch
     }
 
     @Override
+    public void changedEmailConfirmSuccess() {
+
+    }
+
+    @Override
+    public void changedEmailConfirmWrongOther() {
+
+    }
+
+    @Override
     public void changedEmailSuccess() {
 
     }
