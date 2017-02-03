@@ -46,7 +46,8 @@
             android:name=".views.activivties.MainSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".views.activivties.ChangeTeacherProfileActivity" />
-        <activity android:name=".views.activivties.ChangePasswordActivity"></activity>
+        <activity android:name=".views.activivties.ChangePasswordActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

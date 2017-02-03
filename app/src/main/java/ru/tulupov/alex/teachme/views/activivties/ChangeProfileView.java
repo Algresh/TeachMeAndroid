@@ -8,5 +8,5 @@ public interface ChangeProfileView {
     void changedPasswordWrongOther();
 
     void changedEmailSuccess();
-    void changedEmaildWrongOther();
+    void changedEmailWrongOther();
 }

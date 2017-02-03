@@ -1,10 +1,12 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,7 @@ import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.user.User;
 import ru.tulupov.alex.teachme.presenters.ChangeProfilePresenter;
 
-public class ChangePasswordActivity extends AppCompatActivity implements ChangeProfileView {
+public class ChangePasswordActivity extends BaseNavigationActivity implements ChangeProfileView {
 
     protected EditText edtOldPass;
     protected EditText edtNewPass;
@@ -27,6 +29,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+        presenter = new ChangeProfilePresenter();
+        presenter.onCreate(this);
 
         edtNewPass = (EditText) findViewById(R.id.edt_change_password_new);
         edtNewPassConfirm = (EditText) findViewById(R.id.edt_change_password_new_confirm);
@@ -50,24 +54,30 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
                     map.put("newPassword", newPass);
 
                     presenter.changePassword(map, accessToken);
+                } else {
+                    Toast.makeText(ChangePasswordActivity.this, R.string.text_is_differ, Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        initToolbar(R.string.changePasswordTitle, R.id.toolbarChangePassword);
+        initNavigationView();
     }
 
     @Override
     public void changedPasswordSuccess() {
-
+        Toast.makeText(this, R.string.passwordModified, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
     public void changedPasswordWrongOld() {
-
+        Toast.makeText(this, R.string.wrongOldPassword, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void changedPasswordWrongOther() {
-
+        Toast.makeText(this, R.string.wrongOtherPassword, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -76,7 +86,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements ChangeP
     }
 
     @Override
-    public void changedEmaildWrongOther() {
+    public void changedEmailWrongOther() {
 
     }
 }

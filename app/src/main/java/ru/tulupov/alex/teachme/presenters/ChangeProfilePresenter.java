@@ -21,7 +21,7 @@ public class ChangeProfilePresenter {
             @Override
             public void success() {
                 if (view != null) {
-                    view.changedEmailSuccess();
+                    view.changedPasswordSuccess();
                 }
             }
 

@@ -98,6 +98,13 @@
 
     <string name="ageShowTeacher">Возраст: </string>
     <string name="allChangesSave">Все изменения были сохранены</string>
+    <string name="wrongOldPassword">Не верный старый пароль</string>
+    <string name="wrongOtherPassword">Не верные данные</string>
+    <string name="passwordModified">Пароль изменен</string>
+    <string name="oldPassword">Старый пароль</string>
+    <string name="newPassword">Новый пароль</string>
+    <string name="confirmPassword">Повторить новый пароль</string>
+    <string name="changePasswordTitle">Изменение пароля</string>
 
     <string name="typeStrYearOne">Год</string>
     <string name="typeStrYearTwo">Года</string>
