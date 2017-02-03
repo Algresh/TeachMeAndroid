@@ -111,6 +111,12 @@ public class ModelUserInfo {
         void error();
     }
 
+    public interface ChangePasswordCallBack {
+        void success();
+        void errorOldPass();
+        void errorOther();
+    }
+
     public void login(String login, String password, final ModelCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -750,6 +756,44 @@ public class ModelUserInfo {
             @Override
             public void onFailure(Call<ContactsBlock> call, Throwable t) {
                 callback.error();
+            }
+        });
+    }
+
+    public void changePassword(Map<String, String> map, String accessToken, final ChangePasswordCallBack callBack) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        UserApi api = retrofit.create(UserApi.class);
+        Call<Object> call = api.changePassword(accessToken, map);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callBack.errorOther();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    callBack.success();
+                } else {
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    String warning = (String) fields.get("warning");
+                    if (warning.equals("wrongOldPass")) {
+                        callBack.errorOldPass();
+                    } else {
+                        callBack.errorOther();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+
             }
         });
 

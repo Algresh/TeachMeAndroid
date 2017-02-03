@@ -126,4 +126,11 @@ public interface UserApi {
             @Field("accessToken") String accessToken,
             @FieldMap Map<String, String> map
     );
+
+    @FormUrlEncoded
+    @POST("/api/change/password")
+    Call<Object> changePassword(
+            @Field("accessToken") String accessToken,
+            @FieldMap Map<String, String> map
+    );
 }
