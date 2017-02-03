@@ -17,6 +17,8 @@ import java.util.Map;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
+import ru.tulupov.alex.teachme.models.ContactsBlock;
+import ru.tulupov.alex.teachme.models.FullNameBlock;
 import ru.tulupov.alex.teachme.models.PriceList;
 import ru.tulupov.alex.teachme.models.Teacher;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
@@ -87,10 +89,10 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     @Override
-    public void showDataFullName(Map map) {
+    public void showDataFullName(FullNameBlock block) {
         FragmentManager manager = getSupportFragmentManager();
         RegTeacherFullNameFragment fragment = new RegTeacherFullNameFragment();
-        fragment.setMap(map);
+        fragment.setFullNameBlock(block);
         currRegDataCorrect = fragment;
         manager.beginTransaction()
                 .add(R.id.reg_fragment_container, fragment)
@@ -158,21 +160,22 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     @Override
-    public void changeFullNameSuccess(Map map) {
-        String firstName = (String) map.get("firstName");
-        String lastName = (String) map.get("lastName");
-        String fatherName = (String) map.get("fatherName");
-        Double cityId = (Double) map.get("cityId");
-        String cityTitle = (String) map.get("cityTitle");
-        Boolean cityHasSub = (Boolean) map.get("cityHasSub");
-        String photo = (String) map.get("photo");
+    public void changeFullNameSuccess(FullNameBlock block) {
+        Log.d(Constants.MY_TAG, block.toString());
+        String firstName = block.getFirstName();
+        String lastName = block.getLastName();
+        String fatherName = block.getFatherName();
+        int cityId = block.getCity().getId();
+        String cityTitle =block.getCity().getTitle();
+        boolean cityHasSub = block.getCity().isHasSubway();
+        String photo = block.getPhoto();
 
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
-        teacherUser.setCityId(this, cityId.intValue());
-        teacherUser.setCityTitle(this, cityTitle.replace("\0", " "));
-        teacherUser.setFirstName(this, firstName.replace("\0", " "));
-        teacherUser.setLastName(this, lastName.replace("\0", " "));
-        teacherUser.setFatherName(this, fatherName.replace("\0", " "));
+        teacherUser.setCityId(this, cityId);
+        teacherUser.setCityTitle(this, cityTitle);
+        teacherUser.setFirstName(this, firstName);
+        teacherUser.setLastName(this, lastName);
+        teacherUser.setFatherName(this, fatherName);
         teacherUser.setPhotoSrc(this, photo);
         teacherUser.setCityHasSub(this, cityHasSub);
 
@@ -185,10 +188,10 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     @Override
-    public void showDataContacts(Map map) {
+    public void showDataContacts(ContactsBlock block) {
         FragmentManager manager = getSupportFragmentManager();
         ChangeTeacherContactsFragment fragment = new ChangeTeacherContactsFragment();
-        fragment.setMap(map);
+        fragment.setContactsBlock(block);
 
         currRegDataCorrect = fragment;
         manager.beginTransaction()
@@ -243,11 +246,11 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     @Override
-    public void changeContactsSuccess(Map map) {
-        String login = (String) map.get("login");
+    public void changeContactsSuccess(ContactsBlock block) {
+        String login = block.getLogin();
 
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
-        teacherUser.setLogin(this, login.replace("\0", " "));
+        teacherUser.setLogin(this, login);
         Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
         finish();
     }

@@ -18,6 +18,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import ru.tulupov.alex.teachme.models.ContactsBlock;
+import ru.tulupov.alex.teachme.models.Description;
+import ru.tulupov.alex.teachme.models.FullNameBlock;
 import ru.tulupov.alex.teachme.models.PriceList;
 
 public interface UserApi {
@@ -81,21 +84,21 @@ public interface UserApi {
     );
 
     @GET("/api/get/teacher/fullname")
-    Call<Object> getTeacherFullName(@Query("accessToken") String accessToken);
+    Call<FullNameBlock> getTeacherFullName(@Query("accessToken") String accessToken);
 
     @GET("/api/get/teacher/description")
-    Call<Object> getTeacherDescription(@Query("accessToken") String accessToken);
+    Call<Description> getTeacherDescription(@Query("accessToken") String accessToken);
 
     @GET("/api/get/teacher/pricelist")
     Call<List<PriceList>> getTeacherPriceList(@Query("accessToken") String accessToken);
 
     @GET("/api/get/teacher/contacts")
-    Call<Object> getTeacherContacts(@Query("accessToken") String accessToken);
+    Call<ContactsBlock> getTeacherContacts(@Query("accessToken") String accessToken);
 
 
     @FormUrlEncoded
     @POST("/api/change/teacher/fullname")
-    Call<Object> changeTeacherFullName(
+    Call<FullNameBlock> changeTeacherFullName(
             @Field("accessToken") String accessToken,
             @FieldMap Map<String, String> map
     );
@@ -119,7 +122,7 @@ public interface UserApi {
 
     @FormUrlEncoded
     @POST("/api/change/teacher/contacts")
-    Call<Object> changeTeacherContacts(
+    Call<ContactsBlock> changeTeacherContacts(
             @Field("accessToken") String accessToken,
             @FieldMap Map<String, String> map
     );

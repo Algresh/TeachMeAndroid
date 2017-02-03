@@ -29,6 +29,7 @@ import java.util.Map;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
+import ru.tulupov.alex.teachme.models.FullNameBlock;
 import ru.tulupov.alex.teachme.models.Subject;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
@@ -55,7 +56,7 @@ public class RegTeacherFullNameFragment extends Fragment
     private DatePickerFragment dialog;
 
     //только для изменения профиля
-    private Map map;
+    private FullNameBlock block;
     private boolean photoChanged = false;
 
     View.OnClickListener selectAvatar = new View.OnClickListener() {
@@ -156,8 +157,8 @@ public class RegTeacherFullNameFragment extends Fragment
         return view;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public void setFullNameBlock(FullNameBlock block) {
+        this.block = block;
     }
 
     public boolean isPhotoChanged() {
@@ -170,31 +171,31 @@ public class RegTeacherFullNameFragment extends Fragment
 
     //используется только при изменении профиля так как только тогда map != null
     protected void initData() {
-        if (map != null) {
-            String firstName = (String) map.get("firstName");
-            String lastName = (String) map.get("lastName");
-            String fatherName = (String) map.get("fatherName");
-            Double cityId = (Double) map.get("cityId");
-            String cityTitle = (String) map.get("cityTitle");
-            Boolean cityHasSub = (Boolean) map.get("cityHasSub");
-            String birthDate = (String) map.get("birthDate");
-            String okrug = (String) map.get("okrug");
-            String district = (String) map.get("district");
-            String photo = (String) map.get("photo");
+        if (block != null) {
+            String firstName = block.getFirstName();
+            String lastName = block.getLastName();
+            String fatherName = block.getFatherName();
+            int cityId = block.getCity().getId();
+            String cityTitle =block.getCity().getTitle();
+            boolean cityHasSub = block.getCity().isHasSubway();
+            String birthDate = block.getBirthDate();
+            String okrug = block.getOkrug();
+            String district = block.getDistrict();
+            String photo = block.getPhoto();
 
-            etFirstName.setText(firstName.replace("\0", " "));
-            etLastName.setText(lastName.replace("\0", " "));
-            etFatherName.setText(fatherName.replace("\0", " "));
+            etFirstName.setText(firstName);
+            etLastName.setText(lastName);
+            etFatherName.setText(fatherName);
             etBirthday.setText(birthDate);
-            selectedCity = new City(cityId.intValue(), cityTitle.replace("\0", " "), cityHasSub);
+            selectedCity = new City(cityId, cityTitle, cityHasSub);
             if (okrug != null) {
-                etOkrug.setText(okrug.replace("\0", " "));
+                etOkrug.setText(okrug);
             }
 
             if (district != null) {
-                etDistrict.setText(district.replace("\0", " "));
+                etDistrict.setText(district);
             }
-            etCity.setText(cityTitle.replace("\0", " "));
+            etCity.setText(cityTitle);
 
             Picasso.with(getContext()).load(Constants.DOMAIN_IMAGE + photo).into(ivAvatar);
         }

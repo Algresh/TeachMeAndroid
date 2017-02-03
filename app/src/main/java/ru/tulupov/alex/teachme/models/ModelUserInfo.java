@@ -87,7 +87,22 @@ public class ModelUserInfo {
     }
 
     public interface ChangeTeacherCallBack {
-        void success(Map map);
+        void success();
+        void error();
+    }
+
+    public interface ChangeTeacherFullNameCallBack {
+        void success(FullNameBlock block);
+        void error();
+    }
+
+    public interface ChangeTeacherDescriptionCallBack {
+        void success(Description description);
+        void error();
+    }
+
+    public interface ChangeTeacherContactsBlockCallBack {
+        void success(ContactsBlock block);
         void error();
     }
 
@@ -488,101 +503,92 @@ public class ModelUserInfo {
 
 
 
-    public void getTeacherFullName(final String accessToken, final ChangeTeacherCallBack callback) {
+    public void getTeacherFullName(final String accessToken, final ChangeTeacherFullNameCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserApi api = retrofit.create(UserApi.class);
-        Call<Object> call = api.getTeacherFullName(accessToken);
-        call.enqueue(new Callback<Object>() {
+        Call<FullNameBlock> call = api.getTeacherFullName(accessToken);
+        call.enqueue(new Callback<FullNameBlock>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<FullNameBlock> call, Response<FullNameBlock> response) {
                 if(response == null || response.body() == null) {
                     callback.error();
                     return;
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Gson gson = new GsonBuilder().create();
-                    Log.d(Constants.MY_TAG, json);
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+                    callback.success(response.body());
                 } else {
                     callback.error();
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<FullNameBlock> call, Throwable t) {
                 callback.error();
             }
         });
 
     }
 
-    public void getTeacherContacts(final String accessToken, final ChangeTeacherCallBack callback) {
+    public void getTeacherContacts(final String accessToken, final ChangeTeacherContactsBlockCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserApi api = retrofit.create(UserApi.class);
-        Call<Object> call = api.getTeacherContacts(accessToken);
-        call.enqueue(new Callback<Object>() {
+        Call<ContactsBlock> call = api.getTeacherContacts(accessToken);
+        call.enqueue(new Callback<ContactsBlock>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<ContactsBlock> call, Response<ContactsBlock> response) {
                 if(response == null || response.body() == null) {
                     callback.error();
                     return;
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Log.d(Constants.MY_TAG, json);
-                    Gson gson = new GsonBuilder().create();
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+                    Log.d(Constants.MY_TAG, response.body().toString());
+                    callback.success(response.body());
                 } else {
                     callback.error();
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<ContactsBlock> call, Throwable t) {
                 callback.error();
             }
         });
 
     }
 
-    public void getTeacherDescription(final String accessToken, final ChangeTeacherCallBack callback) {
+    public void getTeacherDescription(final String accessToken, final ChangeTeacherDescriptionCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserApi api = retrofit.create(UserApi.class);
-        Call<Object> call = api.getTeacherDescription(accessToken);
-        call.enqueue(new Callback<Object>() {
+        Call<Description> call = api.getTeacherDescription(accessToken);
+        call.enqueue(new Callback<Description>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<Description> call, Response<Description> response) {
                 if(response == null || response.body() == null) {
                     callback.error();
                     return;
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Gson gson = new GsonBuilder().create();
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+//                    Log.d(Constants.MY_TAG, response.body().toString());
+                    callback.success(response.body());
                 } else {
                     callback.error();
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<Description> call, Throwable t) {
                 callback.error();
             }
         });
@@ -620,33 +626,30 @@ public class ModelUserInfo {
 
     }
 
-    public void changeTeacherFullName(String accessToken, Map<String, String> map, final ChangeTeacherCallBack callback) {
+    public void changeTeacherFullName(String accessToken, Map<String, String> map, final ChangeTeacherFullNameCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserApi api = retrofit.create(UserApi.class);
-        Call<Object> call = api.changeTeacherFullName(accessToken, map);
-        call.enqueue(new Callback<Object>() {
+        Call<FullNameBlock> call = api.changeTeacherFullName(accessToken, map);
+        call.enqueue(new Callback<FullNameBlock>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<FullNameBlock> call, Response<FullNameBlock> response) {
                 if(response == null || response.body() == null) {
                     callback.error();
                     return;
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Gson gson = new GsonBuilder().create();
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+                    callback.success(response.body());
                 } else {
                     callback.error();
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<FullNameBlock> call, Throwable t) {
                 callback.error();
             }
         });
@@ -669,10 +672,7 @@ public class ModelUserInfo {
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Gson gson = new GsonBuilder().create();
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+                    callback.success();
                 } else {
                     callback.error();
                 }
@@ -712,10 +712,7 @@ public class ModelUserInfo {
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Gson gson = new GsonBuilder().create();
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+                    callback.success();
                 } else {
                     callback.error();
                 }
@@ -728,33 +725,30 @@ public class ModelUserInfo {
         });
     }
 
-    public void changeTeacherContacts(String accessToken, Map<String, String> map, final ChangeTeacherCallBack callback) {
+    public void changeTeacherContacts(String accessToken, Map<String, String> map, final ChangeTeacherContactsBlockCallBack callback) {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         UserApi api = retrofit.create(UserApi.class);
-        Call<Object> call = api.changeTeacherContacts(accessToken, map);
-        call.enqueue(new Callback<Object>() {
+        Call<ContactsBlock> call = api.changeTeacherContacts(accessToken, map);
+        call.enqueue(new Callback<ContactsBlock>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<ContactsBlock> call, Response<ContactsBlock> response) {
                 if(response == null || response.body() == null) {
                     callback.error();
                     return;
                 }
 
                 if (response.code() == 200) {
-                    String json = response.body().toString();
-                    Gson gson = new GsonBuilder().create();
-                    Map fields = gson.fromJson(json, Map.class);
-                    callback.success(fields);
+                    callback.success(response.body());
                 } else {
                     callback.error();
                 }
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<ContactsBlock> call, Throwable t) {
                 callback.error();
             }
         });

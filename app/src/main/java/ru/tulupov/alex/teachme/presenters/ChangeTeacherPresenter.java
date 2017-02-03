@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import java.util.List;
 import java.util.Map;
 
+import ru.tulupov.alex.teachme.models.ContactsBlock;
+import ru.tulupov.alex.teachme.models.Description;
+import ru.tulupov.alex.teachme.models.FullNameBlock;
 import ru.tulupov.alex.teachme.models.ModelUserInfo;
 import ru.tulupov.alex.teachme.models.PriceList;
 import ru.tulupov.alex.teachme.views.activivties.ChangeTeacherView;
@@ -54,11 +57,11 @@ public class ChangeTeacherPresenter {
 
 
     public void showTeacherFullName(String accessToken) {
-        model.getTeacherFullName(accessToken, new ModelUserInfo.ChangeTeacherCallBack() {
+        model.getTeacherFullName(accessToken, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
-            public void success(Map map) {
+            public void success(FullNameBlock block) {
                 if (view != null) {
-                    view.showDataFullName(map);
+                    view.showDataFullName(block);
                 }
             }
 
@@ -72,13 +75,13 @@ public class ChangeTeacherPresenter {
     }
 
     public void showTeacherDescription(String accessToken) {
-        model.getTeacherDescription(accessToken, new ModelUserInfo.ChangeTeacherCallBack() {
+        model.getTeacherDescription(accessToken, new ModelUserInfo.ChangeTeacherDescriptionCallBack() {
             @Override
-            public void success(Map map) {
+            public void success(Description description) {
                 if (view != null) {
-                    String description = (String) map.get("description");
+                    String text = description.toString();
 
-                    view.showDataDescription(description);
+                    view.showDataDescription(text);
                 }
             }
 
@@ -110,11 +113,11 @@ public class ChangeTeacherPresenter {
     }
 
     public void showTeacherContacts(String accessToken) {
-        model.getTeacherContacts(accessToken, new ModelUserInfo.ChangeTeacherCallBack() {
+        model.getTeacherContacts(accessToken, new ModelUserInfo.ChangeTeacherContactsBlockCallBack() {
             @Override
-            public void success(Map map) {
+            public void success(ContactsBlock block) {
                 if (view != null) {
-                    view.showDataContacts(map);
+                    view.showDataContacts(block);
                 }
             }
 
@@ -128,11 +131,11 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherFullName(String accessToken, Map<String, String> map) {
-        model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherCallBack() {
+        model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
-            public void success(Map map) {
+            public void success(FullNameBlock block) {
                 if (view != null) {
-                    view.changeFullNameSuccess(map);
+                    view.changeFullNameSuccess(block);
                 }
             }
 
@@ -146,14 +149,14 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherFullName(final String accessToken, final Bitmap photo, final int userId, Map<String, String> map) {
-        model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherCallBack() {
+        model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
-            public void success(final Map map) {
+            public void success(final FullNameBlock block) {
                 model.setPhoto(accessToken, String.valueOf(userId), photo, new ModelUserInfo.RegTeacherPhotoCallBack() {
                     @Override
                     public void success() {
                         if (view != null) {
-                            view.changeFullNameSuccess(map);
+                            view.changeFullNameSuccess(block);
                         }
                     }
 
@@ -176,7 +179,7 @@ public class ChangeTeacherPresenter {
     public void changeTeacherDescription(String accessToken, String description) {
         model.changeTeacherDescription(accessToken, description, new ModelUserInfo.ChangeTeacherCallBack() {
             @Override
-            public void success(Map map) {
+            public void success() {
                 if (view != null) {
                     view.changeDescriptionSuccess();
                 }
@@ -194,7 +197,7 @@ public class ChangeTeacherPresenter {
     public void changeTeacherSubjects(String accessToken, List<PriceList> lists) {
         model.changeTeacherSubjects(accessToken, lists, new ModelUserInfo.ChangeTeacherCallBack() {
             @Override
-            public void success(Map map) {
+            public void success() {
                 if (view != null) {
                     view.changeSubjectsSuccess();
                 }
@@ -210,11 +213,11 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherContacts(String accessToken, Map<String, String> map) {
-        model.changeTeacherContacts(accessToken, map, new ModelUserInfo.ChangeTeacherCallBack() {
+        model.changeTeacherContacts(accessToken, map, new ModelUserInfo.ChangeTeacherContactsBlockCallBack() {
             @Override
-            public void success(Map map) {
+            public void success(ContactsBlock block) {
                 if (view != null) {
-                    view.changeContactsSuccess(map);
+                    view.changeContactsSuccess(block);
                 }
             }
 

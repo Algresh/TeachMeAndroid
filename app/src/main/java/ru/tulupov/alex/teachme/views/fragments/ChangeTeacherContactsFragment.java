@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
+import ru.tulupov.alex.teachme.models.ContactsBlock;
 import ru.tulupov.alex.teachme.models.Subway;
 import ru.tulupov.alex.teachme.models.Teacher;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
@@ -44,6 +48,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
     City selectedCity;
 
     private List<Integer> listSelected;
+    private List<Integer> listIdSelected; // нужен если станции метро не были изменены
     private List<Subway> listSubways;
     private boolean subwayDialogIsDownloading;
     private int selectedPromotion = 0;
@@ -51,9 +56,9 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
     boolean leaveHouse = false;
 
     private String oldLogin;
-    private int oldPhone;
+    private String oldPhone;
 
-    private Map map;
+    private ContactsBlock block;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,13 +76,14 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         tvSubway = (TextView) view.findViewById(R.id.et_reg_teacher_subway);
 
-        String subwayStation = (String) map.get("subwayStation");
-        Double phoneNumber = (Double) map.get("phoneNumber");
-        oldPhone = phoneNumber.intValue();
-        String login = (String) map.get("login");
+        String subwayStation = block.getSubways();
+        String phoneNumber = block.getPhoneNumber();
+        oldPhone = phoneNumber;
+        String login =  block.getLogin();
         oldLogin = login;
-        Double typeAnketa = (Double) map.get("typeAnketa");
-        Boolean leave = (Boolean) map.get("leaveHouse");
+        int typeAnketa = block.getTypeAnketa();
+        leaveHouse = block.isLeaveHome();
+        Log.d(Constants.MY_TAG, leaveHouse + "||");
 
         if (selectedCity.isHasSubway()) {
 
@@ -90,7 +96,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
                     }
                 }
             });
-            tvSubway.setText(subwayStation.replace("\0", " "));
+            tvSubway.setText(subwayStation);
         } else  {
             tvSubway.setVisibility(View.GONE);
         }
@@ -102,15 +108,15 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
                 leaveHouse = b;
             }
         });
-        scLeaveHouse.setChecked(leave);
+        scLeaveHouse.setChecked(leaveHouse);
         edtPhone = (EditText) view.findViewById(R.id.edt_reg_teacher_phone);
-        edtPhone.setText(String.valueOf(phoneNumber.intValue()));
+        edtPhone.setText(String.valueOf(phoneNumber));
         edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
-        edtLogin.setText(login.replace("\0", " "));
+        edtLogin.setText(login);
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
-        int index = typeAnketa.intValue();
-        String strAnketa = getResources().getStringArray(R.array.promotion)[index];
+        selectedPromotion = typeAnketa;
+        String strAnketa = getResources().getStringArray(R.array.promotion)[typeAnketa];
         tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
         tvAnketa.setText(strAnketa);
         if (selectedPromotion != 0) {
@@ -128,12 +134,21 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         presenter = new CitySubjectPresenter();
         presenter.onCreate(null, null, this);
+        fullListIdSelected(block.getIdSubways());
 
         return view;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
+    public void setContactsBlock(ContactsBlock block) {
+        this.block = block;
+    }
+
+    private void fullListIdSelected (String strSubId) {
+        listIdSelected = new ArrayList<>();
+        String[] arrStr = strSubId.split(" ");
+        for (String s : arrStr) {
+            listIdSelected.add(Integer.parseInt(s));
+        }
     }
 
     @Override
@@ -170,6 +185,10 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
             for (int i = 0; i < listSelected.size(); i ++) {
                 strSubwayIds = strSubwayIds + listSubways.get( listSelected.get(i) ).getId() + " ";
             }
+        } else if (listIdSelected != null){
+            for (int i = 0; i < listIdSelected.size(); i ++) {
+                strSubwayIds = strSubwayIds + listIdSelected.get(i) + " ";
+            }
         }
 
         map.put("leaveHouse", String.valueOf(leaveHouse? 1: 0));
@@ -190,7 +209,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
     }
 
     public boolean isChangedPhone() {
-        if (oldPhone == Integer.parseInt(edtPhone.getText().toString())) {
+        if (oldPhone.equals(edtPhone.getText().toString())) {
             return false;
         }
 

@@ -4,6 +4,8 @@ package ru.tulupov.alex.teachme.views.activivties;
 import java.util.List;
 import java.util.Map;
 
+import ru.tulupov.alex.teachme.models.ContactsBlock;
+import ru.tulupov.alex.teachme.models.FullNameBlock;
 import ru.tulupov.alex.teachme.models.PriceList;
 
 public interface ChangeTeacherView {
@@ -11,10 +13,10 @@ public interface ChangeTeacherView {
     void emailAndLoginIsChecked(int err);
     void emailAndLoginIsCheckedError();
 
-    void showDataFullName(Map map);
+    void showDataFullName(FullNameBlock block);
     void errorDataFullName();
 
-    void showDataContacts(Map map);
+    void showDataContacts(ContactsBlock block);
     void errorDataContacts();
 
     void showDataDescription(String description);
@@ -23,10 +25,10 @@ public interface ChangeTeacherView {
     void showDataSubjects(List<PriceList> list);
     void errorDataSubjects();
 
-    void changeFullNameSuccess(Map map);
+    void changeFullNameSuccess(FullNameBlock block);
     void changeFullNameError();
 
-    void changeContactsSuccess(Map map);
+    void changeContactsSuccess(ContactsBlock block);
     void changeContactsError();
 
     void changeDescriptionSuccess();
