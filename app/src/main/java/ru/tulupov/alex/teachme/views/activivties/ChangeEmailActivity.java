@@ -13,7 +13,7 @@ import ru.tulupov.alex.teachme.views.fragments.RegConfirmationFragment;
 public class ChangeEmailActivity extends AppCompatActivity implements ChangeProfileView,
         ChangeEmailFragment.ChangeEmailListener, RegConfirmationFragment.CodeConfirmation {
 
-    ChangeProfilePresenter presenter;
+    protected ChangeProfilePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

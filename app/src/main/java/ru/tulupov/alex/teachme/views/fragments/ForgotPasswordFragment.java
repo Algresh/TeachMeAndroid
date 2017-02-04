@@ -16,12 +16,12 @@ import ru.tulupov.alex.teachme.R;
 
 public class ForgotPasswordFragment extends Fragment{
 
-    EditText edtEmail;
-    EditText edtPass;
-    EditText edtPassConfirm;
-    Button btn;
+    private EditText edtEmail;
+    private EditText edtPass;
+    private EditText edtPassConfirm;
+    private Button btn;
 
-    ForgotPass listener;
+    private ForgotPass listener;
 
     @Nullable
     @Override

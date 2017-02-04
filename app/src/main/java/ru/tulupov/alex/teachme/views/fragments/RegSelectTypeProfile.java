@@ -18,7 +18,7 @@ public class RegSelectTypeProfile extends Fragment {
         void selectPupil();
     }
 
-    SelectTypeProfile listener;
+    private SelectTypeProfile listener;
 
     @Nullable
     @Override

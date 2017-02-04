@@ -13,17 +13,16 @@ import java.util.Map;
 
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
-import ru.tulupov.alex.teachme.models.user.User;
 import ru.tulupov.alex.teachme.presenters.ChangeProfilePresenter;
 
-public class ChangePasswordActivity extends BaseNavigationActivity implements ChangeProfileView {
+public class ChangePasswordActivity extends BaseActivity implements ChangeProfileView {
 
     protected EditText edtOldPass;
     protected EditText edtNewPass;
     protected EditText edtNewPassConfirm;
     protected Button btnChange;
 
-    ChangeProfilePresenter presenter;
+    protected ChangeProfilePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +60,6 @@ public class ChangePasswordActivity extends BaseNavigationActivity implements Ch
         });
 
         initToolbar(R.string.changePasswordTitle, R.id.toolbarChangePassword);
-        initNavigationView();
     }
 
     @Override

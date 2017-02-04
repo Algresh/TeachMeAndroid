@@ -28,26 +28,26 @@ import ru.tulupov.alex.teachme.presenters.ShowTeacherPresenter;
 
 public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView {
 
-    Teacher teacher;
+    private Teacher teacher;
 
-    TextView tvFullName;
-    TextView tvAge;
-    TextView tvEmail;
-    TextView tvPhone;
-    TextView tvCity;
-    TextView tvOkrug;
-    TextView tvDistrict;
-    TextView tvSubways;
-    TextView tvLeaveHome;
-    TextView tvDescription;
-    ImageView ivAvatar;
-    LinearLayout llContainer;
+    private TextView tvFullName;
+    private TextView tvAge;
+    private TextView tvEmail;
+    private TextView tvPhone;
+    private TextView tvCity;
+    private TextView tvOkrug;
+    private TextView tvDistrict;
+    private TextView tvSubways;
+    private TextView tvLeaveHome;
+    private TextView tvDescription;
+    private ImageView ivAvatar;
+    private LinearLayout llContainer;
 
-    ImageButton ibSMS;
-    ImageButton ibCall;
-    ImageButton ibFavorite;
+    private ImageButton ibSMS;
+    private ImageButton ibCall;
+    private ImageButton ibFavorite;
 
-    ShowTeacherPresenter presenter;
+    private ShowTeacherPresenter presenter;
 
     private boolean isFavorite = false;
 

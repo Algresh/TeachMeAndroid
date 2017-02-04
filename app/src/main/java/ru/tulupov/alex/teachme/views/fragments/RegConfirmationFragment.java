@@ -17,9 +17,9 @@ import ru.tulupov.alex.teachme.R;
 
 public class RegConfirmationFragment extends Fragment {
 
-    EditText tvCode;
-    Button btnCode;
-    CodeConfirmation listener;
+    private EditText tvCode;
+    private Button btnCode;
+    private CodeConfirmation listener;
 
     public interface CodeConfirmation {
         void codeConfirm(String code);

@@ -34,24 +34,24 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYP
 
 public class ListTeachersActivity extends BaseActivity implements ListTeachersView {
 
-    User user;
-    ListTeachersPresenter presenter;
-    RecyclerView recyclerView;
-    LinearLayoutManager manager;
+    protected User user;
+    protected ListTeachersPresenter presenter;
+    protected RecyclerView recyclerView;
+    protected LinearLayoutManager manager;
 
-    int typeSearch;
+    protected int typeSearch;
 
-    int pages = 0;
-    boolean isLastPage = false;
-    boolean teachersAreDownloading = false;
-    int cityId = 1;
-    int subjectId = 1;
-    int expId;
-    int price;
-    String subwaysIds;
-    boolean leaveHouse;
-    boolean isPhoto;
-    Map<String, String> mapFields;
+    protected int pages = 0;
+    protected boolean isLastPage = false;
+    protected boolean teachersAreDownloading = false;
+    protected int cityId = 1;
+    protected int subjectId = 1;
+    protected int expId;
+    protected int price;
+    protected String subwaysIds;
+    protected boolean leaveHouse;
+    protected boolean isPhoto;
+    protected Map<String, String> mapFields;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +139,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
 
     @Override
     public void errorListTeachers() {
-        Toast.makeText(this, "dsasdasd", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

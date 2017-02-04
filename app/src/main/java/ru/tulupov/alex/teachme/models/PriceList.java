@@ -1,9 +1,5 @@
 package ru.tulupov.alex.teachme.models;
 
-/**
- * Created by alex on 14.01.17.
- */
-
 public class PriceList {
 
     protected int id;

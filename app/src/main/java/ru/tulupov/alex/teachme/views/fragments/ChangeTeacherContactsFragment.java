@@ -45,7 +45,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
     private CitySubjectPresenter presenter;
 
-    City selectedCity;
+    private City selectedCity;
 
     private List<Integer> listSelected;
     private List<Integer> listIdSelected; // нужен если станции метро не были изменены

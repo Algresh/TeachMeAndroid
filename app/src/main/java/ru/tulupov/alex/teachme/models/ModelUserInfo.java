@@ -20,6 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import ru.tulupov.alex.teachme.Constants;
+import ru.tulupov.alex.teachme.models.api.MainApi;
 import ru.tulupov.alex.teachme.models.api.UserApi;
 
 public class ModelUserInfo {
@@ -120,12 +121,17 @@ public class ModelUserInfo {
         void error();
     }
 
-    public void login(String login, String password, final ModelCallBack callback) {
+    protected UserApi api;
+
+    public ModelUserInfo() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        UserApi api = retrofit.create(UserApi.class);
+        api = retrofit.create(UserApi.class);
+    }
+
+    public void login(String login, String password, final ModelCallBack callback) {
         Call<Object> call = api.login(login, password);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -162,9 +168,6 @@ public class ModelUserInfo {
     }
 
     public void registerTeacher(final RegTeacherCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
         Map<String, String> map = teacherRegistration.getMapData();
@@ -179,7 +182,6 @@ public class ModelUserInfo {
             listExp.add(priceList.getExperience());
         }
 
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registrationTeacher(map, listSbj, listPrice, listExp);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -209,14 +211,9 @@ public class ModelUserInfo {
     }
 
     public void registerPupil(final RegPupilCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         PupilRegistration pupilRegistration = PupilRegistration.getInstance();
         Map fields = pupilRegistration.getMapData();
 
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registrationPupil(fields);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -248,9 +245,6 @@ public class ModelUserInfo {
     }
 
     public void setPhoto(String accessToken, String id, final RegTeacherPhotoCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
@@ -272,7 +266,6 @@ public class ModelUserInfo {
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), id);
 
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registerPhotoTeacher(idBody, accessTokenBody, body);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -300,10 +293,6 @@ public class ModelUserInfo {
     }
 
     public void setPhoto(String accessToken, String id, Bitmap photo, final RegTeacherPhotoCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -322,12 +311,10 @@ public class ModelUserInfo {
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), id);
 
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registerPhotoTeacher(idBody, accessTokenBody, body);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.d(Constants.MY_TAG, "success Photo");
                 if(response == null || response.body() == null) {
                     callback.error(TYPE_ERROR_OTHER);
                     return;
@@ -350,11 +337,6 @@ public class ModelUserInfo {
     }
 
     public void registerConfirmationTeacher(String accessToken, String code, final RegTeacherConfirmCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registrationConfirmationTeacher(accessToken, code);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -383,11 +365,6 @@ public class ModelUserInfo {
     }
 
     public void registerConfirmationPupil(String accessToken, String code, final RegPupilConfirmCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.registrationConfirmationPupil(accessToken, code);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -416,11 +393,6 @@ public class ModelUserInfo {
     }
 
     public void checkEmailAndLogin(String login, String email, String phone, final CheckLoginEmailCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.checkEmailAndLogin(login, email, phone);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -449,11 +421,6 @@ public class ModelUserInfo {
     }
 
     public void forgotPassword(String email, final ForgotPasswordCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.forgotPassword(email);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -482,11 +449,6 @@ public class ModelUserInfo {
 
     public void forgotPasswordConfirmation (String email, String userType, String newPassword,
                                             String code, final ForgotPasswordConfirmCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.forgotPasswordConfirmation(email, userType, newPassword, code);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -513,11 +475,6 @@ public class ModelUserInfo {
 
 
     public void getTeacherFullName(final String accessToken, final ChangeTeacherFullNameCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<FullNameBlock> call = api.getTeacherFullName(accessToken);
         call.enqueue(new Callback<FullNameBlock>() {
             @Override
@@ -543,11 +500,6 @@ public class ModelUserInfo {
     }
 
     public void getTeacherContacts(final String accessToken, final ChangeTeacherContactsBlockCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<ContactsBlock> call = api.getTeacherContacts(accessToken);
         call.enqueue(new Callback<ContactsBlock>() {
             @Override
@@ -574,11 +526,6 @@ public class ModelUserInfo {
     }
 
     public void getTeacherDescription(final String accessToken, final ChangeTeacherDescriptionCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Description> call = api.getTeacherDescription(accessToken);
         call.enqueue(new Callback<Description>() {
             @Override
@@ -605,11 +552,6 @@ public class ModelUserInfo {
     }
 
     public void getTeacherSubjects(final String accessToken, final ChangeTeacherPriceListCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<List<PriceList>> call = api.getTeacherPriceList(accessToken);
         call.enqueue(new Callback<List<PriceList>>() {
             @Override
@@ -636,11 +578,6 @@ public class ModelUserInfo {
     }
 
     public void changeTeacherFullName(String accessToken, Map<String, String> map, final ChangeTeacherFullNameCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<FullNameBlock> call = api.changeTeacherFullName(accessToken, map);
         call.enqueue(new Callback<FullNameBlock>() {
             @Override
@@ -666,11 +603,6 @@ public class ModelUserInfo {
     }
 
     public void changeTeacherDescription(String accessToken, String description, final ChangeTeacherCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.changeTeacherDescriptione(accessToken, description);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -696,10 +628,6 @@ public class ModelUserInfo {
     }
 
     public void changeTeacherSubjects(String accessToken, List<PriceList> priceLists, final ChangeTeacherCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
         ArrayList<String> listSbj = new ArrayList<>();
         ArrayList<String> listPrice = new ArrayList<>();
         ArrayList<String> listExp = new ArrayList<>();
@@ -710,7 +638,6 @@ public class ModelUserInfo {
             listExp.add(priceList.getExperience());
         }
 
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.changeTeacherSubjects(accessToken, priceLists.size(), listSbj, listPrice, listExp);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -735,11 +662,6 @@ public class ModelUserInfo {
     }
 
     public void changeTeacherContacts(String accessToken, Map<String, String> map, final ChangeTeacherContactsBlockCallBack callback) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<ContactsBlock> call = api.changeTeacherContacts(accessToken, map);
         call.enqueue(new Callback<ContactsBlock>() {
             @Override
@@ -764,11 +686,6 @@ public class ModelUserInfo {
     }
 
     public void changePassword(Map<String, String> map, String accessToken, final ChangePasswordCallBack callBack) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.changePassword(accessToken, map);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -803,14 +720,7 @@ public class ModelUserInfo {
     }
 
 
-
-
     public void changeTeacherEmail(String email, String accessToken, final ChangeEmailCallBack callBack) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.changeTeacherEmail(accessToken, email);
         call.enqueue(new Callback<Object>() {
             @Override
@@ -833,11 +743,6 @@ public class ModelUserInfo {
     }
 
     public void changeTeacherEmailConfirmation(String code, String accessToken, final ChangeEmailConfirmCallBack callBack) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        UserApi api = retrofit.create(UserApi.class);
         Call<Object> call = api.changeTeacherEmailConfirmation(accessToken, code);
         call.enqueue(new Callback<Object>() {
             @Override

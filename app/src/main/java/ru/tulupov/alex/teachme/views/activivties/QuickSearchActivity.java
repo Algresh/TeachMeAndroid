@@ -31,22 +31,22 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYP
 public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowSubject,
         QuickSearchView, FragmentCityDialog.SelectCity, FragmentSubjectDialog.SelectSubject {
 
-    CitySubjectPresenter presenterCitySubject;
-    QuickSearchPresenter presenterSearch;
+    private CitySubjectPresenter presenterCitySubject;
+    private QuickSearchPresenter presenterSearch;
 
-    TextView tvCity;
-    TextView tvSubject;
-    SwitchCompat swLeaveHouse;
-    Button btnSearch;
+    private TextView tvCity;
+    private TextView tvSubject;
+    private SwitchCompat swLeaveHouse;
+    private Button btnSearch;
 
-    List<City> listCities;
-    List<Subject> listSubjects;
-    int indexSelectedCity = 0;
-    int indexSelectedSubject = 0;
-    City selectedCity;
-    Subject selectedSubject;
+    private List<City> listCities;
+    private List<Subject> listSubjects;
+    private int indexSelectedCity = 0;
+    private int indexSelectedSubject = 0;
+    private City selectedCity;
+    private Subject selectedSubject;
 
-    boolean leaveHouse = false;
+    private boolean leaveHouse = false;
 
 
     private boolean dialogIsDownloading = false;

@@ -42,7 +42,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
     private CitySubjectPresenter presenter;
 
-    City selectedCity;
+    private City selectedCity;
 
     private List<Integer> listSelected;
     private List<Subway> listSubways;

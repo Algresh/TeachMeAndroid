@@ -23,12 +23,12 @@ import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 public class RegPupilContacts extends Fragment implements ShowCity,
         RegDataCorrect ,FragmentCityDialog.SelectCity, CheckLoginEmailExisted{
 
-    TextView tvPassDiffer;
-    TextView tvCity;
-    EditText edtEmail;
-    EditText edtLogin;
-    EditText edtPassword;
-    EditText edtPasswordConfirm;
+    private TextView tvPassDiffer;
+    private TextView tvCity;
+    private EditText edtEmail;
+    private EditText edtLogin;
+    private EditText edtPassword;
+    private EditText edtPasswordConfirm;
 
     private City selectedCity;
     private int indexSelectedCity = 0;

@@ -18,7 +18,7 @@ import ru.tulupov.alex.teachme.models.TeacherRegistration;
 
 public class RegTeacherAgreementFragment extends Fragment implements RegDataCorrect{
 
-    SwitchCompat swAgreement;
+    private SwitchCompat swAgreement;
 
     private boolean isAgree = false;
 
@@ -29,8 +29,6 @@ public class RegTeacherAgreementFragment extends Fragment implements RegDataCorr
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reg_teacher_agreement, container, false);
         swAgreement = (SwitchCompat) view.findViewById(R.id.reg_teacher_agreement);
-//        TextView tv = (TextView) view.findViewById(R.id.test_param);
-//        tv.setText(TeacherRegistration.getInstance().toString());
 
         swAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -39,12 +37,6 @@ public class RegTeacherAgreementFragment extends Fragment implements RegDataCorr
             }
         });
         return view;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-//        listener = (TeacherAgreement) activity;
-        super.onAttach(activity);
     }
 
     @Override

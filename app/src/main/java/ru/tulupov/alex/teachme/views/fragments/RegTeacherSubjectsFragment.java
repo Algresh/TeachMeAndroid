@@ -66,7 +66,6 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
         viewList.add(viewSubject);
         subjectsContainer.addView(viewSubject);
-//        priceLists.add(new PriceList());
         numSubjects++;
     }
 

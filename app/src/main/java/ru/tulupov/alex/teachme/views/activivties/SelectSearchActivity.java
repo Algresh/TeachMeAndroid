@@ -10,9 +10,9 @@ import ru.tulupov.alex.teachme.R;
 
 public class SelectSearchActivity extends BaseNavigationActivity {
 
-    Button btnSearch;
-    Button btnQuickSearch;
-    Button btnFullSearch;
+    private Button btnSearch;
+    private Button btnQuickSearch;
+    private Button btnFullSearch;
 
     public static final int TYPE_SEARCH_MY_CITY = 0;
     public static final int TYPE_SEARCH_QUICK = 1;

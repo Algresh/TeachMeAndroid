@@ -38,14 +38,14 @@ public class RegTeacherFullNameFragment extends Fragment
         implements ShowCity, FragmentCityDialog.SelectCity, RegDataCorrect {
     private final int pickImageResult = 1;
 
-    EditText etBirthday;
-    EditText etFirstName;
-    EditText etLastName;
-    EditText etFatherName;
-    EditText etOkrug;
-    EditText etDistrict;
-    TextView etCity;
-    ImageView ivAvatar;
+    private EditText etBirthday;
+    private EditText etFirstName;
+    private EditText etLastName;
+    private EditText etFatherName;
+    private EditText etOkrug;
+    private EditText etDistrict;
+    private TextView etCity;
+    private ImageView ivAvatar;
     private CitySubjectPresenter presenter;
     private List<City> listCities;
 
@@ -351,12 +351,6 @@ public class RegTeacherFullNameFragment extends Fragment
 
     protected void initFields() {
         TeacherRegistration teacher = TeacherRegistration.getInstance();
-//        etBirthday.setText(teacher.getBirthDate());
-//        etFirstName.setText(teacher.getFirstName());
-//        etLastName.setText(teacher.getLastName());
-//        etFatherName.setText(teacher.getFatherName());
-//        etOkrug.setText(teacher.getOkrug());
-//        etDistrict.setText(teacher.getDistrict());
         bitmapPhoto = teacher.getPhoto();
         if (bitmapPhoto != null) {
             ivAvatar.setImageBitmap(bitmapPhoto);
