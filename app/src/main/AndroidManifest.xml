@@ -17,6 +17,7 @@
         <activity android:name=".views.activivties.MainActivity" />
         <activity
             android:name=".views.activivties.LoginActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -122,7 +122,7 @@ public class Teacher implements Parcelable {
 
         String ageStr = resources.getString(R.string.ageShowTeacher);
 
-        return ageStr + age + " " + typeStrYear;
+        return ageStr + " " + age + " " + typeStrYear;
 
     }
 

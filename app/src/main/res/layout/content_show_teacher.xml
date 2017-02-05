@@ -25,7 +25,7 @@
                     android:id="@+id/avatarImageShowTeacher"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    tools:src="@drawable/testimage"
+                    tools:src="@drawable/logo"
                     app:civ_border_width="0dp"
                     app:civ_border_color="#FF000000"/>
 
