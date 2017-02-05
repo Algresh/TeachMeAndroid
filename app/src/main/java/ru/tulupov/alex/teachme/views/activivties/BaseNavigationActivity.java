@@ -1,7 +1,10 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -18,12 +22,24 @@ import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
 import ru.tulupov.alex.teachme.models.user.User;
+import ru.tulupov.alex.teachme.presenters.BasePresenter;
+import ru.tulupov.alex.teachme.views.fragments.FreezeDialogFragment;
 
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_FAVORITE;
 
 
-public class BaseNavigationActivity extends BaseActivity {
+public class BaseNavigationActivity extends BaseActivity implements FreezeDialogFragment.FreezeListener, BaseView {
+
+    protected BasePresenter presenter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        presenter = new BasePresenter();
+        presenter.onCreate(this);
+    }
 
     protected void initNavigationView() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout_main);
@@ -87,9 +103,14 @@ public class BaseNavigationActivity extends BaseActivity {
                     case R.id.nav_edit_profile:
                         intent = new Intent(BaseNavigationActivity.this, SelectChangesActivity.class);
                         break;
+                    case R.id.nav_freeze:
+                        showFreeze();
+                        break;
                 }
 
-                startActivity(intent);
+                if (intent != null) {
+                    startActivity(intent);
+                }
 
                 return true;
             }
@@ -106,7 +127,36 @@ public class BaseNavigationActivity extends BaseActivity {
         }
     }
 
+    protected void showFreeze() {
+        FreezeDialogFragment dialog = new FreezeDialogFragment();
+
+        FragmentManager manager = getSupportFragmentManager();
+        dialog.show(manager, "freeze");
+    }
+
     protected void logOut() {
         MyApplications.getUser().clearAllData(this);
+    }
+
+    @Override
+    public void freezeTeacher() {
+        User user = MyApplications.getUser();
+        String accessToken = user.getAccessToken(this);
+        presenter.freezeTeacher(accessToken);
+    }
+
+    @Override
+    public void freezeTeacherSuccess() {
+        Toast.makeText(this, R.string.showTeacherAnketaStop, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void unfreezeTeacherSuccess() {
+        Toast.makeText(this, R.string.showTeacherAnketaStart, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void freezeTeacherError() {
+        Toast.makeText(this, R.string.somethingBroken, Toast.LENGTH_SHORT).show();
     }
 }

@@ -122,6 +122,10 @@
     <string name="leaveHomeYes">Выезд на дом: Да</string>
     <string name="leaveHomeNo">Выезд на дом: Нет</string>
 
+    <string name="showTeacherAnketaStop">Показ анкеты приостановлен</string>
+    <string name="showTeacherAnketaStart">Показ анкеты возобновлен</string>
+    <string name="somethingBroken">Что то не работает</string>
+
     <string name="priceListFormat">%1$s %2$d руб, опыт %3$s</string>
 
     <string name="noPermissionSMS">Sorry, You don`t have permission for sms sending</string>
@@ -156,7 +160,7 @@
         <item>agreementPupil</item>
     </string-array>
 
-
+    <string name="title_dialog_freeze">Приостановить показ анкеты?</string>
     <string name="title_dialog_city">Выбор города</string>
     <string name="title_dialog_subway">Выбор метро</string>
     <string name="title_dialog_subject">Выбор предмета</string>

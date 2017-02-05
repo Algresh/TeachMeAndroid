@@ -1,6 +1,11 @@
 package ru.tulupov.alex.teachme.models;
 
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +45,12 @@ public class ModelMainImpl {
         void error();
     }
 
+    public interface FreezeCallBack {
+        void freezeSuccess();
+        void unfreezeSuccess();
+        void error();
+    }
+
     private MainApi mainApi;
 
     public ModelMainImpl() {
@@ -48,6 +59,39 @@ public class ModelMainImpl {
                 .build();
 
         mainApi = retrofit.create(MainApi.class);
+    }
+
+    public void freezeTeacher(String accessToekn, final FreezeCallBack callback) {
+        Call<Object> call = mainApi.freezeTeacher(accessToekn);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 403) {
+                    callback.error();
+                } else {
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    Double enable = (Double) fields.get("enable");
+                    if (enable.intValue() == 1) {
+                        callback.unfreezeSuccess();
+                    } else {
+                        callback.freezeSuccess();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
+                callback.error();
+            }
+        });
     }
 
     public void getCities(final ModelMainCitiesCallBack callback) {

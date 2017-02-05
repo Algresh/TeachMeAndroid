@@ -23,6 +23,7 @@ public abstract class User {
 
     public static final int TYPE_ENABLE_ENABLE = 1;
     public static final int TYPE_ENABLE_DISABLE = 0;
+    public static final int TYPE_ENABLE_LOCKED = -1;
 
     protected String typeUser;
     protected String accessToken;

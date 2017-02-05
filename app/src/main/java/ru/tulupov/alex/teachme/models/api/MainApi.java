@@ -46,4 +46,8 @@ public interface MainApi {
     @POST("/api/set/favorite")
     Call<Object> setFavorite(@Field("accessToken") String accessToken, @Field("teacherId") int id);
 
+    @FormUrlEncoded
+    @POST("/api/teacher/freeze")
+    Call<Object> freezeTeacher(@Field("accessToken") String accessToken);
+
 }
