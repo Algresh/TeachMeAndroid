@@ -125,6 +125,7 @@
     <string name="showTeacherAnketaStop">Показ анкеты приостановлен</string>
     <string name="showTeacherAnketaStart">Показ анкеты возобновлен</string>
     <string name="somethingBroken">Что то не работает</string>
+    <string name="noInternetAccess">Нет подключения к интернету</string>
 
     <string name="priceListFormat">%1$s %2$d руб, опыт %3$s</string>
 
@@ -164,5 +165,6 @@
     <string name="title_dialog_city">Выбор города</string>
     <string name="title_dialog_subway">Выбор метро</string>
     <string name="title_dialog_subject">Выбор предмета</string>
+    <string name="loginOrPasswordError">Не правильный логин или пароль</string>
 
 </resources>

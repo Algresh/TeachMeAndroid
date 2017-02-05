@@ -1,6 +1,9 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -79,9 +82,12 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     private void initFragment() {
-
-        User user = MyApplications.getUser();
-        presenter.showTeacherFullName(user.getAccessToken(this));
+        if (checkConnection()) {
+            User user = MyApplications.getUser();
+            presenter.showTeacherFullName(user.getAccessToken(this));
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initArrayTags() {
@@ -109,54 +115,61 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
     protected void toNextFragmentTeacher() {
 
-        if (currRegDataCorrect.dataIsCorrect()) {
-            if (registerStep == 1) {
-                RegTeacherFullNameFragment fragment = (RegTeacherFullNameFragment) currRegDataCorrect;
-                Map<String, String> map = fragment.getDataMap();
-                String accessToken = MyApplications.getUser().getAccessToken(this);
-                if (fragment.isPhotoChanged()) {
-                    int userId = MyApplications.getUser().getUserId(this);
-                    Log.d(Constants.MY_TAG, userId + "");
-                    presenter.changeTeacherFullName(accessToken, fragment.getBitmapPhoto(), userId, map);
-                } else {
-                    presenter.changeTeacherFullName(accessToken, map);
-                }
-            }
-
-            if (registerStep == 2) {
-                RegTeacherAboutFragment fragment = (RegTeacherAboutFragment) currRegDataCorrect;
-                String description = fragment.getTextAbout();
-                String accessToken = MyApplications.getUser().getAccessToken(this);
-                presenter.changeTeacherDescription(accessToken, description);
-            }
-
-            if (registerStep == 3) {
-                RegTeacherSubjectsFragment fragment = (RegTeacherSubjectsFragment) currRegDataCorrect;
-                List<PriceList> priceLists = fragment.getPriceLists();
-                String accessToken = MyApplications.getUser().getAccessToken(this);
-                presenter.changeTeacherSubjects(accessToken, priceLists);
-            }
-
-            if (registerStep == 4) {
-                if (checkingLoginEmail) {
-                    return;
-                }
-                checkingLoginEmail = true;
-                ChangeTeacherContactsFragment fragment = (ChangeTeacherContactsFragment) currRegDataCorrect;
-                String login = "";
-                String phone = "";
-
-                if (fragment.isChangedLogin()) {
-                    login = fragment.getLogin();
+        if (checkConnection()) {
+            if (currRegDataCorrect.dataIsCorrect()) {
+                if (registerStep == 1) {
+                    RegTeacherFullNameFragment fragment = (RegTeacherFullNameFragment) currRegDataCorrect;
+                    Map<String, String> map = fragment.getDataMap();
+                    String accessToken = MyApplications.getUser().getAccessToken(this);
+                    if (fragment.isPhotoChanged()) {
+                        int userId = MyApplications.getUser().getUserId(this);
+                        Log.d(Constants.MY_TAG, userId + "");
+                        presenter.changeTeacherFullName(accessToken, fragment.getBitmapPhoto(), userId, map);
+                    } else {
+                        presenter.changeTeacherFullName(accessToken, map);
+                    }
                 }
 
-                if (fragment.isChangedPhone()) {
-                    phone = fragment.getPhone();
+                if (registerStep == 2) {
+                    RegTeacherAboutFragment fragment = (RegTeacherAboutFragment) currRegDataCorrect;
+                    String description = fragment.getTextAbout();
+                    String accessToken = MyApplications.getUser().getAccessToken(this);
+                    presenter.changeTeacherDescription(accessToken, description);
                 }
 
-                presenter.checkEmailAndLogin(login, "", phone);
+                if (registerStep == 3) {
+                    RegTeacherSubjectsFragment fragment = (RegTeacherSubjectsFragment) currRegDataCorrect;
+                    List<PriceList> priceLists = fragment.getPriceLists();
+                    String accessToken = MyApplications.getUser().getAccessToken(this);
+                    presenter.changeTeacherSubjects(accessToken, priceLists);
+                }
+
+                if (registerStep == 4) {
+                    if (checkingLoginEmail) {
+                        return;
+                    }
+                    checkingLoginEmail = true;
+                    ChangeTeacherContactsFragment fragment = (ChangeTeacherContactsFragment) currRegDataCorrect;
+                    String login = "";
+                    String phone = "";
+
+                    if (fragment.isChangedLogin()) {
+                        login = fragment.getLogin();
+                    }
+
+                    if (fragment.isChangedPhone()) {
+                        phone = fragment.getPhone();
+                    }
+
+                    presenter.checkEmailAndLogin(login, "", phone);
+                }
             }
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
+
+
+
     }
 
     @Override
@@ -262,8 +275,13 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
     @Override
     public void changeDescriptionSuccess() {
-        String accessToken = MyApplications.getUser().getAccessToken(this);
-        presenter.showTeacherSubjects(accessToken);
+        if (checkConnection()) {
+            String accessToken = MyApplications.getUser().getAccessToken(this);
+            presenter.showTeacherSubjects(accessToken);
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -273,27 +291,18 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
     @Override
     public void changeSubjectsSuccess() {
-        String accessToken = MyApplications.getUser().getAccessToken(this);
-        presenter.showTeacherContacts(accessToken);
+        if (checkConnection()) {
+            String accessToken = MyApplications.getUser().getAccessToken(this);
+            presenter.showTeacherContacts(accessToken);
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void changeSubjectsError() {
 
     }
-
-//    protected void setUpNextFragmentTeacher() {
-//        FragmentManager manager = getSupportFragmentManager();
-//        Fragment fragment = getFragmentTeacherStep(registerStep);
-//        if (fragment != null) {
-//            currRegDataCorrect = (RegDataCorrect) fragment;
-//            manager.beginTransaction()
-//                    .replace(R.id.reg_fragment_container, fragment, regFragmentTagsTeacher[registerStep])
-//                    .addToBackStack(regFragmentTagsTeacher[registerStep])
-//                    .commit();
-//            registerStep++;
-//        }
-//    }
 
     protected void toPreviousFragmentTeacher() {
         registerStep--;
@@ -307,21 +316,18 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         onBackPressed();
     }
 
-//    protected Fragment getFragmentTeacherStep (int step) {
-//
-//        switch (step) {
-//            case 0:
-//                return new RegTeacherFullNameFragment();
-//            case 1:
-//                return new RegTeacherAboutFragment();
-//            case 2:
-//                return new RegTeacherSubjectsFragment();
-//            case 3:
-//                return new RegTeacherContactsFragment();
-//        }
-//
-//        return null;
-//    }
+    protected boolean checkConnection() {
+        ConnectivityManager connectChecker = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void emailAndLoginIsChecked(int err) {
@@ -329,10 +335,13 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         ChangeTeacherContactsFragment fragment = (ChangeTeacherContactsFragment) currRegDataCorrect;
         fragment.showLoginEmailNotExisted();
         if (err == 0) {
-            Map<String, String> map = fragment.getDataMap();
-            String accessToken = MyApplications.getUser().getAccessToken(this);
-            presenter.changeTeacherContacts(accessToken, map);
-
+            if (checkConnection()) {
+                Map<String, String> map = fragment.getDataMap();
+                String accessToken = MyApplications.getUser().getAccessToken(this);
+                presenter.changeTeacherContacts(accessToken, map);
+            } else {
+                Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (err % 10 == 1) {

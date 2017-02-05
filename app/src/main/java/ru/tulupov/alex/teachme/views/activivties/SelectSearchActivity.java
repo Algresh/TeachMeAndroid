@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import ru.tulupov.alex.teachme.R;
 
@@ -38,25 +39,38 @@ public class SelectSearchActivity extends BaseNavigationActivity {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectSearchActivity.this, MainSearchActivity.class);
-                startActivity(intent);
+                if (checkConnection()) {
+                    Intent intent = new Intent(SelectSearchActivity.this, MainSearchActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SelectSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         btnQuickSearch = (Button) findViewById(R.id.btn_search_quick);
         btnQuickSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectSearchActivity.this, QuickSearchActivity.class);
-                startActivity(intent);
+                if (checkConnection()) {
+                    Intent intent = new Intent(SelectSearchActivity.this, QuickSearchActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SelectSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnFullSearch = (Button) findViewById(R.id.btn_search_all_profiles);
         btnFullSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectSearchActivity.this, ListTeachersActivity.class);
-                intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_MY_CITY);
-                startActivity(intent);
+                if (checkConnection()) {
+                    Intent intent = new Intent(SelectSearchActivity.this, ListTeachersActivity.class);
+                    intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_MY_CITY);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SelectSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

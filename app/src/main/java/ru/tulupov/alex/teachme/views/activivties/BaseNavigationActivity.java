@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -74,6 +75,9 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
             }
         }
         if (viewHeader != null) {
+            TextView tvEmail = (TextView) viewHeader.findViewById(R.id.emailNavHead);
+            String email = user.getEmail(this);
+            tvEmail.setText(email);
             navigationView.addHeaderView(viewHeader);
         }
 
@@ -99,6 +103,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                     case R.id.nav_logout:
                         logOut();
                         intent = new Intent(BaseNavigationActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         break;
                     case R.id.nav_edit_profile:
                         intent = new Intent(BaseNavigationActivity.this, SelectChangesActivity.class);
@@ -128,10 +133,13 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
     }
 
     protected void showFreeze() {
-        FreezeDialogFragment dialog = new FreezeDialogFragment();
-
-        FragmentManager manager = getSupportFragmentManager();
-        dialog.show(manager, "freeze");
+        if (checkConnection()) {
+            FreezeDialogFragment dialog = new FreezeDialogFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            dialog.show(manager, "freeze");
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     protected void logOut() {

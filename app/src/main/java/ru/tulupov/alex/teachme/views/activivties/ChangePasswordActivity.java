@@ -13,6 +13,7 @@ import java.util.Map;
 
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
+import ru.tulupov.alex.teachme.models.user.User;
 import ru.tulupov.alex.teachme.presenters.ChangeProfilePresenter;
 
 public class ChangePasswordActivity extends BaseActivity implements ChangeProfileView {
@@ -43,16 +44,20 @@ public class ChangePasswordActivity extends BaseActivity implements ChangeProfil
                 String oldPass = edtOldPass.getText().toString();
 
                 if (newPass.equals(newPassConfirm)) {
-                    String accessToken = MyApplications.getUser().getAccessToken(ChangePasswordActivity.this);
-                    String email = MyApplications.getUser().getEmail(ChangePasswordActivity.this);
-                    String userType = MyApplications.getUser().getTypeUser(ChangePasswordActivity.this);
-                    Map<String, String> map = new HashMap<>();
-                    map.put("email", email);
-                    map.put("typeUser", userType);
-                    map.put("oldPassword", oldPass);
-                    map.put("newPassword", newPass);
+                    if (checkConnection()) {
+                        String accessToken = MyApplications.getUser().getAccessToken(ChangePasswordActivity.this);
+                        String email = MyApplications.getUser().getEmail(ChangePasswordActivity.this);
+                        String userType = MyApplications.getUser().getTypeUser(ChangePasswordActivity.this);
+                        Map<String, String> map = new HashMap<>();
+                        map.put("email", email);
+                        map.put("typeUser", userType);
+                        map.put("oldPassword", oldPass);
+                        map.put("newPassword", newPass);
 
-                    presenter.changePassword(map, accessToken);
+                        presenter.changePassword(map, accessToken);
+                    } else {
+                        Toast.makeText(ChangePasswordActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(ChangePasswordActivity.this, R.string.text_is_differ, Toast.LENGTH_SHORT).show();
                 }

@@ -2,6 +2,8 @@ package ru.tulupov.alex.teachme.views.activivties;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.FileOutputStream;
 
@@ -83,7 +86,7 @@ public class LoginActivity extends AppCompatActivity
                 if (registerUserType.equals(User.TYPE_USER_TEACHER)) {
                     toPreviousFragmentTeacher();
                 } else {
-
+                    toPreviousPupilTeacher();
                 }
             }
         });
@@ -96,7 +99,6 @@ public class LoginActivity extends AppCompatActivity
     private void initFragment() {
         FragmentManager manager = getSupportFragmentManager();
         LoginFragments loginFragments = new LoginFragments();
-//        LoginFragments loginFragments = new LoginFragments();
         manager.beginTransaction()
                 .add(R.id.reg_fragment_container, loginFragments)
                 .addToBackStack("login")
@@ -111,14 +113,13 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void logInSuccess() {
-        Log.d(Constants.MY_TAG, "URA");
         Intent intent = new Intent(this, SelectSearchActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void logInFail() {
-
+        Toast.makeText(this, R.string.loginOrPasswordError, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -139,12 +140,16 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void registerClick() {
-        FragmentManager manager = getSupportFragmentManager();
-        RegSelectTypeProfile fragment = new RegSelectTypeProfile();
-        manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, fragment, "selectProfile")
-                .addToBackStack("selectProfile")
-                .commit();
+        if (checkConnection()) {
+            FragmentManager manager = getSupportFragmentManager();
+            RegSelectTypeProfile fragment = new RegSelectTypeProfile();
+            manager.beginTransaction()
+                    .replace(R.id.reg_fragment_container, fragment, "selectProfile")
+                    .addToBackStack("selectProfile")
+                    .commit();
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -159,7 +164,12 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void loginClick(String login, String password) {
-        presenter.logIn(login, password, this);
+        if (checkConnection()) {
+            presenter.logIn(login, password, this);
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     protected void toNextFragmentPupil () {
@@ -170,7 +180,11 @@ public class LoginActivity extends AppCompatActivity
             RegPupilContacts fragment = (RegPupilContacts) currRegDataCorrect;
             String login = fragment.getLogin();
             String email = fragment.getEmail();
-            presenter.checkEmailAndLogin(login, email, "");
+            if (checkConnection()) {
+                presenter.checkEmailAndLogin(login, email, "");
+            } else {
+                Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+            }
         }
 
 
@@ -178,7 +192,11 @@ public class LoginActivity extends AppCompatActivity
             pDialog = new ProgressDialog(this);
             pDialog.setMessage("");
             pDialog.show();
-            presenter.registrationPupil();
+            if (checkConnection()) {
+                presenter.registrationPupil();
+            } else {
+                Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
@@ -189,7 +207,12 @@ public class LoginActivity extends AppCompatActivity
             pDialog = new ProgressDialog(this);
             pDialog.setMessage("");
             pDialog.show();
-            presenter.registrationTeacher();
+
+            if (checkConnection()) {
+                presenter.registrationTeacher();
+            } else {
+                Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (currRegDataCorrect.dataIsCorrect()) {
@@ -202,7 +225,12 @@ public class LoginActivity extends AppCompatActivity
                 String login = fragment.getLogin();
                 String email = fragment.getEmail();
                 String phone = fragment.getPhone();
-                presenter.checkEmailAndLogin(login, email, phone);
+                if (checkConnection()) {
+                    presenter.checkEmailAndLogin(login, email, phone);
+                } else {
+                    Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                }
+
             } else {
                 setUpNextFragmentTeacher();
             }
@@ -236,15 +264,30 @@ public class LoginActivity extends AppCompatActivity
     }
 
     protected void toPreviousFragmentTeacher() {
+        onBackPressed();
+    }
+
+    protected void toPreviousPupilTeacher() {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
         registerStep--;
+
         if (registerStep == 0) {
             nextPrevPanel.setVisibility(View.GONE);
         } else {
-            currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
-                    .findFragmentByTag(regFragmentTagsTeacher[registerStep - 1]);
+            if (registerUserType != null && registerUserType.equals(User.TYPE_USER_TEACHER)) {
+                currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
+                        .findFragmentByTag(regFragmentTagsTeacher[registerStep - 1]);
+            } else if(registerUserType != null && registerUserType.equals(User.TYPE_USER_PUPIL)) {
+                currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
+                        .findFragmentByTag(regFragmentTagsPupil[registerStep - 1]);
+            }
         }
 
-        onBackPressed();
     }
 
     protected Fragment getFragmentTeacherStep (int step) {
@@ -279,14 +322,19 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void codeConfirm(String code) {
-        if (registerUserType != null && registerUserType.equals( User.TYPE_USER_TEACHER)) {
-            presenter.registerConfirmationTeacher(code, this);
-        }else if (registerUserType != null && registerUserType.equals( User.TYPE_USER_PUPIL)) {
-            presenter.registerConfirmationPupil(code, this);
+        if (checkConnection()) {
+            if (registerUserType != null && registerUserType.equals( User.TYPE_USER_TEACHER)) {
+                presenter.registerConfirmationTeacher(code, this);
+            } else if (registerUserType != null && registerUserType.equals( User.TYPE_USER_PUPIL)) {
+                presenter.registerConfirmationPupil(code, this);
+            } else {
+                presenter.forgotPasswordConfirm(forgotPasswordEmail, forgotPasswordType,
+                        forgotPasswordNewPass, code);
+            }
         } else {
-            presenter.forgotPasswordConfirm(forgotPasswordEmail, forgotPasswordType,
-                    forgotPasswordNewPass, code);
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
@@ -298,7 +346,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void registerConfirmTeacherError() {
-
+        Toast.makeText(this, R.string.somethingBroken, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -359,7 +407,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void registerConfirmPupilError() {
-
+        Toast.makeText(this, R.string.somethingBroken, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -375,7 +423,7 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void forgotPassEmailError() {
-
+        Toast.makeText(this, R.string.somethingBroken, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -385,52 +433,77 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void forgotPassConfirmError() {
-
+        Toast.makeText(this, R.string.somethingBroken, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void checkEmail(String email, String pass) {
         forgotPasswordEmail = email;
         forgotPasswordNewPass = pass;
-        presenter.forgotPassword(email);
+        if (checkConnection()) {
+            presenter.forgotPassword(email);
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void selectTeacher() {
-        registerUserType = User.TYPE_USER_TEACHER;
+        if (checkConnection()) {
+            registerUserType = User.TYPE_USER_TEACHER;
 
-        FragmentManager manager = getSupportFragmentManager();
-        RegTeacherFullNameFragment fragment = new RegTeacherFullNameFragment();
-        TeacherRegistration.clearInstance();
-        PupilRegistration.clearInstance();
+            FragmentManager manager = getSupportFragmentManager();
+            RegTeacherFullNameFragment fragment = new RegTeacherFullNameFragment();
+            TeacherRegistration.clearInstance();
+            PupilRegistration.clearInstance();
 
-        currRegDataCorrect = fragment;
-        manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, fragment, "fullName")
-                .addToBackStack("fullName")
-                .commit();
-        nextPrevPanel.setVisibility(View.VISIBLE);
+            currRegDataCorrect = fragment;
+            manager.beginTransaction()
+                    .replace(R.id.reg_fragment_container, fragment, "fullName")
+                    .addToBackStack("fullName")
+                    .commit();
+            nextPrevPanel.setVisibility(View.VISIBLE);
 
-        registerStep++;
+            registerStep++;
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void selectPupil() {
-        registerUserType = User.TYPE_USER_PUPIL;
+        if (checkConnection()) {
+            registerUserType = User.TYPE_USER_PUPIL;
 
-        FragmentManager manager = getSupportFragmentManager();
-        RegPupilContacts fragment = new RegPupilContacts();
-        TeacherRegistration.clearInstance();
-        PupilRegistration.clearInstance();
+            FragmentManager manager = getSupportFragmentManager();
+            RegPupilContacts fragment = new RegPupilContacts();
+            TeacherRegistration.clearInstance();
+            PupilRegistration.clearInstance();
 
-        currRegDataCorrect = fragment;
-        manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, fragment, "contactsPupil")
-                .addToBackStack("contactsPupil")
-                .commit();
-        nextPrevPanel.setVisibility(View.VISIBLE);
+            currRegDataCorrect = fragment;
+            manager.beginTransaction()
+                    .replace(R.id.reg_fragment_container, fragment, "contactsPupil")
+                    .addToBackStack("contactsPupil")
+                    .commit();
+            nextPrevPanel.setVisibility(View.VISIBLE);
 
-        registerStep++;
+            registerStep++;
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected boolean checkConnection() {
+        ConnectivityManager connectChecker = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 
 

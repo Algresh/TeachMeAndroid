@@ -1,5 +1,7 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -73,12 +75,33 @@ public class ChangeEmailActivity extends AppCompatActivity implements ChangeProf
 
     @Override
     public void changeEmail(String email, String accessToken) {
-        presenter.changeTeacherEmail(email, accessToken);
+        if (checkConnection()) {
+            presenter.changeTeacherEmail(email, accessToken);
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void codeConfirm(String code) {
-        String accessToken = MyApplications.getUser().getAccessToken(this);
-        presenter.changeTeacherEmailConfirmation(code, accessToken);
+        if (checkConnection()) {
+            String accessToken = MyApplications.getUser().getAccessToken(this);
+            presenter.changeTeacherEmailConfirmation(code, accessToken);
+        } else {
+            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected boolean checkConnection() {
+        ConnectivityManager connectChecker = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,14 +161,11 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     }
 
     protected boolean checkFields() {
-
         if (selectedSubject == null || selectedCity == null) {
             return false;
         }
 
         return true;
-
-
     }
 
     protected void initViews () {
@@ -177,8 +175,12 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
             @Override
             public void onClick(View view) {
                 if (!dialogIsDownloading) {
-                    dialogIsDownloading = true;
-                    presenterCitySubject.getListCities();
+                    if (checkConnection()) {
+                        dialogIsDownloading = true;
+                        presenterCitySubject.getListCities();
+                    } else {
+                        Toast.makeText(MainSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -187,8 +189,12 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
             @Override
             public void onClick(View view) {
                 if (!dialogIsDownloading) {
-                    dialogIsDownloading = true;
-                    presenterCitySubject.getListSubjects(0);
+                    if (checkConnection()) {
+                        dialogIsDownloading = true;
+                        presenterCitySubject.getListSubjects(0);
+                    } else {
+                        Toast.makeText(MainSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -208,8 +214,12 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
             @Override
             public void onClick(View view) {
                 if (!dialogIsDownloading && selectedCity != null && selectedCity.isHasSubway()) {
-                    dialogIsDownloading = true;
-                    presenterCitySubject.getListSubways(selectedCity.getId());
+                    if (checkConnection()) {
+                        dialogIsDownloading = true;
+                        presenterCitySubject.getListSubways(selectedCity.getId());
+                    } else {
+                        Toast.makeText(MainSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -247,22 +257,26 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     }
 
     protected void searchTeachers() {
-        if (checkFields()) {
-            Intent intent = new Intent(this, ListTeachersActivity.class);
-            intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_FULL);
-            intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
-            intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
-            intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
+        if (checkConnection()) {
+            if (checkFields()) {
+                Intent intent = new Intent(this, ListTeachersActivity.class);
+                intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_FULL);
+                intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
+                intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
+                intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
 
-            intent.putExtra(SEARCH_FIELD_PHOTO, photo);
-            intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
-            intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
-            String strSubIds = "";
-            for (Integer i : listSelectedSubways) {
-                strSubIds = strSubIds + listSubways.get(i).getId() + " ";
+                intent.putExtra(SEARCH_FIELD_PHOTO, photo);
+                intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
+                intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
+                String strSubIds = "";
+                for (Integer i : listSelectedSubways) {
+                    strSubIds = strSubIds + listSubways.get(i).getId() + " ";
+                }
+                intent.putExtra(SEARCH_FIELD_SUBWAY, strSubIds.trim());
+                startActivity(intent);
             }
-            intent.putExtra(SEARCH_FIELD_SUBWAY, strSubIds.trim());
-            startActivity(intent);
+        } else {
+            Toast.makeText(MainSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
     }
 

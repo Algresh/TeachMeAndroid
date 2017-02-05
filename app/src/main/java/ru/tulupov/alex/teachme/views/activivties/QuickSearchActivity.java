@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -67,8 +68,12 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
             @Override
             public void onClick(View view) {
                 if (!dialogIsDownloading) {
-                    dialogIsDownloading = true;
-                    presenterCitySubject.getListCities();
+                    if (checkConnection()) {
+                        dialogIsDownloading = true;
+                        presenterCitySubject.getListCities();
+                    } else {
+                        Toast.makeText(QuickSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -77,8 +82,12 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
             @Override
             public void onClick(View view) {
                 if (!dialogIsDownloading) {
-                    dialogIsDownloading = true;
-                    presenterCitySubject.getListSubjects(0);
+                    if (checkConnection()) {
+                        dialogIsDownloading = true;
+                        presenterCitySubject.getListSubjects(0);
+                    } else {
+                        Toast.makeText(QuickSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -94,12 +103,16 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
             @Override
             public void onClick(View view) {
                 if (checkFields()) {
-                    Intent intent = new Intent(QuickSearchActivity.this, ListTeachersActivity.class);
-                    intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_QUICK);
-                    intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
-                    intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
-                    intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
-                    startActivity(intent);
+                    if (checkConnection()) {
+                        Intent intent = new Intent(QuickSearchActivity.this, ListTeachersActivity.class);
+                        intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_QUICK);
+                        intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
+                        intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
+                        intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(QuickSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

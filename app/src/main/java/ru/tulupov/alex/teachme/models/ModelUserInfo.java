@@ -162,7 +162,7 @@ public class ModelUserInfo {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                Log.d(Constants.MY_TAG, "error: " + t.getMessage());
+                callback.error(TYPE_ERROR_OTHER);
             }
         });
     }
