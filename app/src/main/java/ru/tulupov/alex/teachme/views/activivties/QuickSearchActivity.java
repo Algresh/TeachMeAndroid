@@ -42,8 +42,8 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
 
     private List<City> listCities;
     private List<Subject> listSubjects;
-    private int indexSelectedCity = 0;
-    private int indexSelectedSubject = 0;
+    private int indexSelectedCity = -1;
+    private int indexSelectedSubject = -1;
     private City selectedCity;
     private Subject selectedSubject;
 

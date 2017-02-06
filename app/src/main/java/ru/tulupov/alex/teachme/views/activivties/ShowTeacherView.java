@@ -6,4 +6,7 @@ public interface ShowTeacherView {
     void setFavorite();
     void deleteFavorite();
     void errorFavorite();
+
+    void isFavoriteSuccess(boolean isFavorite);
+    void isFavoriteError();
 }

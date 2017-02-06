@@ -12,8 +12,8 @@ import ru.tulupov.alex.teachme.views.activivties.ShowTeacherView;
 
 public class ShowTeacherPresenter {
 
-    ShowTeacherView view;
-    ModelMainImpl model;
+    private ShowTeacherView view;
+    private ModelMainImpl model;
 
     public void onCreate(ShowTeacherView view) {
         this.view = view;
@@ -39,6 +39,25 @@ public class ShowTeacherPresenter {
                     view.errorFavorite();
                 }
             }
+        });
+    }
+
+    public void isFavorite (String accessToken, int idTeacher) {
+        model.isFavoriteTeacher(accessToken, idTeacher, new ModelMainImpl.ModelIsFavoriteCallBack() {
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.isFavoriteError();
+                }
+            }
+
+            @Override
+            public void success(boolean isFavorite) {
+                if (view != null) {
+                    view.isFavoriteSuccess(isFavorite);
+                }
+            }
+
         });
     }
 

@@ -114,6 +114,7 @@
     <string name="changes_profile">Изменить профиль</string>
     <string name="changes_email">Изменить Email</string>
     <string name="changes_password">Изменить пароль</string>
+    <string name="pleaseWait">Пожалуйста подождите</string>
 
     <string name="typeStrYearOne">Год</string>
     <string name="typeStrYearTwo">Года</string>

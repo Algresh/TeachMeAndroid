@@ -1,6 +1,5 @@
 package ru.tulupov.alex.teachme.models.api;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +40,15 @@ public interface MainApi {
 
     @GET("/api/search/teachers")
     Call<List<Teacher>> getTeachersMainSearch(@QueryMap Map<String, String> map);
+
+    @GET("/api/get/favorite/teachers")
+    Call<List<Teacher>> getFavoriteTeachers(@Query("accessToken") String accessToken);
+
+    @GET("/api/is/teacher/favorite")
+    Call<Object> isFavoriteTeacher(
+            @Query("accessToken") String accessToken,
+            @Query("teacherId") int id
+    );
 
     @FormUrlEncoded
     @POST("/api/set/favorite")

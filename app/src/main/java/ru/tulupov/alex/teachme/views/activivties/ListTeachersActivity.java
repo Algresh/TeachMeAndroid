@@ -94,8 +94,13 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
         }
 
         if (typeSearch == TYPE_SEARCH_FAVORITE) {
-            presenter.getListFavoriteTeachers(this);
             teachersAreDownloading = true;
+            if (checkConnection()) {
+                String accessToken = MyApplications.getUser().getAccessToken(this);
+                presenter.getFavoriteTeachers(accessToken);
+            } else {
+                presenter.getListFavoriteTeachers(this);
+            }
         }
 
 

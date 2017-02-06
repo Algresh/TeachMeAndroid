@@ -117,6 +117,10 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
         if (checkConnection()) {
             if (currRegDataCorrect.dataIsCorrect()) {
+                pDialog = new ProgressDialog(this);
+                pDialog.setMessage(getString(R.string.pleaseWait));
+                pDialog.show();
+
                 if (registerStep == 1) {
                     RegTeacherFullNameFragment fragment = (RegTeacherFullNameFragment) currRegDataCorrect;
                     Map<String, String> map = fragment.getDataMap();
@@ -146,6 +150,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
                 if (registerStep == 4) {
                     if (checkingLoginEmail) {
+                        pDialog.dismiss();
                         return;
                     }
                     checkingLoginEmail = true;
@@ -197,7 +202,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
     @Override
     public void changeFullNameError() {
-
+        if (pDialog != null) pDialog.dismiss();
     }
 
     @Override
@@ -211,12 +216,13 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
                 .replace(R.id.reg_fragment_container, fragment, regFragmentTagsTeacher[registerStep])
                 .addToBackStack("contacts")
                 .commit();
+        if (pDialog != null) pDialog.dismiss();
         registerStep++;
     }
 
     @Override
     public void errorDataContacts() {
-
+        if (pDialog != null) pDialog.dismiss();
     }
 
     @Override
@@ -230,12 +236,13 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
                 .replace(R.id.reg_fragment_container, fragment, regFragmentTagsTeacher[registerStep])
                 .addToBackStack("description")
                 .commit();
+        if (pDialog != null) pDialog.dismiss();
         registerStep++;
     }
 
     @Override
     public void errorDataDescription() {
-
+        if (pDialog != null) pDialog.dismiss();
     }
 
     @Override
@@ -250,12 +257,13 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
                 .replace(R.id.reg_fragment_container, fragment, regFragmentTagsTeacher[registerStep])
                 .addToBackStack("subjects")
                 .commit();
+        if (pDialog != null) pDialog.dismiss();
         registerStep++;
     }
 
     @Override
     public void errorDataSubjects() {
-
+        if (pDialog != null) pDialog.dismiss();
     }
 
     @Override
@@ -265,12 +273,13 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
         teacherUser.setLogin(this, login);
         Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
+        if (pDialog != null) pDialog.dismiss();
         finish();
     }
 
     @Override
     public void changeContactsError() {
-
+        if (pDialog != null) pDialog.dismiss();
     }
 
     @Override
@@ -286,7 +295,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
     @Override
     public void changeDescriptionError() {
-
+        if (pDialog != null) pDialog.dismiss();
     }
 
     @Override

@@ -61,7 +61,13 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
 
         Intent intent = getIntent();
         teacher = intent.getParcelableExtra("teacher");
-        isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+        if (!checkConnection()) {
+            isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+        } else {
+            String accessToken = MyApplications.getUser().getAccessToken(this);
+            presenter.isFavorite(accessToken, teacher.getId());
+        }
+
 
         initToolbar(teacher.getFullName(), R.id.toolbarShowTeachers);
 
@@ -208,6 +214,17 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         initFavoriteButton();
         presenter.saveFavorite(this, teacher);
         Log.d(Constants.MY_TAG, "saveFavorite");
+    }
+
+    @Override
+    public void isFavoriteSuccess(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+        initFavoriteButton();
+    }
+
+    @Override
+    public void isFavoriteError() {
+
     }
 
     @Override

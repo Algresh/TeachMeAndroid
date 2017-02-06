@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,14 +17,14 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment
     implements DatePickerDialog.OnDateSetListener
 {
-    private EditText etDate = null;
+    private TextView etDate = null;
     private void setText(String text) {
-        if ( etDate != null) {
+        if ( etDate != null && !text.equals("")) {
             etDate.setText(text);
         }
     }
 
-    public void setEditTextDate(EditText etDate) {
+    public void setEditTextDate(TextView etDate) {
         this.etDate = etDate;
     }
 

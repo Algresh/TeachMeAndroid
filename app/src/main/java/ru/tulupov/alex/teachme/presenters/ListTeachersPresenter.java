@@ -93,6 +93,25 @@ public class ListTeachersPresenter {
         });
     }
 
+    public void getFavoriteTeachers(String accessToken) {
+        model.getFavoriteTeachers(accessToken, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.showListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorListTeachers();
+                }
+            }
+        });
+    }
+
+
     public void addTeachersFullSearch(Map<String, String> map) {
         model.getTeachersSearchFull(map, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override

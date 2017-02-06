@@ -3,6 +3,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:paddingBottom="40dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:background="@color/colorBg">
 
     <ScrollView
@@ -73,9 +75,10 @@
                 android:layout_height="wrap_content"
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/register_teacher_birthday"
-                android:hint="@string/hint_birthday"
+                android:text="@string/hint_birthday"
+                android:textSize="18sp"
                 android:textColorHint="@android:color/white"
                 android:textColor="@android:color/white"
                 android:paddingLeft="@dimen/activity_horizontal_margin"

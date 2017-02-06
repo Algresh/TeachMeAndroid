@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class RegTeacherFullNameFragment extends Fragment
         implements ShowCity, FragmentCityDialog.SelectCity, RegDataCorrect {
     private final int pickImageResult = 1;
 
-    private EditText etBirthday;
+    private TextView etBirthday;
     private EditText etFirstName;
     private EditText etLastName;
     private EditText etFatherName;
@@ -121,7 +122,7 @@ public class RegTeacherFullNameFragment extends Fragment
         presenter.onCreate(this, null, null);
 
         View view = inflater.inflate(R.layout.fragment_reg_teacher_fullname, container, false);
-        etBirthday = (EditText) view.findViewById(R.id.register_teacher_birthday);
+        etBirthday = (TextView) view.findViewById(R.id.register_teacher_birthday);
         etBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,10 +290,20 @@ public class RegTeacherFullNameFragment extends Fragment
 
         String strBirthday = etBirthday.getText().toString().trim();
         if (strBirthday.length() != 10) {
-            warningColorEditText(etBirthday);
+            warningColorTextView(etBirthday);
             isCorrect = false;
         } else {
-            correctColorEditText(etBirthday);
+            try {
+                int year = Integer.parseInt(strBirthday.split("\\.")[2]);
+                Calendar c = Calendar.getInstance();
+                int currYear = c.get(Calendar.YEAR);
+                if (currYear - year < 18 || currYear - year > 100) {
+                    warningColorTextView(etBirthday);
+                    isCorrect = false;
+                } else {
+                    correctColorTextView(etBirthday);
+                }
+            }catch (IndexOutOfBoundsException ignore) {}
         }
 
         String strOkrug = etOkrug.getText().toString().trim();
@@ -358,6 +369,11 @@ public class RegTeacherFullNameFragment extends Fragment
         selectedCity = teacher.getCity();
         if (selectedCity != null) {
             etCity.setText(selectedCity.getTitle());
+        }
+
+        String birthDate = teacher.getBirthDate();
+        if (birthDate != null) {
+            etBirthday.setText(birthDate);
         }
     }
 

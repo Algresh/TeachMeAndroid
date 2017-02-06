@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity
 
         if (registerStep == 2) {
             pDialog = new ProgressDialog(this);
-            pDialog.setMessage("");
+            pDialog.setMessage(getString(R.string.pleaseWait));
             pDialog.show();
             if (checkConnection()) {
                 presenter.registrationPupil();
@@ -279,6 +279,11 @@ public class LoginActivity extends AppCompatActivity
         if (registerStep == 0) {
             nextPrevPanel.setVisibility(View.GONE);
         } else {
+            try {
+                /**
+                 * @TODO ощибка при нажатии назад!
+                 */
+            } catch (ArrayIndexOutOfBoundsException ignore) {}
             if (registerUserType != null && registerUserType.equals(User.TYPE_USER_TEACHER)) {
                 currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
                         .findFragmentByTag(regFragmentTagsTeacher[registerStep - 1]);

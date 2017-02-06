@@ -45,6 +45,11 @@ public class ModelMainImpl {
         void error();
     }
 
+    public interface ModelIsFavoriteCallBack {
+        void success(boolean isFavorite);
+        void error();
+    }
+
     public interface FreezeCallBack {
         void freezeSuccess();
         void unfreezeSuccess();
@@ -134,6 +139,56 @@ public class ModelMainImpl {
 
             @Override
             public void onFailure(Call<List<Subway>> call, Throwable t) {
+                callback.error();
+            }
+        });
+    }
+
+    public void getFavoriteTeachers (String accessToken, final ModelMainTeachersCallBack callback) {
+        Call<List<Teacher>> call = mainApi.getFavoriteTeachers(accessToken);
+        call.enqueue(new Callback<List<Teacher>>() {
+            @Override
+            public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Teacher>> call, Throwable t) {
+                callback.error();
+            }
+        });
+    }
+
+    public void isFavoriteTeacher (String accessToken, int id, final ModelIsFavoriteCallBack callback) {
+        Call<Object> call = mainApi.isFavoriteTeacher(accessToken, id);
+        call.enqueue(new Callback<Object>() {
+            @Override
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    Boolean favorite = (Boolean) fields.get("favorite");
+
+                    callback.success(favorite);
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Object> call, Throwable t) {
                 callback.error();
             }
         });

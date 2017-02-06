@@ -46,28 +46,28 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 
     CitySubjectPresenter presenterCitySubject;
 
-    TextView tvCity;
-    TextView tvSubject;
-    TextView tvExp;
-    TextView tvSubway;
-    View vSubwayLine;
-    EditText edtPrice;
-    SwitchCompat swLeaveHouse;
-    SwitchCompat swPhoto;
-    Button btnSearch;
+    protected TextView tvCity;
+    protected TextView tvSubject;
+    protected TextView tvExp;
+    protected TextView tvSubway;
+    protected View vSubwayLine;
+    protected EditText edtPrice;
+    protected SwitchCompat swLeaveHouse;
+    protected SwitchCompat swPhoto;
+    protected Button btnSearch;
 
-    List<City> listCities;
-    List<Subject> listSubjects;
-    List<Integer> listSelectedSubways;
-    List<Subway> listSubways;
-    int indexSelectedCity = -1;
-    int indexSelectedSubject = -1;
-    int indexSelectedExp = -1;
-    City selectedCity;
-    Subject selectedSubject;
+    protected List<City> listCities;
+    protected List<Subject> listSubjects;
+    protected List<Integer> listSelectedSubways;
+    protected List<Subway> listSubways;
+    protected int indexSelectedCity = -1;
+    protected int indexSelectedSubject = -1;
+    protected int indexSelectedExp = -1;
+    protected City selectedCity;
+    protected Subject selectedSubject;
 
-    boolean leaveHouse = false;
-    boolean photo = false;
+    protected boolean leaveHouse = false;
+    protected boolean photo = false;
 
 
     private boolean dialogIsDownloading = false;
