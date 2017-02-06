@@ -152,10 +152,11 @@ public class ChangeTeacherPresenter {
         model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
             public void success(final FullNameBlock block) {
-                model.setPhoto(accessToken, String.valueOf(userId), photo, new ModelUserInfo.RegTeacherPhotoCallBack() {
+                model.setPhoto(accessToken, String.valueOf(userId), photo, new ModelUserInfo.ChangeTeacherPhotoCallBack() {
                     @Override
-                    public void success() {
+                    public void success(String photoSrc) {
                         if (view != null) {
+                            block.setPhoto(photoSrc);
                             view.changeFullNameSuccess(block);
                         }
                     }

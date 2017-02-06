@@ -26,7 +26,7 @@ public class BasePresenter {
             @Override
             public void unfreezeSuccess() {
                 if (view != null) {
-                    view.freezeTeacherSuccess();
+                    view.unfreezeTeacherSuccess();
                 }
             }
 

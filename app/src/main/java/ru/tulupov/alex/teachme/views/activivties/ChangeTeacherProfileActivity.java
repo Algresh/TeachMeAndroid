@@ -101,7 +101,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         fragment.setFullNameBlock(block);
         currRegDataCorrect = fragment;
         manager.beginTransaction()
-                .add(R.id.reg_fragment_container, fragment)
+                .add(R.id.reg_fragment_container, fragment, "fullName")
                 .addToBackStack("fullName")
                 .commit();
 
@@ -305,15 +305,21 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     protected void toPreviousFragmentTeacher() {
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
         registerStep--;
+
         if (registerStep == 0) {
-            nextPrevPanel.setVisibility(View.GONE);
+            finish();
         } else {
             currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
                     .findFragmentByTag(regFragmentTagsTeacher[registerStep - 1]);
         }
-
-        onBackPressed();
     }
 
     protected boolean checkConnection() {

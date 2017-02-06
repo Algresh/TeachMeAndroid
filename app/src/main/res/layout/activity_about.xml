@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBg">
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:text="@string/title_about"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_first_img_avatar"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_marginBottom="@dimen/card_padding"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/card_padding" />
+
+            <TextView
+                android:id="@+id/tv_about_profile_first"
+                android:text="First profile"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_toRightOf="@+id/profile_first_img_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Button
+                android:id="@+id/btn_about_profile_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/profile_first_img_avatar"
+                android:layout_below="@+id/tv_about_profile_first"
+                android:background="@android:color/transparent"
+                android:gravity="left|top"
+                android:paddingTop="4dp"
+                android:textAllCaps="false"
+                android:text="@string/btn_profile"
+                android:textColor="@android:color/white"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_second_img_avatar"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_marginBottom="@dimen/card_padding"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/card_padding" />
+
+            <TextView
+                android:id="@+id/tv_about_profile_second"
+                android:text="Second profile"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_second_img_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Button
+                android:id="@+id/btn_about_profile_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/profile_second_img_avatar"
+                android:layout_below="@+id/tv_about_profile_second"
+                android:background="@android:color/transparent"
+                android:gravity="left|top"
+                android:paddingTop="4dp"
+                android:textAllCaps="false"
+                android:text="@string/btn_profile"
+                android:textColor="@android:color/white"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_third_img_avatar"
+                android:layout_width="@dimen/size_avatar"
+                android:layout_height="@dimen/size_avatar"
+                android:layout_marginBottom="@dimen/card_padding"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/card_padding" />
+
+            <TextView
+                android:id="@+id/tv_about_profile_third"
+                android:text="Third profile"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_third_img_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Button
+                android:id="@+id/btn_about_profile_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/profile_third_img_avatar"
+                android:layout_below="@+id/tv_about_profile_third"
+                android:background="@android:color/transparent"
+                android:gravity="left|top"
+                android:paddingTop="4dp"
+                android:textAllCaps="false"
+                android:text="@string/btn_profile"
+                android:textColor="@android:color/white"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+

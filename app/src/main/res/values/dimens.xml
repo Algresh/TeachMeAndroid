@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="font_size_main">16sp</dimen>
+    <dimen name="size_avatar">64dp</dimen>
+    <dimen name="card_padding">8dp</dimen>
 </resources>

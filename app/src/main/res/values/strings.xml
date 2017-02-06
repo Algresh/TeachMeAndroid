@@ -162,9 +162,10 @@
     </string-array>
 
     <string name="title_dialog_freeze">Приостановить показ анкеты?</string>
+    <string name="title_dialog_unfreeze">Возобновить показ анкеты?</string>
     <string name="title_dialog_city">Выбор города</string>
     <string name="title_dialog_subway">Выбор метро</string>
     <string name="title_dialog_subject">Выбор предмета</string>
-    <string name="loginOrPasswordError">Не правильный логин или пароль</string>
+    <string name="loginOrPasswordError">Неправильный логин или пароль</string>
 
 </resources>

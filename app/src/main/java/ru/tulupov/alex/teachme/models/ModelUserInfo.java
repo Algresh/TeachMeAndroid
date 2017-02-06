@@ -121,6 +121,11 @@ public class ModelUserInfo {
         void error();
     }
 
+    public interface ChangeTeacherPhotoCallBack {
+        void success(String photoSrc);
+        void error(int type);
+    }
+
     protected UserApi api;
 
     public ModelUserInfo() {
@@ -292,7 +297,7 @@ public class ModelUserInfo {
 
     }
 
-    public void setPhoto(String accessToken, String id, Bitmap photo, final RegTeacherPhotoCallBack callback) {
+    public void setPhoto(String accessToken, String id, Bitmap photo, final ChangeTeacherPhotoCallBack callback) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -323,7 +328,12 @@ public class ModelUserInfo {
                 if (response.code() == 403) {
                     callback.error(TYPE_ERROR_OTHER);
                 } else {
-                    callback.success();
+                    String json = response.body().toString();
+                    Log.d(Constants.MY_TAG, json);
+                    Gson gson = new GsonBuilder().create();
+                    Map fields = gson.fromJson(json, Map.class);
+                    String photoSrc = (String) fields.get("fileName");
+                    callback.success(photoSrc);
                 }
 
             }

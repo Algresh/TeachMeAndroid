@@ -16,6 +16,7 @@ public class ChangeEmailActivity extends AppCompatActivity implements ChangeProf
         ChangeEmailFragment.ChangeEmailListener, RegConfirmationFragment.CodeConfirmation {
 
     protected ChangeProfilePresenter presenter;
+    protected String newEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class ChangeEmailActivity extends AppCompatActivity implements ChangeProf
     @Override
     public void changedEmailConfirmSuccess() {
         Toast.makeText(this, R.string.emailModified, Toast.LENGTH_SHORT).show();
+        MyApplications.getUser().setEmail(this, newEmail);
         finish();
     }
 
@@ -76,6 +78,7 @@ public class ChangeEmailActivity extends AppCompatActivity implements ChangeProf
     @Override
     public void changeEmail(String email, String accessToken) {
         if (checkConnection()) {
+            newEmail = email;
             presenter.changeTeacherEmail(email, accessToken);
         } else {
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();

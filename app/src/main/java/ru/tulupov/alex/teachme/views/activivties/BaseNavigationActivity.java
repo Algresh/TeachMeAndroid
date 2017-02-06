@@ -33,6 +33,7 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYP
 public class BaseNavigationActivity extends BaseActivity implements FreezeDialogFragment.FreezeListener, BaseView {
 
     protected BasePresenter presenter;
+    protected  NavigationView navigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation);
+        navigationView = (NavigationView) findViewById(R.id.navigation);
         View viewHeader = null;
 
         User user = MyApplications.getUser();
@@ -70,7 +71,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
             Log.d(Constants.MY_TAG, "TYPE_USER_Teacher");
             if (teacherUser.getEnable(this) == User.TYPE_ENABLE_ENABLE) {
                 navigationView.inflateMenu(R.menu.menu_navigation_teacher);
-            } else {
+            } else if(teacherUser.getEnable(this) == User.TYPE_ENABLE_LOCKED) {
                 navigationView.inflateMenu(R.menu.menu_navigation_teacher_locked);
             }
         }
@@ -110,6 +111,12 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                         break;
                     case R.id.nav_freeze:
                         showFreeze();
+                        break;
+                    case R.id.nav_unlock_profile:
+                        showFreeze();
+                        break;
+                    case R.id.nav_about:
+                        intent = new Intent(BaseNavigationActivity.this, AboutActivity.class);
                         break;
                 }
 
@@ -156,11 +163,17 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
     @Override
     public void freezeTeacherSuccess() {
         Toast.makeText(this, R.string.showTeacherAnketaStop, Toast.LENGTH_SHORT).show();
+        MyApplications.getUser().setEnable(this, User.TYPE_ENABLE_LOCKED);
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.menu_navigation_teacher_locked);
     }
 
     @Override
     public void unfreezeTeacherSuccess() {
         Toast.makeText(this, R.string.showTeacherAnketaStart, Toast.LENGTH_SHORT).show();
+        MyApplications.getUser().setEnable(this, User.TYPE_ENABLE_ENABLE);
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.menu_navigation_teacher);
     }
 
     @Override
