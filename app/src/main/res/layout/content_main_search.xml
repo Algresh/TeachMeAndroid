@@ -17,6 +17,7 @@
         android:id="@+id/sp_main_search_city"
         android:text="@string/hint_city"
         android:textColor="@android:color/white"
+        android:textSize="16sp"
         android:layout_marginLeft="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -32,6 +33,7 @@
         android:id="@+id/sp_main_search_subject"
         android:text="@string/hint_subject"
         android:layout_marginLeft="6dp"
+        android:textSize="16sp"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -98,7 +100,7 @@
         android:text="@string/switch_leave_house"
         android:paddingLeft="8dp"
         android:textColor="@android:color/white"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:background="@color/colorBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -114,7 +116,7 @@
         android:text="@string/switch_is_photo"
         android:paddingLeft="8dp"
         android:textColor="@android:color/white"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:background="@color/colorBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
