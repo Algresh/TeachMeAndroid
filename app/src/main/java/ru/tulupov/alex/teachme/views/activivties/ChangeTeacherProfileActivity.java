@@ -91,7 +91,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
     }
 
     private void initArrayTags() {
-        regFragmentTagsTeacher = getResources().getStringArray(R.array.regFragmentTeacherTags);
+        regFragmentTagsTeacher = getResources().getStringArray(R.array.changeFragmentTeacherTags);
     }
 
     @Override

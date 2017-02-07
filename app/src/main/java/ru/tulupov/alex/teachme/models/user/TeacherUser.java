@@ -85,6 +85,20 @@ public class TeacherUser extends User {
         editor.remove(PREF_USER_CITY_TITLE);
         editor.remove(PREF_USER_CITY_ID);
 
+        this.firstName = "";
+        this.lastName = "";
+        this.fatherName = "";
+        this.login = "";
+        this.typeUser = User.TYPE_USER_NONE;
+        this.accessToken = "";
+        this.userId = 0;
+        this.enable = 0;
+        this.email = "";
+        this.cityTitle = "";
+        this.cityId = 0;
+        this.login = "";
+        this.photoSrc = "";
+
         editor.apply();
     }
 

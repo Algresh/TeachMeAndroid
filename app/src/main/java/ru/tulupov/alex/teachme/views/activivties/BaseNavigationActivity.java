@@ -33,7 +33,7 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYP
 public class BaseNavigationActivity extends BaseActivity implements FreezeDialogFragment.FreezeListener, BaseView {
 
     protected BasePresenter presenter;
-    protected  NavigationView navigationView;
+    protected NavigationView navigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                     case R.id.nav_logout:
                         logOut();
                         intent = new Intent(BaseNavigationActivity.this, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         break;
                     case R.id.nav_edit_profile:
                         intent = new Intent(BaseNavigationActivity.this, SelectChangesActivity.class);

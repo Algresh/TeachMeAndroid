@@ -83,4 +83,9 @@ public class SelectSearchActivity extends BaseNavigationActivity {
         super.onBackPressed();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }

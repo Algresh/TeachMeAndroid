@@ -218,13 +218,17 @@ public class RegTeacherFullNameFragment extends Fragment
 
     @Override
     public void showCities(List<City> list) {
-        listCities = list;
-        FragmentCityDialog dialog = new FragmentCityDialog();
-        dialog.setListCities(list);
-        dialog.setSelectedItem(indexSelectedCity);
-        FragmentManager manager = getChildFragmentManager();
-        dialog.show(manager, "city");
-        cityDialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listCities = list;
+            FragmentCityDialog dialog = new FragmentCityDialog();
+            dialog.setListCities(list);
+            dialog.setSelectedItem(indexSelectedCity);
+            FragmentManager manager = getChildFragmentManager();
+            dialog.show(manager, "city");
+            cityDialogIsDownloading = false;
+        } else {
+            Toast.makeText(getContext(), R.string.somethingBroken, Toast.LENGTH_SHORT).show();
+        }
     }
 
 

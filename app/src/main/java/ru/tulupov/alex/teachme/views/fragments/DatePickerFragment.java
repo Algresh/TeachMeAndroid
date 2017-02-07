@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,19 +14,25 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import ru.tulupov.alex.teachme.Constants;
+
 
 public class DatePickerFragment extends DialogFragment
     implements DatePickerDialog.OnDateSetListener
 {
     private TextView etDate = null;
+    private String prevDate;
+
+
     private void setText(String text) {
-        if ( etDate != null && !text.equals("")) {
+        if ( etDate != null && text != null && !text.equals("")) {
             etDate.setText(text);
         }
     }
 
     public void setEditTextDate(TextView etDate) {
         this.etDate = etDate;
+        prevDate = etDate.getText().toString();
     }
 
     public DatePickerFragment() {}
@@ -49,7 +56,7 @@ public class DatePickerFragment extends DialogFragment
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        setText(null);
+        setText(prevDate);
     }
 
     public String getDate (long date) {

@@ -20,7 +20,7 @@ import ru.tulupov.alex.teachme.models.Subject;
 public class FragmentSubjectDialog extends DialogFragment implements DialogInterface.OnClickListener {
 
     protected SelectSubject listener;
-    protected int selectedItem = 0;
+    protected int selectedItem = -1;
 
     protected List<Subject> listSubject;
     protected int tag = 0;

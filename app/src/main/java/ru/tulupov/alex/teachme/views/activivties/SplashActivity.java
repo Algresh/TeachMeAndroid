@@ -12,7 +12,7 @@ import ru.tulupov.alex.teachme.models.user.User;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 String typeUser = user.getTypeUser(SplashActivity.this);
 
-                if (typeUser.equals(User.TYPE_USER_NONE)) {
+                if (typeUser.equals(User.TYPE_USER_NONE) || typeUser.equals("")) {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 } else {

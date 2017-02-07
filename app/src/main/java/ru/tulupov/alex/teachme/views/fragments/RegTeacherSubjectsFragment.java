@@ -177,7 +177,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
             if(selectedListExp.size() > tag) {
                 selectItem = selectedListExp.get(tag);
             } else {
-                selectItem = 0;
+                selectItem = -1;
             }
             fragment.setSelectedItem(selectItem);
             FragmentManager manager = getChildFragmentManager();

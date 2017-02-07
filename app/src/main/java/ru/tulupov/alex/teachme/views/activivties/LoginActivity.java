@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.io.FileOutputStream;
 
 import ru.tulupov.alex.teachme.Constants;
+import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.ModelUserInfo;
 import ru.tulupov.alex.teachme.models.PupilRegistration;
@@ -104,6 +105,8 @@ public class LoginActivity extends AppCompatActivity
                 .addToBackStack("login")
                 .commit();
 
+        registerStep++;
+        Log.d(Constants.MY_TAG, "initFragment regStep: " + registerStep);
     }
 
     private void initArrayTags() {
@@ -115,6 +118,7 @@ public class LoginActivity extends AppCompatActivity
     public void logInSuccess() {
         Intent intent = new Intent(this, SelectSearchActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -130,7 +134,10 @@ public class LoginActivity extends AppCompatActivity
         Fragment fragment = new RegConfirmationFragment();
         manager.beginTransaction()
                 .replace(R.id.reg_fragment_container, fragment)
+                .addToBackStack("confirmation")
                 .commit();
+        registerStep++;
+        Log.d(Constants.MY_TAG, "registerTeacherSuccess regStep: " + registerStep);
     }
 
     @Override
@@ -147,6 +154,8 @@ public class LoginActivity extends AppCompatActivity
                     .replace(R.id.reg_fragment_container, fragment, "selectProfile")
                     .addToBackStack("selectProfile")
                     .commit();
+            registerStep++;
+            Log.d(Constants.MY_TAG, "registerClick regStep: " + registerStep);
         } else {
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
@@ -160,6 +169,8 @@ public class LoginActivity extends AppCompatActivity
                 .replace(R.id.reg_fragment_container, fragment, "forgotPassword")
                 .addToBackStack("forgotPassword")
                 .commit();
+        registerStep++;
+        Log.d(Constants.MY_TAG, "forgotPasswordClick regStep: " + registerStep);
     }
 
     @Override
@@ -173,7 +184,7 @@ public class LoginActivity extends AppCompatActivity
     }
 
     protected void toNextFragmentPupil () {
-        if (registerStep == 1 && currRegDataCorrect.dataIsCorrect()) {
+        if (registerStep == 3 && currRegDataCorrect.dataIsCorrect()) {
             if (checkingLoginEmail) return;
 
             checkingLoginEmail = true;
@@ -188,7 +199,7 @@ public class LoginActivity extends AppCompatActivity
         }
 
 
-        if (registerStep == 2) {
+        if (registerStep == 4) {
             pDialog = new ProgressDialog(this);
             pDialog.setMessage(getString(R.string.pleaseWait));
             pDialog.show();
@@ -203,9 +214,9 @@ public class LoginActivity extends AppCompatActivity
 
     protected void toNextFragmentTeacher() {
 
-        if (registerStep == 5) {
+        if (registerStep == 7) {
             pDialog = new ProgressDialog(this);
-            pDialog.setMessage("");
+            pDialog.setMessage(getString(R.string.pleaseWait));
             pDialog.show();
 
             if (checkConnection()) {
@@ -216,7 +227,7 @@ public class LoginActivity extends AppCompatActivity
         }
 
         if (currRegDataCorrect.dataIsCorrect()) {
-            if (registerStep == 4) {
+            if (registerStep == 6) {
                 if (checkingLoginEmail) {
                     return;
                 }
@@ -244,9 +255,10 @@ public class LoginActivity extends AppCompatActivity
             currRegDataCorrect = (RegDataCorrect) fragment;
             manager.beginTransaction()
                     .replace(R.id.reg_fragment_container, fragment, regFragmentTagsTeacher[registerStep])
-                    .addToBackStack(regFragmentTagsTeacher[registerStep])
+                    .addToBackStack(regFragmentTagsTeacher[registerStep - 1])
                     .commit();
             registerStep++;
+            Log.d(Constants.MY_TAG, regFragmentTagsTeacher[registerStep- 1] + " |" + "| setUpNextFragmentTeacher regStep: " + registerStep);
         }
     }
 
@@ -260,6 +272,7 @@ public class LoginActivity extends AppCompatActivity
                     .addToBackStack(regFragmentTagsPupil[registerStep])
                     .commit();
             registerStep++;
+            Log.d(Constants.MY_TAG, "regStep: " + registerStep);
         }
     }
 
@@ -275,19 +288,24 @@ public class LoginActivity extends AppCompatActivity
     public void onBackPressed() {
         super.onBackPressed();
         registerStep--;
+        try {
+            Log.d(Constants.MY_TAG, regFragmentTagsTeacher[registerStep - 1] + " back regStep: " + registerStep);
+        } catch (ArrayIndexOutOfBoundsException ignore) {}
 
         if (registerStep == 0) {
+            finish();
+        }
+
+        if (registerStep <= 2) {
             nextPrevPanel.setVisibility(View.GONE);
         } else {
-            try {
-                /**
-                 * @TODO ощибка при нажатии назад!
-                 */
-            } catch (ArrayIndexOutOfBoundsException ignore) {}
+
             if (registerUserType != null && registerUserType.equals(User.TYPE_USER_TEACHER)) {
+                nextPrevPanel.setVisibility(View.VISIBLE);
                 currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
                         .findFragmentByTag(regFragmentTagsTeacher[registerStep - 1]);
             } else if(registerUserType != null && registerUserType.equals(User.TYPE_USER_PUPIL)) {
+                nextPrevPanel.setVisibility(View.VISIBLE);
                 currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
                         .findFragmentByTag(regFragmentTagsPupil[registerStep - 1]);
             }
@@ -298,15 +316,15 @@ public class LoginActivity extends AppCompatActivity
     protected Fragment getFragmentTeacherStep (int step) {
 
         switch (step) {
-            case 0:
-                return new RegTeacherFullNameFragment();
-            case 1:
-                return new RegTeacherAboutFragment();
             case 2:
-                return new RegTeacherSubjectsFragment();
+                return new RegTeacherFullNameFragment();
             case 3:
-                return new RegTeacherContactsFragment();
+                return new RegTeacherAboutFragment();
             case 4:
+                return new RegTeacherSubjectsFragment();
+            case 5:
+                return new RegTeacherContactsFragment();
+            case 6:
                 return new RegTeacherAgreementFragment();
         }
 
@@ -316,9 +334,9 @@ public class LoginActivity extends AppCompatActivity
     protected Fragment getFragmentPupilStep (int step) {
 
         switch (step) {
-            case 0:
+            case 2:
                 return new RegPupilContacts();
-            case 1:
+            case 3:
                 return new RegTeacherAgreementFragment();
         }
 
@@ -395,7 +413,10 @@ public class LoginActivity extends AppCompatActivity
         Fragment fragment = new RegConfirmationFragment();
         manager.beginTransaction()
                 .replace(R.id.reg_fragment_container, fragment)
+                .addToBackStack("confirmation")
                 .commit();
+        registerStep++;
+        Log.d(Constants.MY_TAG, "registerPupilSuccess regStep: " + registerStep);
     }
 
     @Override
@@ -423,7 +444,9 @@ public class LoginActivity extends AppCompatActivity
         Fragment fragment = new RegConfirmationFragment();
         manager.beginTransaction()
                 .replace(R.id.reg_fragment_container, fragment)
+                .addToBackStack("confirmation")
                 .commit();
+        registerStep++;
     }
 
     @Override
@@ -470,6 +493,7 @@ public class LoginActivity extends AppCompatActivity
             nextPrevPanel.setVisibility(View.VISIBLE);
 
             registerStep++;
+            Log.d(Constants.MY_TAG, "selectTeacher regStep: " + registerStep);
         } else {
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
@@ -493,6 +517,7 @@ public class LoginActivity extends AppCompatActivity
             nextPrevPanel.setVisibility(View.VISIBLE);
 
             registerStep++;
+            Log.d(Constants.MY_TAG, "selectPupil regStep: " + registerStep);
         } else {
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }

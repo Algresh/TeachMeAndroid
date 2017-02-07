@@ -149,7 +149,17 @@
         <item>Больше 10-х лет</item>
     </string-array>
 
+    <string-array name="changeFragmentTeacherTags">
+        <item>fullName</item>
+        <item>description</item>
+        <item>subjects</item>
+        <item>contacts</item>
+        <item>agreement</item>
+    </string-array>
+
     <string-array name="regFragmentTeacherTags">
+        <item>login</item>
+        <item>select</item>
         <item>fullName</item>
         <item>description</item>
         <item>subjects</item>
@@ -158,6 +168,8 @@
     </string-array>
 
     <string-array name="regFragmentPupilTags">
+        <item>login</item>
+        <item>select</item>
         <item>contactsPupil</item>
         <item>agreementPupil</item>
     </string-array>

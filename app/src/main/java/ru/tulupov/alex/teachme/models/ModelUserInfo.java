@@ -229,7 +229,7 @@ public class ModelUserInfo {
                     return;
                 }
 
-                if (response.code() == 403) {
+                if (response.code() >= 400 && response.code() <= 500) {
                     callback.error(TYPE_ERROR_OTHER);
                 } else {
                     String json = response.body().toString();

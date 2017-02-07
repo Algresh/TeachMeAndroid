@@ -54,4 +54,9 @@ public class SelectChangesActivity extends BaseNavigationActivity {
         initToolbar(getString(R.string.select_changes_activity_title), R.id.toolbarSelectChanges);
         initNavigationView();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }
