@@ -31,7 +31,7 @@ public class RegPupilContacts extends Fragment implements ShowCity,
     private EditText edtPasswordConfirm;
 
     private City selectedCity;
-    private int indexSelectedCity = 0;
+    private int indexSelectedCity = -1;
     private List<City> listCities;
 
     private boolean cityDialogIsDownloading = false;
@@ -69,13 +69,15 @@ public class RegPupilContacts extends Fragment implements ShowCity,
 
     @Override
     public void showCities(List<City> list) {
-        listCities = list;
-        FragmentCityDialog dialog = new FragmentCityDialog();
-        dialog.setListCities(list);
-        dialog.setSelectedItem(indexSelectedCity);
-        FragmentManager manager = getChildFragmentManager();
-        dialog.show(manager, "city");
-        cityDialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listCities = list;
+            FragmentCityDialog dialog = new FragmentCityDialog();
+            dialog.setListCities(list);
+            dialog.setSelectedItem(indexSelectedCity);
+            FragmentManager manager = getChildFragmentManager();
+            dialog.show(manager, "city");
+            cityDialogIsDownloading = false;
+        }
     }
 
     @Override

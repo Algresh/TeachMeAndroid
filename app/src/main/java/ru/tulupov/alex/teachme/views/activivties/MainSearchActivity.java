@@ -87,13 +87,15 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 
     @Override
     public void showCities(List<City> list) {
-        listCities = list;
-        FragmentCityDialog dialog = new FragmentCityDialog();
-        dialog.setListCities(list);
-        dialog.setSelectedItem(indexSelectedCity);
-        FragmentManager manager = getSupportFragmentManager();
-        dialog.show(manager, "city");
-        dialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listCities = list;
+            FragmentCityDialog dialog = new FragmentCityDialog();
+            dialog.setListCities(list);
+            dialog.setSelectedItem(indexSelectedCity);
+            FragmentManager manager = getSupportFragmentManager();
+            dialog.show(manager, "city");
+            dialogIsDownloading = false;
+        }
     }
 
 
@@ -118,25 +120,29 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 
     @Override
     public void showSubjects(List<Subject> list, int tag) {
-        listSubjects = list;
-        FragmentSubjectDialog dialog = new FragmentSubjectDialog();
-        dialog.setListSubject(list);
-        dialog.setSelectedItem(indexSelectedSubject);
-        FragmentManager manager = getSupportFragmentManager();
-        dialog.show(manager, "subjects");
-        dialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listSubjects = list;
+            FragmentSubjectDialog dialog = new FragmentSubjectDialog();
+            dialog.setListSubject(list);
+            dialog.setSelectedItem(indexSelectedSubject);
+            FragmentManager manager = getSupportFragmentManager();
+            dialog.show(manager, "subjects");
+            dialogIsDownloading = false;
+        }
     }
 
     @Override
     public void showSubways(List<Subway> list) {
-        listSubways = list;
-        FragmentSubwayDialog dialog = new FragmentSubwayDialog();
-        dialog.setListSubways(list);
-        dialog.setArrSelected(getBooleanArr(list));
-        dialog.setListSelected(listSelectedSubways);
-        FragmentManager manager = getSupportFragmentManager();
-        dialog.show(manager, "subway");
-        dialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listSubways = list;
+            FragmentSubwayDialog dialog = new FragmentSubwayDialog();
+            dialog.setListSubways(list);
+            dialog.setArrSelected(getBooleanArr(list));
+            dialog.setListSelected(listSelectedSubways);
+            FragmentManager manager = getSupportFragmentManager();
+            dialog.show(manager, "subway");
+            dialogIsDownloading = false;
+        }
     }
 
     protected boolean[] getBooleanArr(List<Subway> listSubways) {

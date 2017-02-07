@@ -53,10 +53,10 @@ public class RegTeacherAboutFragment extends Fragment implements  RegDataCorrect
 
         String strAbout = editTextAbout.getText().toString().trim();
         if (strAbout.length() < 2) {
-            warningColorEditText(editTextAbout);
+//            warningColorEditText(editTextAbout);
             isCorrect = false;
         } else {
-            correctColorEditText(editTextAbout);
+//            correctColorEditText(editTextAbout);
         }
 
         if (!isCorrect) {

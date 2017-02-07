@@ -124,14 +124,16 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
     @Override
     public void showSubways(List<Subway> list) {
-        listSubways = list;
-        FragmentSubwayDialog dialog = new FragmentSubwayDialog();
-        dialog.setListSubways(list);
-        dialog.setArrSelected(getBooleanArr(list));
-        dialog.setListSelected(listSelected);
-        FragmentManager manager = getChildFragmentManager();
-        dialog.show(manager, "subway");
-        subwayDialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listSubways = list;
+            FragmentSubwayDialog dialog = new FragmentSubwayDialog();
+            dialog.setListSubways(list);
+            dialog.setArrSelected(getBooleanArr(list));
+            dialog.setListSelected(listSelected);
+            FragmentManager manager = getChildFragmentManager();
+            dialog.show(manager, "subway");
+            subwayDialogIsDownloading = false;
+        }
     }
 
     protected boolean[] getBooleanArr(List<Subway> listSubways) {

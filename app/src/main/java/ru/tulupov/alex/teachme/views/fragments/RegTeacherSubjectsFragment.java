@@ -188,22 +188,24 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
 
     @Override
     public void showSubjects(List<Subject> list, int tag) {
-        listSubjects = list;
-        FragmentSubjectDialog dialog = new FragmentSubjectDialog();
-        dialog.setListSubject(list);
-        dialog.setTag(tag);
-        Integer selectItem;
-        Log.d(Constants.MY_TAG, "showSubjects " + tag);
-        if(selectedListSubjects.size() > tag) {
-            selectItem = selectedListSubjects.get(tag);
-        } else {
-            selectItem = 0;
-        }
+        if (list != null && list.size() > 0) {
+            listSubjects = list;
+            FragmentSubjectDialog dialog = new FragmentSubjectDialog();
+            dialog.setListSubject(list);
+            dialog.setTag(tag);
+            Integer selectItem;
+            Log.d(Constants.MY_TAG, "showSubjects " + tag);
+            if(selectedListSubjects.size() > tag) {
+                selectItem = selectedListSubjects.get(tag);
+            } else {
+                selectItem = -1;
+            }
 
-        dialog.setSelectedItem(selectItem);
-        FragmentManager manager = getChildFragmentManager();
-        dialog.show(manager, "subjects");
-        dialogIsDownloading = false;
+            dialog.setSelectedItem(selectItem);
+            FragmentManager manager = getChildFragmentManager();
+            dialog.show(manager, "subjects");
+            dialogIsDownloading = false;
+        }
     }
 
     @Override

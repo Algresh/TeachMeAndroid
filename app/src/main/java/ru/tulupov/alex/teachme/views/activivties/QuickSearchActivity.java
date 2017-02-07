@@ -121,13 +121,15 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
 
     @Override
     public void showCities(List<City> list) {
-        listCities = list;
-        FragmentCityDialog dialog = new FragmentCityDialog();
-        dialog.setListCities(list);
-        dialog.setSelectedItem(indexSelectedCity);
-        FragmentManager manager = getSupportFragmentManager();
-        dialog.show(manager, "city");
-        dialogIsDownloading = false;
+        if (list != null && list.size() > 0) {
+            listCities = list;
+            FragmentCityDialog dialog = new FragmentCityDialog();
+            dialog.setListCities(list);
+            dialog.setSelectedItem(indexSelectedCity);
+            FragmentManager manager = getSupportFragmentManager();
+            dialog.show(manager, "city");
+            dialogIsDownloading = false;
+        }
     }
 
 

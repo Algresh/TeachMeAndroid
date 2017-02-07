@@ -25,6 +25,7 @@
                     android:id="@+id/avatarImageText"
                     android:textColor="@android:color/white"
                     android:text="@string/text_download_avatar"
+                    android:textSize="18sp"
                     android:layout_gravity="left|center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,14 +78,13 @@
 
             <TextView
                 android:id="@+id/register_teacher_birthday"
-                android:text="@string/hint_birthday"
-                android:textSize="18sp"
-                android:textColorHint="@android:color/white"
-                android:textColor="@android:color/white"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="@string/hint_birthday"
                 />
 
             <TextView
