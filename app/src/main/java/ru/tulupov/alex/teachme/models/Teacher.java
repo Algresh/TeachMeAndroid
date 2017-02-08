@@ -31,8 +31,10 @@ public class Teacher implements Parcelable {
     private boolean leaveHome;
     private String photo;
 
-    private String strPriceList;
-    private String strCity;
+//    private String strPriceList;
+//    private String strCity;
+
+    private boolean isFavorite = false;
 
     public Teacher() {
     }
@@ -54,6 +56,7 @@ public class Teacher implements Parcelable {
         phoneNumber = in.readString();
         subways = in.readString();
         leaveHome = in.readByte() != 0;
+        isFavorite = in.readByte() != 0;
         photo = in.readString();
         city = in.readString();
         cityId = in.readInt();
@@ -170,6 +173,14 @@ public class Teacher implements Parcelable {
         this.birthDate = birthDate;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     public City getCity() {
         return city;
     }
@@ -190,21 +201,21 @@ public class Teacher implements Parcelable {
         return district;
     }
 
-    public String getStrPriceList() {
-        return strPriceList;
-    }
-
-    public void setStrPriceList(String strPriceList) {
-        this.strPriceList = strPriceList;
-    }
-
-    public String getStrCity() {
-        return strCity;
-    }
-
-    public void setStrCity(String strCity) {
-        this.strCity = strCity;
-    }
+//    public String getStrPriceList() {
+//        return strPriceList;
+//    }
+//
+//    public void setStrPriceList(String strPriceList) {
+//        this.strPriceList = strPriceList;
+//    }
+//
+//    public String getStrCity() {
+//        return strCity;
+//    }
+//
+//    public void setStrCity(String strCity) {
+//        this.strCity = strCity;
+//    }
 
     public void setDistrict(String district) {
         this.district = district;
@@ -286,6 +297,7 @@ public class Teacher implements Parcelable {
         parcel.writeString(phoneNumber);
         parcel.writeString(subways);
         parcel.writeByte((byte) (leaveHome ? 1 : 0));
+        parcel.writeByte((byte) (isFavorite ? 1 : 0));
         parcel.writeString(photo);
         parcel.writeString(city.getTitle());
         parcel.writeInt(city.getId());

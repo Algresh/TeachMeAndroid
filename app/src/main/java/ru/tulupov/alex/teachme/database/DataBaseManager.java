@@ -167,6 +167,7 @@ public class DataBaseManager {
         teacher.setEmail(arr[10]);
         teacher.setCity(new City(arrInt[2], arr[11], arrInt[3] != 0));
         teacher.setPriceLists(list);
+        teacher.setFavorite(true);
 
         return teacher;
     }

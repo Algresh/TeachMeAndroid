@@ -18,6 +18,7 @@
         <activity android:name=".views.activivties.MainActivity" />
         <activity
             android:name=".views.activivties.LoginActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />

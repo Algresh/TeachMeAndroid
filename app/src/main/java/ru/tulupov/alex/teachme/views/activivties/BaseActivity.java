@@ -3,17 +3,35 @@ package ru.tulupov.alex.teachme.views.activivties;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.MenuItem;
+import android.view.Window;
+
+import ru.tulupov.alex.teachme.R;
 
 
 public class BaseActivity extends AppCompatActivity {
 
     protected DrawerLayout drawerLayout;
     protected Toolbar toolbar;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            int color = ContextCompat.getColor(this, R.color.colorPrimary);
+            window.setStatusBarColor(color);
+        }
+        super.onCreate(savedInstanceState);
+    }
 
     protected void initToolbar(String title, int idToolbar ) {
         toolbar = (Toolbar) findViewById(idToolbar);

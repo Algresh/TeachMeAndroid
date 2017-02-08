@@ -118,6 +118,12 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                     case R.id.nav_about:
                         intent = new Intent(BaseNavigationActivity.this, AboutActivity.class);
                         break;
+                    case R.id.nav_feedback:
+//                        intent = new Intent(BaseNavigationActivity.this, AboutActivity.class);
+                        break;
+                    case R.id.nav_search_profile:
+                        intent = new Intent(BaseNavigationActivity.this, SelectSearchActivity.class);
+                        break;
                 }
 
                 if (intent != null) {

@@ -61,12 +61,16 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
 
         Intent intent = getIntent();
         teacher = intent.getParcelableExtra("teacher");
-        if (!checkConnection()) {
-            isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
-        } else {
-            String accessToken = MyApplications.getUser().getAccessToken(this);
-            presenter.isFavorite(accessToken, teacher.getId());
+        isFavorite = teacher.isFavorite();
+        if (!isFavorite) {
+            if (!checkConnection()) {
+                isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+            } else {
+                String accessToken = MyApplications.getUser().getAccessToken(this);
+                presenter.isFavorite(accessToken, teacher.getId());
+            }
         }
+
 
 
         initToolbar(teacher.getFullName(), R.id.toolbarShowTeachers);
