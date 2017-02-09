@@ -62,14 +62,7 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         Intent intent = getIntent();
         teacher = intent.getParcelableExtra("teacher");
         isFavorite = teacher.isFavorite();
-        if (!isFavorite) {
-            if (!checkConnection()) {
-                isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
-            } else {
-                String accessToken = MyApplications.getUser().getAccessToken(this);
-                presenter.isFavorite(accessToken, teacher.getId());
-            }
-        }
+
 
 
 
@@ -88,8 +81,18 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         ivAvatar = (ImageView) findViewById(R.id.avatarImageShowTeacher);
         llContainer = (LinearLayout) findViewById(R.id.containerSubjectsShowTeacher);
 
+        if (!isFavorite) {
+            if (!checkConnection()) {
+                isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+                initData();
+            } else {
+                String accessToken = MyApplications.getUser().getAccessToken(this);
+                presenter.isFavorite(accessToken, teacher.getId());
+            }
+        } else {
+            initData();
+        }
 
-        initData();
         initBottomPanel(teacher.getPhoneNumber());
 
     }
@@ -224,6 +227,7 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
     public void isFavoriteSuccess(boolean isFavorite) {
         this.isFavorite = isFavorite;
         initFavoriteButton();
+        initData();
     }
 
     @Override

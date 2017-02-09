@@ -132,6 +132,18 @@ public class LoginActivity extends AppCompatActivity
     }
 
     @Override
+    public void logInSuccessNotConfirm(String typeUser) {
+        registerUserType = typeUser;
+        FragmentManager manager = getSupportFragmentManager();
+        RegConfirmationFragment confirmFragment = new RegConfirmationFragment();
+        manager.beginTransaction()
+                .replace(R.id.reg_fragment_container, confirmFragment)
+                .addToBackStack("confirmation")
+                .commit();
+        registerStep++;
+    }
+
+    @Override
     public void logInFail() {
         Toast.makeText(this, R.string.loginOrPasswordError, Toast.LENGTH_SHORT).show();
     }
@@ -375,6 +387,7 @@ public class LoginActivity extends AppCompatActivity
         Log.d(Constants.MY_TAG, "full registration success");
         Intent intent = new Intent(this, SelectSearchActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -439,6 +452,7 @@ public class LoginActivity extends AppCompatActivity
         Log.d(Constants.MY_TAG, "full registration success pupil");
         Intent intent = new Intent(this, SelectSearchActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

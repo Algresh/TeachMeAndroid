@@ -37,6 +37,7 @@ public class ModelUserInfo {
 
     public interface ModelCallBack {
         void success(Map fields);
+        void successNotEnable(Map fields);
         void error(int type);
     }
 
@@ -150,7 +151,7 @@ public class ModelUserInfo {
                 Log.d(Constants.MY_TAG, json);
                 Gson gson = new GsonBuilder().create();
                 Map fields = gson.fromJson(json, Map.class);
-                if (response.code() == 403) {
+                if (response.code() >= 400 && response.code() <= 500) {
                     String warning = (String) fields.get("warning");
                     if (warning.equals("loginOrPasswordError")) {
                         callback.error(TYPE_ERROR_PAS_LOG_ERR);
@@ -160,7 +161,12 @@ public class ModelUserInfo {
                         callback.error(TYPE_ERROR_OTHER);
                     }
                 } else {
-                    callback.success(fields);
+                    if (response.code() == 201) {
+                        callback.success(fields);
+                    } else {
+                        callback.successNotEnable(fields);
+                    }
+
                 }
 
             }

@@ -5,11 +5,14 @@ import android.os.Bundle;
 
 import ru.tulupov.alex.teachme.R;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseNavigationActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+
+        initToolbar(getString(R.string.navi_about), R.id.toolbarAbout);
+        initNavigationView();
     }
 }

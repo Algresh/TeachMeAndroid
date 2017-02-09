@@ -12,7 +12,7 @@ import ru.tulupov.alex.teachme.presenters.ChangeProfilePresenter;
 import ru.tulupov.alex.teachme.views.fragments.ChangeEmailFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegConfirmationFragment;
 
-public class ChangeEmailActivity extends AppCompatActivity implements ChangeProfileView,
+public class ChangeEmailActivity extends BaseActivity implements ChangeProfileView,
         ChangeEmailFragment.ChangeEmailListener, RegConfirmationFragment.CodeConfirmation {
 
     protected ChangeProfilePresenter presenter;
@@ -32,6 +32,8 @@ public class ChangeEmailActivity extends AppCompatActivity implements ChangeProf
                 .beginTransaction()
                 .add(R.id.activity_change_email, fragment, "changeEmail")
                 .commit();
+
+        initToolbar(getString(R.string.changeEmailTitle), R.id.toolbarChangeEmail);
     }
 
     @Override

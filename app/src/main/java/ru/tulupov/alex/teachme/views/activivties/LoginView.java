@@ -3,6 +3,7 @@ package ru.tulupov.alex.teachme.views.activivties;
 public interface LoginView {
 
     void logInSuccess();
+    void logInSuccessNotConfirm(String typeUser);
     void logInFail();
 
     void registerTeacherSuccess();

@@ -67,6 +67,21 @@ public class LoginPresenter {
             }
 
             @Override
+            public void successNotEnable(Map fields) {
+                String type_user = (String) fields.get("type_user");
+                String accessToken = (String) fields.get("access_token");
+                if (type_user.equals(User.TYPE_USER_TEACHER)) {
+                    TeacherRegistration.getInstance().setAccessToken(accessToken);
+                } else if (type_user.equals(User.TYPE_USER_PUPIL)) {
+                    PupilRegistration.getInstance().setAccessToken(accessToken);
+                }
+
+                if (view != null) {
+                    view.logInSuccessNotConfirm(type_user);
+                }
+            }
+
+            @Override
             public void error(int type) {
                 view.logInFail();
             }
@@ -129,7 +144,7 @@ public class LoginPresenter {
     }
 
     public void registerConfirmationPupil(String code, final Context context) {
-        final PupilRegistration pupilRegistration = PupilRegistration.getInstance();
+        PupilRegistration pupilRegistration = PupilRegistration.getInstance();
         String accessToken = pupilRegistration.getAccessToken();
 
         model.registerConfirmationPupil(accessToken, code, new ModelUserInfo.RegPupilConfirmCallBack() {
@@ -185,17 +200,19 @@ public class LoginPresenter {
                         cityId.intValue(), photoSrc
                 );
 
-                Bitmap photo = teacherRegistration.getPhoto();
-                try {
-                    FileOutputStream out = context.openFileOutput("avatar.png", Context.MODE_PRIVATE);
-                    photo.compress(Bitmap.CompressFormat.PNG, 100, out);
-                    out.flush();
-                    out.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException ignored) {
-
-                }
+//                Bitmap photo = teacherRegistration.getPhoto();
+//                if (photo != null) {
+//                    try {
+//                        FileOutputStream out = context.openFileOutput("avatar.png", Context.MODE_PRIVATE);
+//                        photo.compress(Bitmap.CompressFormat.PNG, 100, out);
+//                        out.flush();
+//                        out.close();
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    } catch (IOException ignored) {
+//
+//                    }
+//                }
 
                 MyApplications.setUser(user);
 

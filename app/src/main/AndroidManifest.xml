@@ -49,16 +49,25 @@
         <activity
             android:name=".views.activivties.MainSearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.activivties.ChangeTeacherProfileActivity" />
+        <activity
+            android:name=".views.activivties.ChangeTeacherProfileActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activivties.ChangePasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.activivties.ChangeEmailActivity" />
+        <activity
+            android:name=".views.activivties.ChangeEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.activivties.SelectChangesActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".views.activivties.AboutActivity"/>
+        <activity
+            android:name=".views.activivties.AboutActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
