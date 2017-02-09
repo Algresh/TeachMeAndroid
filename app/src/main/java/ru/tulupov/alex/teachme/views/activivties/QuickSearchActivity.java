@@ -159,13 +159,11 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
     }
 
     protected boolean checkFields() {
-
         if (selectedSubject == null || selectedCity == null) {
+            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
             return false;
         }
 
         return true;
-
-
     }
 }

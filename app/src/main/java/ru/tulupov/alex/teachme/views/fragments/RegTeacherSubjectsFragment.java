@@ -252,7 +252,7 @@ public class RegTeacherSubjectsFragment extends Fragment implements View.OnClick
             }
 
 
-            if (strPrice.length() == 0 || !strPrice.matches(".*\\d.*")) {
+            if (strPrice.length() == 0 || !strPrice.matches(".*\\d.*") || strPrice.contains(".")) {
                 warningColorEditText(edtPrice);
                 numWarning++;
             } else {

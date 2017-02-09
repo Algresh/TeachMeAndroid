@@ -17,23 +17,27 @@
         android:id="@+id/sp_quick_search_city"
         android:text="@string/hint_city"
         android:textColor="@android:color/white"
-        android:layout_marginLeft="6dp"
-        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <View
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+    <!--<View-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginBottom="4dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"/>-->
 
     <TextView
         android:id="@+id/sp_quick_search_subject"
         android:text="@string/hint_subject"
-        android:layout_marginLeft="6dp"
-        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:textSize="18sp"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -48,18 +52,20 @@
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/sc_quick_search_leave"
         android:text="@string/switch_leave_house"
-        android:paddingLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:background="@color/colorBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <View
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
-        android:background="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+    <!--<View-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginBottom="4dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"/>-->
 
     <Button
         android:id="@+id/btn_quick_search_exec"

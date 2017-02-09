@@ -81,7 +81,8 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         ivAvatar = (ImageView) findViewById(R.id.avatarImageShowTeacher);
         llContainer = (LinearLayout) findViewById(R.id.containerSubjectsShowTeacher);
 
-        if (!isFavorite) {
+        String typeUser = MyApplications.getUser().getTypeUser(this);
+        if (!isFavorite && typeUser.equals(User.TYPE_USER_PUPIL)) {
             if (!checkConnection()) {
                 isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
                 initData();

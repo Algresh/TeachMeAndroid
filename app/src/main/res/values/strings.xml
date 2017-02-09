@@ -86,7 +86,7 @@
 
     <string name="message_teacher_add_to_favorites">Учитель добавлен в избранное</string>
     <string name="message_teacher_delete_from_favorites">Учитель удален из избранного</string>
-    <string name="reg_warning_message">Поля не заполнены или заполнены не правильно</string>
+    <string name="reg_warning_message">Поля не заполнены или заполнены неправильно</string>
     <string name="reg_about_warning_message_">Полe не заполнено</string>
 
     <string name="text_code_confirmation">Вам на почту пришло письмо с кодом</string>
@@ -180,5 +180,6 @@
     <string name="title_dialog_subway">Выбор метро</string>
     <string name="title_dialog_subject">Выбор предмета</string>
     <string name="loginOrPasswordError">Неправильный логин или пароль</string>
+    <string name="currencyRub">руб.</string>
 
 </resources>

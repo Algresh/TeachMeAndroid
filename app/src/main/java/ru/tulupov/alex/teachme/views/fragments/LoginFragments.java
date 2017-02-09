@@ -51,7 +51,7 @@ public class LoginFragments extends Fragment implements View.OnClickListener {
     protected void loginClick() {
         String login = edtLogin.getText().toString();
         String password = edtPassword.getText().toString();
-        if (login.length() >= 2 && password.length() > 6) {
+        if (login.length() >= 2 && password.length() >= 6) {
             callbackClick.loginClick(login, password);
         }
     }

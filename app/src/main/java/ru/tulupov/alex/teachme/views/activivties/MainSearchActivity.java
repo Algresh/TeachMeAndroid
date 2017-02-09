@@ -50,7 +50,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     protected TextView tvSubject;
     protected TextView tvExp;
     protected TextView tvSubway;
-    protected View vSubwayLine;
+//    protected View vSubwayLine;
     protected EditText edtPrice;
     protected SwitchCompat swLeaveHouse;
     protected SwitchCompat swPhoto;
@@ -110,10 +110,10 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 
             if (selectedCity.isHasSubway()) {
                 tvSubway.setVisibility(View.VISIBLE);
-                vSubwayLine.setVisibility(View.VISIBLE);
+//                vSubwayLine.setVisibility(View.VISIBLE);
             } else {
                 tvSubway.setVisibility(View.GONE);
-                vSubwayLine.setVisibility(View.GONE);
+//                vSubwayLine.setVisibility(View.GONE);
             }
         }
     }
@@ -167,7 +167,20 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     }
 
     protected boolean checkFields() {
-        if (selectedSubject == null || selectedCity == null) {
+        String strPrice = edtPrice.getText().toString();
+        if (strPrice.equals("")  || strPrice.contains(".")) {
+            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (selectedSubject == null || selectedCity == null ||
+                indexSelectedCity == -1 || indexSelectedSubject == -1 || indexSelectedExp == -1) {
+            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (selectedCity.isHasSubway() && (listSelectedSubways == null || listSelectedSubways.size() == 0)) {
+            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -215,7 +228,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
             }
         });
         tvSubway= (TextView) findViewById(R.id.et_main_search_subway);
-        vSubwayLine = findViewById(R.id.et_main_search_subway_line);
+//        vSubwayLine = findViewById(R.id.et_main_search_subway_line);
         tvSubway.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -274,11 +287,13 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
                 intent.putExtra(SEARCH_FIELD_PHOTO, photo);
                 intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
                 intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
-                String strSubIds = "";
-                for (Integer i : listSelectedSubways) {
-                    strSubIds = strSubIds + listSubways.get(i).getId() + " ";
+                if (listSelectedSubways != null) {
+                    String strSubIds = "";
+                    for (Integer i : listSelectedSubways) {
+                        strSubIds = strSubIds + listSubways.get(i).getId() + " ";
+                    }
+                    intent.putExtra(SEARCH_FIELD_SUBWAY, strSubIds.trim());
                 }
-                intent.putExtra(SEARCH_FIELD_SUBWAY, strSubIds.trim());
                 startActivity(intent);
             }
         } else {
