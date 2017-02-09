@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
@@ -42,8 +43,13 @@ public class ChangeEmailFragment extends Fragment {
 
     protected void clickChangeEmail() {
         String newEmail = edtNewEmailConfirm.getText().toString();
-        String accessToken= MyApplications.getUser().getAccessToken(getContext());
-        listener.changeEmail(newEmail, accessToken);
+        if (newEmail.length() >= 4 && newEmail.contains("@")) {
+            String accessToken= MyApplications.getUser().getAccessToken(getContext());
+            listener.changeEmail(newEmail, accessToken);
+        } else {
+            Toast.makeText(getContext(), R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override

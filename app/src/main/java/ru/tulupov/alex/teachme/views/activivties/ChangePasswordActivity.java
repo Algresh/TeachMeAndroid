@@ -44,6 +44,11 @@ public class ChangePasswordActivity extends BaseActivity implements ChangeProfil
                 String oldPass = edtOldPass.getText().toString();
 
                 if (newPass.equals(newPassConfirm)) {
+                    if (newPass.length() < 6) {
+                        Toast.makeText(ChangePasswordActivity.this, R.string.pass_too_short, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (checkConnection()) {
                         String accessToken = MyApplications.getUser().getAccessToken(ChangePasswordActivity.this);
                         String email = MyApplications.getUser().getEmail(ChangePasswordActivity.this);

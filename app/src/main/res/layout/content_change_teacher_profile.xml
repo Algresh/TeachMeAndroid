@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="ru.tulupov.alex.teachme.views.activivties.LoginActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBg"
+        android:id="@+id/reg_fragment_container"/>
+
+    <LinearLayout
+        android:id="@+id/register_next_prev_panel"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_register_teacher_prev"
+            android:background="@android:color/transparent"
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_arrow_back"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_register_teacher_ok"
+            android:scaleType="fitEnd"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_check_ok"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -96,17 +96,4 @@ public class ChangeEmailActivity extends BaseActivity implements ChangeProfileVi
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
     }
-
-    protected boolean checkConnection() {
-        ConnectivityManager connectChecker = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        return false;
-    }
 }

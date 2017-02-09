@@ -71,6 +71,7 @@
     <string name="hint_new_password">Новый пароль</string>
     <string name="hint_password_confirm">Подтверждение пароля</string>
     <string name="text_is_differ">Пароли не совпадают</string>
+    <string name="pass_too_short">Пароль слишком короткий</string>
     <string name="text_login_existed">Такой логин уже существует</string>
     <string name="text_email_existed">Этот email уже используется</string>
     <string name="text_phone_existed">Этот телефон уже используется</string>
@@ -107,6 +108,7 @@
     <string name="confirmPassword">Повторить новый пароль</string>
     <string name="changePasswordTitle">Изменение пароля</string>
     <string name="changeEmailTitle">Изменение email</string>
+    <string name="changeProfileTitle">Изменение профиля</string>
     <string name="changeNewEmail">Новый email</string>
     <string name="emailModified">Email изменен</string>
     <string name="emailCodeWrong">Код не верный</string>

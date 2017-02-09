@@ -37,7 +37,7 @@ import ru.tulupov.alex.teachme.views.fragments.RegTeacherContactsFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
-public class ChangeTeacherProfileActivity extends AppCompatActivity implements ChangeTeacherView {
+public class ChangeTeacherProfileActivity extends BaseActivity implements ChangeTeacherView {
 
     private ChangeTeacherPresenter presenter;
 
@@ -79,6 +79,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
 
         initFragment();
         initArrayTags();
+        initToolbar(getString(R.string.changeProfileTitle), R.id.toolbarChangeTeacherProfile);
     }
 
     private void initFragment() {
@@ -197,6 +198,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         teacherUser.setPhotoSrc(this, photo);
         teacherUser.setCityHasSub(this, cityHasSub);
 
+        Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
         presenter.showTeacherDescription(teacherUser.getAccessToken(this));
     }
 
@@ -287,6 +289,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         if (checkConnection()) {
             String accessToken = MyApplications.getUser().getAccessToken(this);
             presenter.showTeacherSubjects(accessToken);
+            Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
@@ -303,6 +306,7 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
         if (checkConnection()) {
             String accessToken = MyApplications.getUser().getAccessToken(this);
             presenter.showTeacherContacts(accessToken);
+            Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
         }
@@ -329,19 +333,6 @@ public class ChangeTeacherProfileActivity extends AppCompatActivity implements C
             currRegDataCorrect = (RegDataCorrect) getSupportFragmentManager()
                     .findFragmentByTag(regFragmentTagsTeacher[registerStep - 1]);
         }
-    }
-
-    protected boolean checkConnection() {
-        ConnectivityManager connectChecker = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        wifiInfo = connectChecker.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (wifiInfo != null && wifiInfo.isConnected()) {
-            return true;
-        }
-        return false;
     }
 
     @Override
