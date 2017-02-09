@@ -158,6 +158,11 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
         tvSubject.setText(selectedSubject.getTitle());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     protected boolean checkFields() {
         if (selectedSubject == null || selectedCity == null) {
             Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();

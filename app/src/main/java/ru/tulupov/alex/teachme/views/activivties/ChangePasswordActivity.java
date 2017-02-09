@@ -107,4 +107,9 @@ public class ChangePasswordActivity extends BaseActivity implements ChangeProfil
     public void changedEmailWrongOther() {
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

@@ -119,6 +119,11 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void showSubjects(List<Subject> list, int tag) {
         if (list != null && list.size() > 0) {
             listSubjects = list;
@@ -287,13 +292,13 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
                 intent.putExtra(SEARCH_FIELD_PHOTO, photo);
                 intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
                 intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
+                String strSubIds = "";
                 if (listSelectedSubways != null) {
-                    String strSubIds = "";
                     for (Integer i : listSelectedSubways) {
                         strSubIds = strSubIds + listSubways.get(i).getId() + " ";
                     }
-                    intent.putExtra(SEARCH_FIELD_SUBWAY, strSubIds.trim());
                 }
+                intent.putExtra(SEARCH_FIELD_SUBWAY, strSubIds.trim());
                 startActivity(intent);
             }
         } else {

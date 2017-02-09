@@ -86,6 +86,11 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
         navigationView.setNavigationItemSelectedListener(selectMenuNavigationView());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private  NavigationView.OnNavigationItemSelectedListener selectMenuNavigationView() {
         return new NavigationView.OnNavigationItemSelectedListener() {
             @Override

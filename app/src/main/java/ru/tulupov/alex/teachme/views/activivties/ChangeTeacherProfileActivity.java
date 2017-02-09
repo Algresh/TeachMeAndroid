@@ -82,6 +82,11 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
         initToolbar(getString(R.string.changeProfileTitle), R.id.toolbarChangeTeacherProfile);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void initFragment() {
         if (checkConnection()) {
             User user = MyApplications.getUser();

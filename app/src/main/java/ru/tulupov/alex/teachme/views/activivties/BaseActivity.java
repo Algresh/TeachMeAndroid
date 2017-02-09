@@ -24,13 +24,22 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
+        super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             int color = ContextCompat.getColor(this, R.color.colorPrimary);
             window.setStatusBarColor(color);
         }
-        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            int color = ContextCompat.getColor(this, R.color.colorPrimary);
+            window.setStatusBarColor(color);
+        }
     }
 
     protected void initToolbar(String title, int idToolbar ) {

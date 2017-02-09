@@ -183,5 +183,6 @@
     <string name="title_dialog_subject">Выбор предмета</string>
     <string name="loginOrPasswordError">Неправильный логин или пароль</string>
     <string name="currencyRub">руб.</string>
+    <string name="searchNothing">Ничего не найдено</string>
 
 </resources>

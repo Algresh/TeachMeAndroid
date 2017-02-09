@@ -37,6 +37,11 @@ public class ChangeEmailActivity extends BaseActivity implements ChangeProfileVi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void changedPasswordSuccess() {
 
     }

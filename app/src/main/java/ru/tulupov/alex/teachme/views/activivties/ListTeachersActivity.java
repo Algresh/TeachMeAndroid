@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -39,6 +41,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
     protected RecyclerView recyclerView;
     protected LinearLayoutManager manager;
 
+    protected TextView tvSearchNothing;
     protected int typeSearch;
 
     protected int pages = 0;
@@ -64,6 +67,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
         presenter = new ListTeachersPresenter();
         presenter.onCreate(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycleViewTeachers);
+        tvSearchNothing = (TextView) findViewById(R.id.searchNothing);
 
         int typeSearch = intent.getIntExtra(TYPE_SEARCH, -1);
         if (typeSearch == TYPE_SEARCH_MY_CITY) {
@@ -110,6 +114,11 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     protected Map<String, String> wrapQuery () {
         Map<String, String> map = new HashMap<>();
 
@@ -134,12 +143,17 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
 
     @Override
     public void showListTeachers(List<Teacher> teacherList) {
-        manager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(manager);
-        TeachersAdapter adapter = new TeachersAdapter(teacherList, this);
-        recyclerView.setAdapter(adapter);
-        teachersAreDownloading = false;
-        pages++;
+        if (teacherList.size() > 0) {
+            manager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(manager);
+            TeachersAdapter adapter = new TeachersAdapter(teacherList, this);
+            recyclerView.setAdapter(adapter);
+            teachersAreDownloading = false;
+            pages++;
+        } else {
+            tvSearchNothing.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

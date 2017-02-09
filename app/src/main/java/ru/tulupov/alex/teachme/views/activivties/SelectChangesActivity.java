@@ -59,4 +59,9 @@ public class SelectChangesActivity extends BaseNavigationActivity {
     protected void onStart() {
         super.onStart();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
