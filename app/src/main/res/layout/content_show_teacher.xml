@@ -122,6 +122,7 @@
 
 
     <LinearLayout
+        android:id="@+id/bottomPanelTeacher"
         android:layout_alignParentBottom="true"
         android:gravity="bottom|center_vertical"
         android:background="@color/colorPrimary"

@@ -25,7 +25,7 @@ import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 
 public class RegTeacherContactsFragment extends Fragment implements ShowSubway, RegDataCorrect,
-        FragmentSubwayDialog.SelectSubway, PromotionDialogFragment.SelectPromotion, CheckLoginEmailExisted {
+        FragmentSubwayDialog.SelectSubway, CheckLoginEmailExisted {
 
     private TextView tvPhoneExisted;
     private TextView tvSubway;
@@ -35,7 +35,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private EditText edtLogin;
     private EditText edtPassword;
     private EditText edtPasswordConfirm;
-    private TextView tvAnketa;
+//    private TextView tvAnketa;
     private TextView tvPassDiffer;
     private TextView tvLoginExisted;
     private TextView tvEmailExisted;
@@ -47,7 +47,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private List<Integer> listSelected;
     private List<Subway> listSubways;
     private boolean subwayDialogIsDownloading;
-    private int selectedPromotion = 0;
+//    private int selectedPromotion = 0;
 
     boolean leaveHouse = false;
 
@@ -102,19 +102,19 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
         tvEmailExisted = (TextView) view.findViewById(R.id.tv_email_existed);
-        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
-        if (selectedPromotion != 0) {
-            String[] arr = res.getStringArray(R.array.promotion);
-            tvAnketa.setText(arr[selectedPromotion]);
-        }
-        tvAnketa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PromotionDialogFragment dialog = new PromotionDialogFragment();
-                dialog.setSelectedItem(selectedPromotion);
-                dialog.show(getChildFragmentManager(), "promotion");
-            }
-        });
+//        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
+//        if (selectedPromotion != 0) {
+//            String[] arr = res.getStringArray(R.array.promotion);
+//            tvAnketa.setText(arr[selectedPromotion]);
+//        }
+//        tvAnketa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                PromotionDialogFragment dialog = new PromotionDialogFragment();
+//                dialog.setSelectedItem(selectedPromotion);
+//                dialog.show(getChildFragmentManager(), "promotion");
+//            }
+//        });
 
         presenter = new CitySubjectPresenter();
         presenter.onCreate(null, null, this);
@@ -165,7 +165,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         teacherRegistration.setEmail(edtEmail.getText().toString());
         teacherRegistration.setLogin(edtLogin.getText().toString());
         teacherRegistration.setPassword(edtPassword.getText().toString());
-        teacherRegistration.setAnketa(selectedPromotion);
+//        teacherRegistration.setAnketa(selectedPromotion);
     }
 
     @Override
@@ -181,14 +181,14 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
             correctColorTextView(tvSubway);
         }
 
-        String strAnketa = tvAnketa.getText().toString().trim();
-        String textAnketa = getResources().getString(R.string.btn_select_promotion);
-        if(strAnketa.equals(textAnketa)) {
-            warningColorTextView(tvAnketa);
-            isCorrect = false;
-        } else {
-            correctColorTextView(tvAnketa);
-        }
+//        String strAnketa = tvAnketa.getText().toString().trim();
+//        String textAnketa = getResources().getString(R.string.btn_select_promotion);
+//        if(strAnketa.equals(textAnketa)) {
+//            warningColorTextView(tvAnketa);
+//            isCorrect = false;
+//        } else {
+//            correctColorTextView(tvAnketa);
+//        }
 
         String strPhone = edtPhone.getText().toString().trim();
         if (strPhone.length() < 2 || !strPhone.matches(".*\\d.*") ) {
@@ -271,13 +271,13 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
     }
 
-    @Override
-    public void selectPromotion(int item) {
-        selectedPromotion = item;
-        String strPromotion = getResources().getStringArray(R.array.promotion)[item];
-        tvAnketa.setText(strPromotion);
-
-    }
+//    @Override
+//    public void selectPromotion(int item) {
+//        selectedPromotion = item;
+//        String strPromotion = getResources().getStringArray(R.array.promotion)[item];
+//        tvAnketa.setText(strPromotion);
+//
+//    }
 
     @Override
     public String getEmail() {

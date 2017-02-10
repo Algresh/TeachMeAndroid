@@ -94,7 +94,12 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
             initData();
         }
 
-        initBottomPanel(teacher.getPhoneNumber());
+        if (typeUser.equals(User.TYPE_USER_PUPIL)) {
+            initBottomPanel(teacher.getPhoneNumber());
+        } else {
+            findViewById(R.id.bottomPanelTeacher).setVisibility(View.GONE);
+        }
+
 
     }
 

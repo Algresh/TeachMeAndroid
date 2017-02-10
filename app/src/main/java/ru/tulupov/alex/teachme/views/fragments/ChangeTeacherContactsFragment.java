@@ -1,7 +1,6 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,20 +26,18 @@ import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.City;
 import ru.tulupov.alex.teachme.models.ContactsBlock;
 import ru.tulupov.alex.teachme.models.Subway;
-import ru.tulupov.alex.teachme.models.Teacher;
-import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
 import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
 
 public class ChangeTeacherContactsFragment extends Fragment implements ShowSubway, RegDataCorrect,
-        FragmentSubwayDialog.SelectSubway, PromotionDialogFragment.SelectPromotion, CheckLoginEmailExisted {
+        FragmentSubwayDialog.SelectSubway, CheckLoginEmailExisted {
 
     private TextView tvPhoneExisted;
     private TextView tvSubway;
     private SwitchCompat scLeaveHouse;
     private EditText edtPhone;
     private EditText edtLogin;
-    private TextView tvAnketa;
+//    private TextView tvAnketa;
     private TextView tvLoginExisted;
 
     private CitySubjectPresenter presenter;
@@ -51,7 +48,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
     private List<Integer> listIdSelected; // нужен если станции метро не были изменены
     private List<Subway> listSubways;
     private boolean subwayDialogIsDownloading;
-    private int selectedPromotion = 0;
+//    private int selectedPromotion = 0;
 
     boolean leaveHouse = false;
 
@@ -81,7 +78,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         oldPhone = phoneNumber;
         String login =  block.getLogin();
         oldLogin = login;
-        int typeAnketa = block.getTypeAnketa();
+//        int typeAnketa = block.getTypeAnketa();
         leaveHouse = block.isLeaveHome();
         Log.d(Constants.MY_TAG, leaveHouse + "||");
 
@@ -115,26 +112,30 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         edtLogin.setText(login);
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
-        selectedPromotion = typeAnketa;
-        String strAnketa = getResources().getStringArray(R.array.promotion)[typeAnketa];
-        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
-        tvAnketa.setText(strAnketa);
-        if (selectedPromotion != 0) {
-            String[] arr = res.getStringArray(R.array.promotion);
-            tvAnketa.setText(arr[selectedPromotion]);
-        }
-        tvAnketa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PromotionDialogFragment dialog = new PromotionDialogFragment();
-                dialog.setSelectedItem(selectedPromotion);
-                dialog.show(getChildFragmentManager(), "promotion");
-            }
-        });
+//        selectedPromotion = typeAnketa;
+//        String strAnketa = getResources().getStringArray(R.array.promotion)[typeAnketa];
+//        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
+//        tvAnketa.setText(strAnketa);
+//        if (selectedPromotion != 0) {
+//            String[] arr = res.getStringArray(R.array.promotion);
+//            tvAnketa.setText(arr[selectedPromotion]);
+//        }
+//        tvAnketa.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                PromotionDialogFragment dialog = new PromotionDialogFragment();
+//                dialog.setSelectedItem(selectedPromotion);
+//                dialog.show(getChildFragmentManager(), "promotion");
+//            }
+//        });
+
 
         presenter = new CitySubjectPresenter();
         presenter.onCreate(null, null, this);
-        fullListIdSelected(block.getIdSubways());
+        if (cityHasSub) {
+            fullListIdSelected(block.getIdSubways());
+        }
+
 
         return view;
     }
@@ -145,9 +146,13 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
     private void fullListIdSelected (String strSubId) {
         listIdSelected = new ArrayList<>();
-        String[] arrStr = strSubId.split(" ");
-        for (String s : arrStr) {
-            listIdSelected.add(Integer.parseInt(s));
+        if (!strSubId.trim().equals("")) {
+            String[] arrStr = strSubId.split(" ");
+            for (String s : arrStr) {
+                listIdSelected.add(Integer.parseInt(s));
+            }
+        } else {
+            tvSubway.setText(R.string.hint_subway);
         }
     }
 
@@ -195,7 +200,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         map.put("subwayStation", strSubwayIds);
         map.put("phoneNumber", edtPhone.getText().toString());
         map.put("login", edtLogin.getText().toString());
-        map.put("typeAnketa", String.valueOf(selectedPromotion));
+//        map.put("typeAnketa", String.valueOf(selectedPromotion));
 
         return map;
     }
@@ -229,14 +234,14 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
             correctColorTextView(tvSubway);
         }
 
-        String strAnketa = tvAnketa.getText().toString().trim();
-        String textAnketa = getResources().getString(R.string.btn_select_promotion);
-        if(strAnketa.equals(textAnketa)) {
-            warningColorTextView(tvAnketa);
-            isCorrect = false;
-        } else {
-            correctColorTextView(tvAnketa);
-        }
+//        String strAnketa = tvAnketa.getText().toString().trim();
+//        String textAnketa = getResources().getString(R.string.btn_select_promotion);
+//        if(strAnketa.equals(textAnketa)) {
+//            warningColorTextView(tvAnketa);
+//            isCorrect = false;
+//        } else {
+//            correctColorTextView(tvAnketa);
+//        }
 
         String strPhone = edtPhone.getText().toString().trim();
         if (strPhone.length() < 2 || !strPhone.matches(".*\\d.*") ) {
@@ -293,12 +298,12 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
     }
 
-    @Override
-    public void selectPromotion(int item) {
-        selectedPromotion = item;
-        String strPromotion = getResources().getStringArray(R.array.promotion)[item];
-        tvAnketa.setText(strPromotion);
-    }
+//    @Override
+//    public void selectPromotion(int item) {
+//        selectedPromotion = item;
+//        String strPromotion = getResources().getStringArray(R.array.promotion)[item];
+//        tvAnketa.setText(strPromotion);
+//    }
 
 
     @Override

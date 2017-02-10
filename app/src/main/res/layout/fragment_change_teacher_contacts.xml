@@ -82,15 +82,15 @@
         android:visibility="gone"
         />
 
-    <TextView
-        android:id="@+id/tv_reg_teacher_anketa"
-        android:textSize="@dimen/font_size_main"
-        android:paddingLeft="8dp"
-        android:textColor="@android:color/white"
-        android:text="@string/title_type_promotion"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--<TextView-->
+        <!--android:id="@+id/tv_reg_teacher_anketa"-->
+        <!--android:textSize="@dimen/font_size_main"-->
+        <!--android:paddingLeft="8dp"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:text="@string/title_type_promotion"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
     <!--<Spinner-->
         <!--android:id="@+id/sp_reg_teacher_promotion_type"-->

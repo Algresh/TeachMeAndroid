@@ -219,7 +219,6 @@ public class TeacherRegistration {
         map.put("email", email);
         map.put("password", password);
         map.put("login", login);
-        map.put("typeAnketa", String.valueOf(anketa));
         map.put("priceLIstNum", String.valueOf(getPriceLists().size()));
 
         return  map;
@@ -243,7 +242,6 @@ public class TeacherRegistration {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", subways='" + subways + '\'' +
                 ", leaveHome=" + leaveHome +
-                ", anketa=" + anketa +
                 ", enable=" + enable +
                 ", photo=" + photo +
                 '}';

@@ -122,17 +122,17 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="1dp"/>-->
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/sc_main_search_photo"
-        android:text="@string/switch_is_photo"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:background="@color/colorBg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--<android.support.v7.widget.SwitchCompat-->
+        <!--android:id="@+id/sc_main_search_photo"-->
+        <!--android:text="@string/switch_is_photo"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:layout_marginRight="16dp"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="18sp"-->
+        <!--android:background="@color/colorBg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
     <!--<View-->
         <!--android:layout_marginTop="8dp"-->
         <!--android:layout_marginBottom="4dp"-->

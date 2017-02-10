@@ -53,7 +53,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 //    protected View vSubwayLine;
     protected EditText edtPrice;
     protected SwitchCompat swLeaveHouse;
-    protected SwitchCompat swPhoto;
+//    protected SwitchCompat swPhoto;
     protected Button btnSearch;
 
     protected List<City> listCities;
@@ -254,13 +254,13 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
                 leaveHouse = isChecked;
             }
         });
-        swPhoto = (SwitchCompat) findViewById(R.id.sc_main_search_photo);
-        swPhoto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                photo = isChecked;
-            }
-        });
+//        swPhoto = (SwitchCompat) findViewById(R.id.sc_main_search_photo);
+//        swPhoto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                photo = isChecked;
+//            }
+//        });
 
         btnSearch = (Button) findViewById(R.id.btn_main_search_exec);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +289,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
                 intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
                 intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
 
-                intent.putExtra(SEARCH_FIELD_PHOTO, photo);
+//                intent.putExtra(SEARCH_FIELD_PHOTO, photo);
                 intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
                 intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
                 String strSubIds = "";
