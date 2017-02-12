@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_about"
     android:layout_width="match_parent"
@@ -36,36 +35,41 @@
                 android:layout_width="@dimen/size_avatar"
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/card_padding" />
+                android:src="@drawable/kirill_sergeev"
+                android:layout_marginRight="16dp" />
 
             <TextView
-                android:id="@+id/tv_about_profile_first"
-                android:text="First profile"
-                android:textColor="@android:color/white"
+                android:text="@string/authorPersonAbout"
                 android:textSize="16sp"
+                android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_first_img_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
 
-            <Button
-                android:id="@+id/btn_about_profile_first"
+            <TextView
+                android:text="@string/authorEmailAbout"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_first_img_avatar"
+                android:layout_marginTop="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/profile_first_img_avatar"
-                android:layout_below="@+id/tv_about_profile_first"
-                android:background="@android:color/transparent"
-                android:gravity="left|top"
-                android:paddingTop="4dp"
-                android:textAllCaps="false"
-                android:text="@string/btn_profile"
+                />
+
+            <TextView
+                android:text="@string/authorPositionAbout"
+                android:textSize="14sp"
                 android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_first_img_avatar"
+                android:layout_marginTop="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -74,12 +78,11 @@
                 android:layout_width="@dimen/size_avatar"
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/card_padding" />
+                android:src="@drawable/dolgay_olga"
+                android:layout_marginRight="16dp" />
 
             <TextView
-                android:id="@+id/tv_about_profile_second"
-                android:text="Second profile"
+                android:text="@string/designerPersonAbout"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_second_img_avatar"
@@ -87,23 +90,31 @@
                 android:layout_height="wrap_content"
                 />
 
-            <Button
-                android:id="@+id/btn_about_profile_second"
+            <TextView
+                android:text="@string/designerEmailAbout"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_second_img_avatar"
+                android:layout_marginTop="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/profile_second_img_avatar"
-                android:layout_below="@+id/tv_about_profile_second"
-                android:background="@android:color/transparent"
-                android:gravity="left|top"
-                android:paddingTop="4dp"
-                android:textAllCaps="false"
-                android:text="@string/btn_profile"
-                android:textColor="@android:color/white"
                 />
+
+            <TextView
+                android:text="@string/designerPositionAbout"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_second_img_avatar"
+                android:layout_marginTop="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -112,12 +123,11 @@
                 android:layout_width="@dimen/size_avatar"
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/card_padding" />
+                android:src="@drawable/tulupov_alex"
+                android:layout_marginRight="16dp" />
 
             <TextView
-                android:id="@+id/tv_about_profile_third"
-                android:text="Third profile"
+                android:text="@string/programmerPersonAbout"
                 android:textSize="16sp"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_third_img_avatar"
@@ -125,18 +135,24 @@
                 android:layout_height="wrap_content"
                 />
 
-            <Button
-                android:id="@+id/btn_about_profile_third"
+            <TextView
+                android:text="@string/programmerEmailAbout"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_third_img_avatar"
+                android:layout_marginTop="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/profile_third_img_avatar"
-                android:layout_below="@+id/tv_about_profile_third"
-                android:background="@android:color/transparent"
-                android:gravity="left|top"
-                android:paddingTop="4dp"
-                android:textAllCaps="false"
-                android:text="@string/btn_profile"
+                />
+
+            <TextView
+                android:text="@string/programmerPositionAbout"
+                android:textSize="14sp"
                 android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_third_img_avatar"
+                android:layout_marginTop="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 />
         </RelativeLayout>
     </LinearLayout>

@@ -347,7 +347,11 @@ public class LoginActivity extends AppCompatActivity
             case 5:
                 return new RegTeacherContactsFragment();
             case 6:
-                return new RegTeacherAgreementFragment();
+                RegTeacherAgreementFragment fragment = new RegTeacherAgreementFragment();
+                Bundle args = new Bundle();
+                args.putString("type", "teacher");
+                fragment.setArguments(args);
+                return fragment;
         }
 
         return null;
@@ -359,7 +363,11 @@ public class LoginActivity extends AppCompatActivity
             case 2:
                 return new RegPupilContacts();
             case 3:
-                return new RegTeacherAgreementFragment();
+                RegTeacherAgreementFragment fragment = new RegTeacherAgreementFragment();
+                Bundle args = new Bundle();
+                args.putString("type", "pupil");
+                fragment.setArguments(args);
+                return fragment;
         }
 
         return null;

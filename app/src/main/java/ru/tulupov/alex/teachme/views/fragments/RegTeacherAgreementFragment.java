@@ -1,7 +1,6 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -11,14 +10,13 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import ru.tulupov.alex.teachme.R;
-import ru.tulupov.alex.teachme.models.TeacherRegistration;
 
 
 public class RegTeacherAgreementFragment extends Fragment implements RegDataCorrect{
 
     private SwitchCompat swAgreement;
+    private TextView tvTextAgreement;
 
     private boolean isAgree = false;
 
@@ -29,6 +27,19 @@ public class RegTeacherAgreementFragment extends Fragment implements RegDataCorr
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reg_teacher_agreement, container, false);
         swAgreement = (SwitchCompat) view.findViewById(R.id.reg_teacher_agreement);
+        tvTextAgreement = (TextView) view.findViewById(R.id.text_agreement);
+        Bundle args = getArguments();
+
+        if (args != null) {
+            String type = args.getString("type");
+            if (type != null && type.equals("pupil")) {
+                tvTextAgreement.setText(R.string.textAgreementPupil);
+            }
+
+            if (type != null && type.equals("teacher")) {
+                tvTextAgreement.setText(R.string.textAgreementTeacher);
+            }
+        }
 
         swAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
