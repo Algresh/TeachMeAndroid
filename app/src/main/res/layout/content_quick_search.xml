@@ -15,67 +15,58 @@
 
     <TextView
         android:id="@+id/sp_quick_search_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/hint_city"
         android:textColor="@android:color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!--<View-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginBottom="4dp"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"/>-->
+        android:layout_marginTop="@dimen/size_quick_search"
+        android:layout_marginLeft="@dimen/size_quick_search"
+        android:layout_marginRight="@dimen/size_quick_search"
+        android:textSize="@dimen/text_size_search"
+        />
 
     <TextView
         android:id="@+id/sp_quick_search_subject"
-        android:text="@string/hint_subject"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="@string/hint_subject"
+        android:layout_marginTop="@dimen/size_quick_search"
+        android:layout_marginLeft="@dimen/size_quick_search"
+        android:layout_marginRight="@dimen/size_quick_search"
+        android:textSize="@dimen/text_size_search"
+        android:textColor="@android:color/white"
+        />
 
     <View
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="@dimen/size_quick_search"
+        android:layout_marginBottom="@dimen/size_quick_search"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/sc_quick_search_leave"
-        android:text="@string/switch_leave_house"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:background="@color/colorBg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <!--<View-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginBottom="4dp"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"/>-->
+        android:layout_height="wrap_content"
+        android:text="@string/switch_leave_house"
+        android:layout_marginTop="@dimen/size_quick_search"
+        android:layout_marginLeft="@dimen/size_quick_search"
+        android:layout_marginRight="@dimen/size_quick_search"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_search"
+        android:background="@color/colorBg"
+        />
 
     <Button
         android:id="@+id/btn_quick_search_exec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/btn_light_blue"
         android:layout_gravity="center_horizontal"
         android:text="@string/btn_find"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:paddingLeft="@dimen/size_quick_search_btn"
+        android:paddingRight="@dimen/size_quick_search_btn"
+        android:layout_marginTop="@dimen/size_quick_search_btn"
+         />
 
 </LinearLayout>

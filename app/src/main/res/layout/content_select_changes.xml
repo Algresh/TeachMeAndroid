@@ -12,18 +12,20 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        >
 
         <Button
             android:id="@+id/btn_changes_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/changes_profile"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_light_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            />
 
         <Button
             android:id="@+id/btn_changes_email"
@@ -36,12 +38,13 @@
 
         <Button
             android:id="@+id/btn_changes_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/changes_password"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_light_blue"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            />
 
     </LinearLayout>
 

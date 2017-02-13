@@ -11,21 +11,21 @@
 
     <ImageButton
         android:id="@+id/btn_register_teacher_prev"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:scaleType="fitStart"
         android:src="@drawable/ic_arrow_back"
         android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         />
 
     <ImageButton
         android:id="@+id/btn_register_teacher_ok"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:scaleType="fitEnd"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_check_ok"
         android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         />
 </LinearLayout>

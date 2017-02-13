@@ -8,24 +8,24 @@
 
     <TextView
         android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-
-        android:paddingTop="96dp"
-
+        android:paddingTop="@dimen/padding_app_name"
         android:text="@string/app_name"
         android:textSize="64sp"
         android:textStyle="italic|bold"
         android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+         />
 
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tv_app_name"
         android:layout_alignRight="@+id/tv_app_name"
         android:text="@string/tagline"
         android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        />
 
 </RelativeLayout>

@@ -12,36 +12,40 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        >
 
         <Button
             android:id="@+id/btn_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/btn_search"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_light_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            />
 
         <Button
             android:id="@+id/btn_search_quick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/btn_quick_search"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_light_blue"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            />
 
         <Button
             android:id="@+id/btn_search_all_profiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/btn_all_profiles_in_my_city"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_light_blue"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            />
 
     </LinearLayout>
 

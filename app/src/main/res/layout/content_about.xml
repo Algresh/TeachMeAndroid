@@ -8,27 +8,29 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        >
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/title_about"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/text_size_about_title"
             android:textColor="@android:color/white"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="32dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_marginBottom="@dimen/padding_bottom_about_title"
+             />
 
 
         <RelativeLayout
-            android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_profile"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_first_img_avatar"
@@ -36,11 +38,11 @@
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
                 android:src="@drawable/kirill_sergeev"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="@dimen/margin_right_about_image" />
 
             <TextView
                 android:text="@string/authorPersonAbout"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_about_name"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_first_img_avatar"
                 android:layout_width="wrap_content"
@@ -48,30 +50,31 @@
                 />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/authorEmailAbout"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_about_email"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_first_img_avatar"
-                android:layout_marginTop="24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_about_email"
                 />
 
             <TextView
-                android:text="@string/authorPositionAbout"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:layout_toRightOf="@+id/profile_first_img_avatar"
-                android:layout_marginTop="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/authorPositionAbout"
+                android:textSize="@dimen/text_size_about_description"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_first_img_avatar"
+                android:layout_marginTop="@dimen/margin_top_about_description"
                 />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_profile"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_second_img_avatar"
@@ -79,44 +82,46 @@
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
                 android:src="@drawable/dolgay_olga"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="@dimen/margin_right_about_image" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/designerPersonAbout"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_about_name"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_second_img_avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
                 />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/designerEmailAbout"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_about_email"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_second_img_avatar"
-                android:layout_marginTop="24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_about_email"
                 />
 
             <TextView
-                android:text="@string/designerPositionAbout"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:layout_toRightOf="@+id/profile_second_img_avatar"
-                android:layout_marginTop="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/designerPositionAbout"
+                android:textSize="@dimen/text_size_about_description"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_second_img_avatar"
+                android:layout_marginTop="@dimen/margin_top_about_description"
                 />
 
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_profile"
+            >
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_third_img_avatar"
@@ -124,35 +129,35 @@
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
                 android:src="@drawable/tulupov_alex"
-                android:layout_marginRight="16dp" />
+                android:layout_marginRight="@dimen/margin_right_about_image" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/programmerPersonAbout"
-                android:textSize="16sp"
+                android:textSize="@dimen/text_size_about_name"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_third_img_avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/programmerEmailAbout"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_about_email"
                 android:textColor="@android:color/white"
                 android:layout_toRightOf="@+id/profile_third_img_avatar"
-                android:layout_marginTop="24dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top_about_email"
                 />
 
             <TextView
-                android:text="@string/programmerPositionAbout"
-                android:textSize="14sp"
-                android:textColor="@android:color/white"
-                android:layout_toRightOf="@+id/profile_third_img_avatar"
-                android:layout_marginTop="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/programmerPositionAbout"
+                android:textSize="@dimen/text_size_about_description"
+                android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/profile_third_img_avatar"
+                android:layout_marginTop="@dimen/margin_top_about_description"
                 />
         </RelativeLayout>
     </LinearLayout>

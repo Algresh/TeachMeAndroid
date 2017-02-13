@@ -19,7 +19,7 @@
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:text="@string/hint_city"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/left_padding_teacher_contacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -35,11 +35,11 @@
 
         <TextView
             android:id="@+id/tv_email_existed"
-            android:paddingLeft="8dp"
+            android:paddingLeft="@dimen/left_padding_teacher_contacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_email_existed"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_warning_message"
             android:textColor="@color/colorWarning"
             android:visibility="gone"
             />
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_login_existed"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_warning_message"
             android:textColor="@color/colorWarning"
             android:visibility="gone"
             />
@@ -81,11 +81,11 @@
 
         <TextView
             android:id="@+id/tv_pass_is_differ"
-            android:paddingLeft="8dp"
+            android:paddingLeft="@dimen/left_padding_teacher_contacts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_is_differ"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_size_warning_message"
             android:textColor="@color/colorWarning"
             android:visibility="gone"
             />

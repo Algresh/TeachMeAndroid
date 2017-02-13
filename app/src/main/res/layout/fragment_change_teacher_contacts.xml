@@ -12,22 +12,14 @@
         android:textSize="@dimen/font_size_main"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
-        android:layout_marginLeft="4dp"
-        android:paddingLeft="4dp"
-
+        android:paddingLeft="@dimen/left_padding_teacher_contacts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <!--<View-->
-        <!--android:background="@android:color/white"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--android:layout_marginRight="4dp"-->
-        <!--android:layout_height="1dp"/>-->
 
     <TextView
         android:id="@+id/et_reg_teacher_subway"
         android:textSize="@dimen/font_size_main"
-        android:paddingLeft="8dp"
+        android:paddingLeft="@dimen/left_padding_teacher_contacts"
         android:clickable="true"
         android:inputType="none"
         android:text="@string/hint_subway"
@@ -42,7 +34,7 @@
         android:id="@+id/edt_reg_teacher_phone"
         android:hint="@string/hint_phone"
         android:textSize="@dimen/font_size_main"
-        android:paddingLeft="8dp"
+        android:paddingLeft="@dimen/left_padding_teacher_contacts"
         android:inputType="phone"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
@@ -55,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_phone_existed"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_warning_message"
         android:textColor="@color/colorWarning"
         android:visibility="gone"
         />
@@ -65,7 +57,7 @@
         android:id="@+id/edt_reg_teacher_login"
         android:hint="@string/hint_login"
         android:textSize="@dimen/font_size_main"
-        android:paddingLeft="8dp"
+        android:paddingLeft="@dimen/left_padding_teacher_contacts"
         android:textColorHint="@android:color/white"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
@@ -73,38 +65,13 @@
 
     <TextView
         android:id="@+id/tv_login_existed"
-        android:paddingLeft="8dp"
+        android:paddingLeft="@dimen/left_padding_teacher_contacts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_login_existed"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_warning_message"
         android:textColor="@color/colorWarning"
         android:visibility="gone"
         />
 
-    <!--<TextView-->
-        <!--android:id="@+id/tv_reg_teacher_anketa"-->
-        <!--android:textSize="@dimen/font_size_main"-->
-        <!--android:paddingLeft="8dp"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:text="@string/title_type_promotion"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-
-    <!--<Spinner-->
-        <!--android:id="@+id/sp_reg_teacher_promotion_type"-->
-        <!--android:spinnerMode="dialog"-->
-        <!--android:textSize="@dimen/font_size_main"-->
-        <!--android:paddingLeft="0dp"-->
-        <!--android:entries="@array/promotion"-->
-        <!--android:layout_marginTop="4dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-    <!--<View-->
-        <!--android:background="@android:color/white"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--android:layout_marginRight="4dp"-->
-        <!--android:layout_height="1dp"/>-->
 </LinearLayout>

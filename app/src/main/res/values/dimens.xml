@@ -5,4 +5,26 @@
     <dimen name="font_size_main">16sp</dimen>
     <dimen name="size_avatar">64dp</dimen>
     <dimen name="card_padding">8dp</dimen>
+    <dimen name="padding_app_name">96dp</dimen>
+    <dimen name="padding_bottom_about_title">32dp</dimen>
+    <dimen name="text_size_about_title">20sp</dimen>
+    <dimen name="margin_bottom_profile">16dp</dimen>
+    <dimen name="text_size_about_name">16sp</dimen>
+    <dimen name="text_size_about_email">14sp</dimen>
+    <dimen name="text_size_about_description">14sp</dimen>
+    <dimen name="margin_right_about_image">16dp</dimen>
+    <dimen name="margin_top_about_email">24dp</dimen>
+    <dimen name="margin_top_about_description">48dp</dimen>
+    <dimen name="padding_top_bottom_panel">8dp</dimen>
+    <dimen name="padding_right_left_panel">32dp</dimen>
+    <dimen name="margin_top_search">8dp</dimen>
+    <dimen name="right_left_size_search">16dp</dimen>
+    <dimen name="text_size_search">18sp</dimen>
+    <dimen name="size_quick_search">8dp</dimen>
+    <dimen name="size_quick_search_btn">16dp</dimen>
+    <dimen name="margin_bottom_show_teacher">50dp</dimen>
+    <dimen name="padding_around_container">16dp</dimen>
+    <dimen name="avatar_size_show">80dp</dimen>
+    <dimen name="left_padding_teacher_contacts">8dp</dimen>
+    <dimen name="text_size_warning_message">12sp</dimen>
 </resources>

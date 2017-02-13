@@ -10,12 +10,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="@dimen/margin_bottom_show_teacher">
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:orientation="vertical"
+            android:padding="@dimen/padding_around_container">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -23,42 +23,41 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatarImageShowTeacher"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/avatar_size_show"
+                    android:layout_height="@dimen/avatar_size_show"
                     tools:src="@drawable/logo"
-                    app:civ_border_width="0dp"
-                    app:civ_border_color="#FF000000"/>
+                    />
 
                 <TextView
                     android:id="@+id/fullNameShowTeacher"
-                    tools:text="Тулупов Алексей"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/avatarImageShowTeacher"
+                    tools:text="Тулупов Алексей"
                     style="@style/fullNameShowTeacher"/>
 
                 <TextView
                     android:id="@+id/ageShowTeacher"
-                    tools:text="Возраст 34года"
-                    android:layout_below="@+id/fullNameShowTeacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/fullNameShowTeacher"
+                    tools:text="Возраст 34года"
                     style="@style/ageTeacher"/>
 
                 <TextView
-                    android:id="@+id/emailShowTeacher"
-                    tools:text="example@yandex.ru"
-                    android:layout_below="@+id/ageShowTeacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/emailShowTeacher"
+                    android:layout_below="@+id/ageShowTeacher"
+                    tools:text="example@yandex.ru"
                     style="@style/emailShowTeacher"/>
 
                 <TextView
                     android:id="@+id/phoneShowTeacher"
-                    tools:text="8 (903) 478-55-99"
-                    android:layout_below="@+id/emailShowTeacher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/emailShowTeacher"
+                    tools:text="8 (903) 478-55-99"
                     style="@style/phoneShowTeacher"/>
 
             </RelativeLayout>
@@ -127,8 +126,8 @@
         android:gravity="bottom|center_vertical"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingTop="@dimen/padding_top_bottom_panel"
+        android:paddingBottom="@dimen/padding_top_bottom_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

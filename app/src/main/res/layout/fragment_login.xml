@@ -22,14 +22,12 @@
             android:inputType="text"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/et_password"
             android:hint="@string/password"
-
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:layout_width="match_parent"
@@ -41,12 +39,9 @@
         <Button
             android:id="@+id/btn_enter"
             android:text="@string/enter"
-
             android:background="@drawable/btn_light_blue"
             android:textColor="@android:color/white"
-
             android:layout_marginTop="@dimen/activity_vertical_margin"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -66,12 +61,9 @@
     <Button
         android:id="@+id/btn_register"
         android:text="@string/register"
-
         android:background="@drawable/btn_light_blue"
         android:textColor="@android:color/white"
-
         android:layout_above="@+id/btn_feedback"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -84,10 +76,8 @@
         android:background="@android:color/transparent"
         android:padding="0dp"
         android:layout_gravity="center_horizontal"
-
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </RelativeLayout>

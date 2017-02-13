@@ -18,32 +18,33 @@
         android:id="@+id/register_next_prev_panel"
         android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
+        android:paddingTop="@dimen/padding_top_bottom_panel"
+        android:paddingBottom="@dimen/padding_top_bottom_panel"
+        android:paddingLeft="@dimen/padding_right_left_panel"
+        android:paddingRight="@dimen/padding_right_left_panel"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
             android:id="@+id/btn_register_teacher_prev"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:scaleType="fitStart"
             android:src="@drawable/ic_arrow_back"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
             />
 
         <ImageButton
             android:id="@+id/btn_register_teacher_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:scaleType="fitEnd"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_check_ok"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             />
     </LinearLayout>
 
