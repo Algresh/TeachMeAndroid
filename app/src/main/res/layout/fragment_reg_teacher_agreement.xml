@@ -2,18 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="40dp"
+    android:paddingBottom="@dimen/padding_bottom_agreement"
     android:orientation="vertical">
 
     <TextView
         android:gravity="center_vertical"
         android:background="@color/colorBg"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:paddingLeft="16dp"
+        android:textSize="@dimen/text_size_agreement"
+        android:padding="@dimen/size_panel_agreement"
         android:text="@string/title_rules"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="wrap_content" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,9 +21,9 @@
         android:background="@color/colorBgLight"
         android:layout_weight="1"
         android:scrollbars="none"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
+        android:paddingLeft="@dimen/padding_size_scroll_container"
+        android:paddingRight="@dimen/padding_size_scroll_container"
+        android:paddingTop="@dimen/padding_size_scroll_container"
         >
         <TextView
             android:id="@+id/text_agreement"
@@ -36,7 +36,7 @@
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/reg_teacher_agreement"
         android:text="@string/switch_adopt_rules"
-        android:padding="16dp"
+        android:padding="@dimen/size_panel_agreement"
         android:background="@color/colorBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

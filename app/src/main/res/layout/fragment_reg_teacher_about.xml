@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorBg">
 
@@ -9,16 +8,16 @@
         android:gravity="center_vertical"
         android:background="@color/colorBg"
         android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:paddingLeft="16dp"
+        android:textSize="@dimen/text_size_about"
+        android:padding="@dimen/size_panel_about"
         android:text="@string/title_reg_teacher_about"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/et_reg_teacher_about"
         android:background="@color/colorBgLight"
-        android:padding="16dp"
+        android:padding="@dimen/size_panel_about"
         android:gravity="start"
         android:textColor="@android:color/white"
         android:inputType="textMultiLine"

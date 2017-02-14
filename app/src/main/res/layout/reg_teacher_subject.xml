@@ -17,12 +17,6 @@
         android:layout_marginRight="16dp"
         android:textColor="@android:color/white"
         />
-    <!--<View-->
-        <!--android:background="@android:color/white"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--android:layout_marginRight="4dp"-->
-        <!--android:layout_height="1dp"/>-->
 
     <TextView
         android:id="@+id/et_reg_teacher_experience"

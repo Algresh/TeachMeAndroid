@@ -1,31 +1,32 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="40dp"
+    android:layout_marginBottom="@dimen/margin_bottom_subjects"
     android:background="@color/colorBg">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="@dimen/size_padding_subjects"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/ll_subjects"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+             />
 
         <Button
             android:id="@+id/btn_reg_teacher_add_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/btn_light_blue"
             android:layout_gravity="center_horizontal"
             android:text="@string/btn_add_yet"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:paddingLeft="@dimen/size_padding_subjects"
+            android:paddingRight="@dimen/size_padding_subjects"
+            android:layout_marginTop="@dimen/size_padding_subjects"
+             />
     </LinearLayout>
 </ScrollView>

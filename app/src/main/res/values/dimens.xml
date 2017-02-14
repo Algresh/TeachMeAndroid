@@ -27,4 +27,19 @@
     <dimen name="avatar_size_show">80dp</dimen>
     <dimen name="left_padding_teacher_contacts">8dp</dimen>
     <dimen name="text_size_warning_message">12sp</dimen>
+    <dimen name="size_panel_about">16dp</dimen>
+    <dimen name="text_size_about">16sp</dimen>
+    <dimen name="padding_bottom_agreement">40dp</dimen>
+    <dimen name="size_panel_agreement">16dp</dimen>
+    <dimen name="padding_size_scroll_container">8dp</dimen>
+    <dimen name="text_size_agreement">16sp</dimen>
+    <dimen name="left_padding_contacts">8dp</dimen>
+    <dimen name="margin_top_contacts">8dp</dimen>
+    <dimen name="bottom_padding_fullname_container">40dp</dimen>
+    <dimen name="padding_left_right_fullname">16dp</dimen>
+    <dimen name="top_padding_contacts">16dp</dimen>
+    <dimen name="text_size_fullname">18sp</dimen>
+    <dimen name="padding_size_fullname">8dp</dimen>
+    <dimen name="size_padding_subjects">16dp</dimen>
+    <dimen name="margin_bottom_subjects">40dp</dimen>
 </resources>
