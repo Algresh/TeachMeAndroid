@@ -488,7 +488,12 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void forgotPassConfirmSuccess() {
-        Log.d(Constants.MY_TAG, "pass change");
+        Log.d(Constants.MY_TAG, "pass change " + registerStep);
+        registerStep = registerStep - 3;
+        initFragment();
+        Toast.makeText(this, R.string.passwordChanges, Toast.LENGTH_SHORT).show();
+        Log.d(Constants.MY_TAG, "pass change " + registerStep);
+
     }
 
     @Override

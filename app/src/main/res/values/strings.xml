@@ -130,6 +130,7 @@
     <string name="somethingBroken">Что то не работает</string>
     <string name="noInternetAccess">Нет подключения к интернету</string>
     <string name="noEmailApps"> Нет приложений для отправки Email </string>
+    <string name="passwordChanges">Пароль изменен</string>
 
     <string name="priceListFormat">%1$s %2$d руб, опыт %3$s</string>
 
