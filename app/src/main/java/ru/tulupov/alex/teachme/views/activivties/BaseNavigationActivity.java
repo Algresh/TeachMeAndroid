@@ -124,15 +124,23 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                         intent = new Intent(BaseNavigationActivity.this, AboutActivity.class);
                         break;
                     case R.id.nav_feedback:
-//                        intent = new Intent(BaseNavigationActivity.this, AboutActivity.class);
+                        intent = new Intent(Intent.ACTION_SEND);
+                        intent.setType("message/rfc822");
+                        intent.putExtra(Intent.EXTRA_EMAIL, Constants.EMAIL);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         break;
                     case R.id.nav_search_profile:
                         intent = new Intent(BaseNavigationActivity.this, SelectSearchActivity.class);
                         break;
                 }
 
-                if (intent != null) {
-                    startActivity(intent);
+                try {
+                    if (intent != null) {
+                        startActivity(intent);
+                    }
+                } catch (android.content.ActivityNotFoundException e) {
+                    String noApp =  getResources().getString(R.string.noEmailApps);
+                    Toast.makeText(BaseNavigationActivity.this, noApp, Toast.LENGTH_SHORT).show();
                 }
 
                 return true;
