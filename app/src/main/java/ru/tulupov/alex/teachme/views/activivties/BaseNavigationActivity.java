@@ -1,6 +1,8 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -132,6 +134,10 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                     case R.id.nav_search_profile:
                         intent = new Intent(BaseNavigationActivity.this, SelectSearchActivity.class);
                         break;
+                    case R.id.nav_promotion:
+                        intent = getIntentPromotion();
+                        break;
+
                 }
 
                 try {
@@ -170,6 +176,22 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
 
     protected void logOut() {
         MyApplications.getUser().clearAllData(this);
+    }
+
+    protected Intent getIntentPromotion() {
+        User user = MyApplications.getUser();
+        String accessToken = user.getAccessToken(this);
+        Intent intent = null;
+
+        if (!accessToken.isEmpty()) {
+            try {
+                intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(Constants.URL_PROMOTION + accessToken));
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this, R.string.impossibleToOpenPage, Toast.LENGTH_LONG).show();
+            }
+        }
+        return  intent;
     }
 
     @Override
