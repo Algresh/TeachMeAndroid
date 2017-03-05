@@ -316,7 +316,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     @Override
     public void selectSubway(List<Integer> listSelected) {
         this.listSelectedSubways = listSelected;
-        String strSubway = "";
+        String strSubway = " ";
 
         for (Integer index : listSelected) {
             strSubway =  strSubway + listSubways.get(index).getTitle() + " ";

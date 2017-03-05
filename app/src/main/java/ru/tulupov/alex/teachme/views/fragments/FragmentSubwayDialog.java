@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,9 @@ public class FragmentSubwayDialog extends DialogFragment implements DialogInterf
 
     protected List<Subway> listSubways;
     protected List<Integer> listSelected;
+
+    protected int count = 0;
+    protected int MAX_COUNT = 5;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,14 +79,26 @@ public class FragmentSubwayDialog extends DialogFragment implements DialogInterf
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+
         if (b) {
-            listSelected.add(i);
+            if (count < MAX_COUNT) {
+                listSelected.add(i);
+                count++;
+            } else {
+                arrSelected[i] = false;
+                AlertDialog alertDialog = (AlertDialog) dialogInterface;
+                ListView listView = alertDialog.getListView();
+                listView.setItemChecked(i, false);
+                Toast.makeText(getContext(), R.string.tooManySubways, Toast.LENGTH_SHORT).show();
+            }
         } else {
+            count--;
             int index = listSelected.indexOf(i);
             if (index >= 0) {
                 listSelected.remove(index);
             }
         }
+
     }
 
     public interface SelectSubway {

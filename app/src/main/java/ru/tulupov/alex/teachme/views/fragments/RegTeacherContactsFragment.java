@@ -261,7 +261,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     @Override
     public void selectSubway(List<Integer> listSelected) {
         this.listSelected = listSelected;
-        String strSubway = "";
+        String strSubway = " ";
 
         for (Integer index : listSelected) {
             strSubway =  strSubway + listSubways.get(index).getTitle() + " ";

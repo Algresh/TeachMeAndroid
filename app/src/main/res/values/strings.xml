@@ -56,6 +56,7 @@
     <string name="switch_adopt_rules">Принять правила</string>
     <string name="switch_leave_house">Выезд на дом</string>
     <string name="switch_is_photo">Фото анкеты</string>
+    <string name="tooManySubways">Можно выбрать до пяти станций метро</string>
 
     <string name="hint_fullname">ФИО</string>
     <string name="hint_firstName">Имя</string>
