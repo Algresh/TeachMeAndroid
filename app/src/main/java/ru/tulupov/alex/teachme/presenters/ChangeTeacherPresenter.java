@@ -163,7 +163,9 @@ public class ChangeTeacherPresenter {
 
                     @Override
                     public void error(int type) {
-
+                        if (view != null) {
+                            view.changeFullNameError();
+                        }
                     }
                 });
             }

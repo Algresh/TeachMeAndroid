@@ -7,7 +7,7 @@
 
     <TextView
         android:gravity="center_vertical"
-        android:background="@color/colorBg"
+        android:background="@color/colorBgDark"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_agreement"
         android:padding="@dimen/size_panel_agreement"
@@ -18,7 +18,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorBgLight"
+        android:background="@color/colorBg"
         android:layout_weight="1"
         android:scrollbars="none"
         android:paddingLeft="@dimen/padding_size_scroll_container"
@@ -37,7 +37,7 @@
         android:id="@+id/reg_teacher_agreement"
         android:text="@string/switch_adopt_rules"
         android:padding="@dimen/size_panel_agreement"
-        android:background="@color/colorBg"
+        android:background="@color/colorBgDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

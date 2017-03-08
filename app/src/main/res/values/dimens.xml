@@ -42,4 +42,5 @@
     <dimen name="padding_size_fullname">8dp</dimen>
     <dimen name="size_padding_subjects">16dp</dimen>
     <dimen name="margin_bottom_subjects">40dp</dimen>
+    <dimen name="width_btn_forgot_pswd">250dp</dimen>
 </resources>

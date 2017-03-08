@@ -7,8 +7,9 @@
     <color name="colorLightBlue">#3fa9f5</color>
     <color name="colorLightBlueTransparent80">#803fa9f5</color>
 
-    <color name="colorBg">#21d4f3</color>
-    <color name="colorBgLight">#84E7FA</color>
+    <color name="colorBg">#84cffa</color>
+    <color name="colorBgDark">#21d4f3</color>
+    <color name="colorBgLight">#84cffa</color>
     <color name="colorBgBlue">#2196f3</color>
     <color name="colorBgFAB">#30aef2</color>
 
