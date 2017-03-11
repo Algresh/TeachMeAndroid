@@ -81,7 +81,7 @@
                 android:layout_width="@dimen/size_avatar"
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
-                android:src="@drawable/dolgay_olga"
+                android:src="@drawable/logo"
                 android:layout_marginRight="@dimen/margin_right_about_image" />
 
             <TextView
@@ -128,7 +128,7 @@
                 android:layout_width="@dimen/size_avatar"
                 android:layout_height="@dimen/size_avatar"
                 android:layout_marginBottom="@dimen/card_padding"
-                android:src="@drawable/tulupov_alex"
+                android:src="@drawable/logo"
                 android:layout_marginRight="@dimen/margin_right_about_image" />
 
             <TextView

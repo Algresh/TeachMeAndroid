@@ -111,8 +111,11 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
                 Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + phoneNumber));
                 sendIntent.putExtra("sms_body", "");
                 if (ActivityCompat.checkSelfPermission(ShowTeacherActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                    String str = getResources().getString(R.string.noPermissionSMS);
-                    Toast.makeText(ShowTeacherActivity.this, str , Toast.LENGTH_SHORT).show();
+//                    String str = getResources().getString(R.string.noPermissionSMS);
+//                    Toast.makeText(ShowTeacherActivity.this, str , Toast.LENGTH_SHORT).show();
+
+                    String[] arrPermissions= new String[]{Manifest.permission.SEND_SMS};
+                    ActivityCompat.requestPermissions(ShowTeacherActivity.this, arrPermissions, 101);
                     return;
                 }
                 startActivity(sendIntent);
@@ -126,8 +129,9 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + phoneNumber));
                 if (ActivityCompat.checkSelfPermission(ShowTeacherActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    String str = getResources().getString(R.string.noPermissionCall);
-                    Toast.makeText(ShowTeacherActivity.this, str , Toast.LENGTH_SHORT).show();
+
+                    String[] arrPermissions= new String[]{Manifest.permission.CALL_PHONE};
+                    ActivityCompat.requestPermissions(ShowTeacherActivity.this, arrPermissions, 101);
                     return;
                 }
                 startActivity(callIntent);

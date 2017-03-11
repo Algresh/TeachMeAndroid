@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -74,42 +76,52 @@ public class RegTeacherFullNameFragment extends Fragment
         switch ( requestCode ) {
             case pickImageResult:
                 if(resultCode == Activity.RESULT_OK){
+//                    try {
+
+                    //Получаем URI изображения, преобразуем его в Bitmap
+                    //объект и отображаем в элементе ImageView нашего интерфейса:
+                    final Uri imageUri = data.getData();
+//                        final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                    Bitmap selectedImage = null;
                     try {
-
-                        //Получаем URI изображения, преобразуем его в Bitmap
-                        //объект и отображаем в элементе ImageView нашего интерфейса:
-                        final Uri imageUri = data.getData();
-                        final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        int height = selectedImage.getHeight();
-                        int width = selectedImage.getWidth();
-                        Log.d(Constants.MY_TAG, width + " " + height);
-                        float res;
-                        float w = width;
-                        float h = height;
-
-                        if (w > h) {
-                            res = h / w;
-                            w = 200;
-                            h =  w * res;
-                        } else {
-                            res = w / h;
-                            h = 200;
-                            w = h * res;
-                        }
-
-                        height = (int) h;
-                        width = (int) w;
-
-                        Log.d(Constants.MY_TAG, width + " | " + height);
-                        Bitmap smallBitmap = Bitmap.createScaledBitmap(selectedImage, width, height, false);
-                        selectedImage = null;
-                        ivAvatar.setImageBitmap(smallBitmap);
-                        bitmapPhoto = smallBitmap;
+                        selectedImage = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                        ivAvatar.setImageBitmap(selectedImage);
                         photoChanged = true;
+                        bitmapPhoto = selectedImage;
                     } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+                    }catch (IOException e) {
                         e.printStackTrace();
                     }
+//                        int height = selectedImage.getHeight();
+//                        int width = selectedImage.getWidth();
+//                        Log.d(Constants.MY_TAG, width + " " + height);
+//                        float res;
+//                        float w = width;
+//                        float h = height;
+//
+//                        if (w > h) {
+//                            res = h / w;
+//                            w = 200;
+//                            h =  w * res;
+//                        } else {
+//                            res = w / h;
+//                            h = 200;
+//                            w = h * res;
+//                        }
+//
+//                        height = (int) h;
+//                        width = (int) w;
+//
+//                        Log.d(Constants.MY_TAG, width + " | " + height);
+//                        Bitmap smallBitmap = Bitmap.createScaledBitmap(selectedImage, width, height, false);
+//                        selectedImage = null;
+//                        ivAvatar.setImageBitmap(smallBitmap);
+//                        bitmapPhoto = smallBitmap;
+//                        photoChanged = true;
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
                 }
                 break;
         }

@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,9 +66,9 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
             viewHeader = getLayoutInflater().inflate(R.layout.navigation_header_teacher, null, false);
             TeacherUser teacherUser = (TeacherUser) user;
             ImageView ivAvatar = (ImageView) viewHeader.findViewById(R.id.avatarImageNavHead);
-            ivAvatar.setImageBitmap(teacherUser.getPhoto(this));
+//            ivAvatar.setImageBitmap(teacherUser.getPhoto(this));
 
-            Picasso.with(this).load(Constants.DOMAIN_IMAGE + teacherUser.getPhotoSrc(this)).into(ivAvatar);
+            Picasso.with(this).load(Constants.DOMAIN_AVATAR + teacherUser.getAccessToken(this)).into(ivAvatar);
             Log.d(Constants.MY_TAG, "TYPE_USER_Teacher");
             if (teacherUser.getEnable(this) == User.TYPE_ENABLE_ENABLE) {
                 navigationView.inflateMenu(R.menu.menu_navigation_teacher);
