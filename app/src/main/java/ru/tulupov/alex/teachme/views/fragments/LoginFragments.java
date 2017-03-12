@@ -73,8 +73,9 @@ public class LoginFragments extends Fragment implements View.OnClickListener {
 
     private void sendEmailToDevelopers() {
         Intent sendEmail = new Intent(Intent.ACTION_SEND);
+
+        sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{Constants.EMAIL});
         sendEmail.setType("message/rfc822");
-        sendEmail.putExtra(Intent.EXTRA_EMAIL, Constants.EMAIL);
         sendEmail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
             startActivity(sendEmail);
@@ -83,8 +84,9 @@ public class LoginFragments extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), noApp, Toast.LENGTH_SHORT).show();
         }
 
-
     }
+
+
 
     public interface LoginFragmentCallback {
         void loginClick(String login, String password);

@@ -245,6 +245,9 @@
 "3.9 Продавать любые предметы на проекте.\n"
 "3.10 Указывать ложные контакты в анкете.\n"
     </string>
-    <string name="hint_search_city">Поиск города</string>
+    <string name="hint_search_city">Поиск</string>
+
+    <string name="send_mail_to">Отправить сообщение…</string>
+
 
 </resources>

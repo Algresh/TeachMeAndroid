@@ -1,12 +1,15 @@
 package ru.tulupov.alex.teachme.views.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +39,7 @@ import ru.tulupov.alex.teachme.models.FullNameBlock;
 import ru.tulupov.alex.teachme.models.Subject;
 import ru.tulupov.alex.teachme.models.TeacherRegistration;
 import ru.tulupov.alex.teachme.presenters.CitySubjectPresenter;
+import ru.tulupov.alex.teachme.views.activivties.ShowTeacherActivity;
 
 public class RegTeacherFullNameFragment extends Fragment
         implements ShowCity, FragmentCityDialog.SelectCity, RegDataCorrect {
@@ -76,52 +80,42 @@ public class RegTeacherFullNameFragment extends Fragment
         switch ( requestCode ) {
             case pickImageResult:
                 if(resultCode == Activity.RESULT_OK){
-//                    try {
-
-                    //Получаем URI изображения, преобразуем его в Bitmap
-                    //объект и отображаем в элементе ImageView нашего интерфейса:
-                    final Uri imageUri = data.getData();
-//                        final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
-                    Bitmap selectedImage = null;
                     try {
-                        selectedImage = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
-                        ivAvatar.setImageBitmap(selectedImage);
+
+                        //Получаем URI изображения, преобразуем его в Bitmap
+                        //объект и отображаем в элементе ImageView нашего интерфейса:
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
+                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        int height = selectedImage.getHeight();
+                        int width = selectedImage.getWidth();
+                        Log.d(Constants.MY_TAG, width + " " + height);
+                        float res;
+                        float w = width;
+                        float h = height;
+
+                        if (w > h) {
+                            res = h / w;
+                            w = 200;
+                            h =  w * res;
+                        } else {
+                            res = w / h;
+                            h = 200;
+                            w = h * res;
+                        }
+
+                        height = (int) h;
+                        width = (int) w;
+
+                        Log.d(Constants.MY_TAG, width + " | " + height);
+                        Bitmap smallBitmap = Bitmap.createScaledBitmap(selectedImage, width, height, false);
+                        selectedImage = null;
+                        ivAvatar.setImageBitmap(smallBitmap);
+                        bitmapPhoto = smallBitmap;
                         photoChanged = true;
-                        bitmapPhoto = selectedImage;
                     } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-                    }catch (IOException e) {
                         e.printStackTrace();
                     }
-//                        int height = selectedImage.getHeight();
-//                        int width = selectedImage.getWidth();
-//                        Log.d(Constants.MY_TAG, width + " " + height);
-//                        float res;
-//                        float w = width;
-//                        float h = height;
-//
-//                        if (w > h) {
-//                            res = h / w;
-//                            w = 200;
-//                            h =  w * res;
-//                        } else {
-//                            res = w / h;
-//                            h = 200;
-//                            w = h * res;
-//                        }
-//
-//                        height = (int) h;
-//                        width = (int) w;
-//
-//                        Log.d(Constants.MY_TAG, width + " | " + height);
-//                        Bitmap smallBitmap = Bitmap.createScaledBitmap(selectedImage, width, height, false);
-//                        selectedImage = null;
-//                        ivAvatar.setImageBitmap(smallBitmap);
-//                        bitmapPhoto = smallBitmap;
-//                        photoChanged = true;
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    }
                 }
                 break;
         }
@@ -394,6 +388,12 @@ public class RegTeacherFullNameFragment extends Fragment
     }
 
     protected void selectAvatarPhoto() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            String[] arrPermissions= new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(getActivity(), arrPermissions, 101);
+            return;
+        }
+
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, pickImageResult);

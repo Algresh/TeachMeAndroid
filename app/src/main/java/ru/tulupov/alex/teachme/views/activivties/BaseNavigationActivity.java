@@ -127,7 +127,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                     case R.id.nav_feedback:
                         intent = new Intent(Intent.ACTION_SEND);
                         intent.setType("message/rfc822");
-                        intent.putExtra(Intent.EXTRA_EMAIL, Constants.EMAIL);
+                        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{Constants.EMAIL});
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         break;
                     case R.id.nav_search_profile:
