@@ -229,15 +229,18 @@ public class ModelUserInfo {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                Log.d(Constants.MY_TAG, "reg success");
+
                 if(response == null || response.body() == null) {
+                    Log.d(Constants.MY_TAG, "reg error1");
                     callback.error(TYPE_ERROR_OTHER);
                     return;
                 }
 
                 if (response.code() >= 400 && response.code() <= 500) {
+                    Log.d(Constants.MY_TAG, "reg error2");
                     callback.error(TYPE_ERROR_OTHER);
                 } else {
+                    Log.d(Constants.MY_TAG, "reg success");
                     String json = response.body().toString();
                     Log.d(Constants.MY_TAG, json);
                     Gson gson = new GsonBuilder().create();
