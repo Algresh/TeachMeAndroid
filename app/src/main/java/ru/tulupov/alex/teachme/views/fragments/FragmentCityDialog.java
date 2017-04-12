@@ -46,7 +46,7 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
         if (parent != null) {
             listener = (SelectCity) parent;
         }
-        Resources res = getActivity().getResources();
+//        Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 //        builder.setTitle(res.getString(R.string.title_dialog_city))

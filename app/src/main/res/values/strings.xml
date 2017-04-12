@@ -77,7 +77,9 @@
     <string name="text_email_existed">Этот email уже используется</string>
     <string name="text_phone_existed">Этот телефон уже используется</string>
     <string name="hint_experience">Опыт работы</string>
-    <string name="hint_price">Стоимость</string>
+    <string name="label_price">Стоимость</string>
+    <string name="hint_finish_price">До</string>
+    <string name="hint_start_price">От</string>
     <string name="hint_phone">Телефон</string>
     <string name="hint_subject">Предмет</string>
     <string name="hint_subway">Станция метро</string>
@@ -89,6 +91,7 @@
     <string name="message_teacher_add_to_favorites">Репетитор добавлен в избранное</string>
     <string name="message_teacher_delete_from_favorites">Учитель удален из избранного</string>
     <string name="reg_warning_message">Поля не заполнены или заполнены неправильно</string>
+    <string name="reg_warning_message_fields_wrong">Поля заполнены неправильно</string>
     <string name="reg_about_warning_message_">Полe не заполнено</string>
 
     <string name="text_code_confirmation">Вам на почту пришло письмо с кодом</string>
@@ -248,6 +251,8 @@
     <string name="hint_search_city">Поиск</string>
 
     <string name="send_mail_to">Отправить сообщение…</string>
+    <string name="switch_only_distance_learning">Только дистанционное обучение</string>
+    <string name="switch_distance_learning">Дистанционное обучение</string>
 
 
 </resources>

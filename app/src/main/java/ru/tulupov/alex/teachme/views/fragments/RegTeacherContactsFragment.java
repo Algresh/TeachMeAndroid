@@ -50,6 +50,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 //    private int selectedPromotion = 0;
 
     boolean leaveHouse = false;
+    boolean onlyDistance;
 
 
     @Override
@@ -57,7 +58,8 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
                              Bundle savedInstanceState) {
         selectedCity = TeacherRegistration.getInstance().getCity();
         View view = inflater.inflate(R.layout.fragment_reg_teacher_contacts, container, false);
-        Resources res = getResources();
+//        Resources res = getResources();
+        onlyDistance = TeacherRegistration.getInstance().isOnlyDistanceLearning();
 
         tvSubway = (TextView) view.findViewById(R.id.et_reg_teacher_subway);
         if (listSelected != null && listSelected.size() > 0) {
@@ -68,7 +70,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
             tvSubway.setText(strSub);
         }
 
-        if (selectedCity.isHasSubway()) {
+        if (!onlyDistance && selectedCity != null && selectedCity.isHasSubway()) {
 
             tvSubway.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -174,7 +176,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
 
         String strSubway = tvSubway.getText().toString().trim();
         String textSubway = getResources().getString(R.string.hint_subway);
-        if(selectedCity.isHasSubway() && (strSubway.equals(textSubway) || listSelected == null)) {
+        if(!onlyDistance && selectedCity != null && selectedCity.isHasSubway() && (strSubway.equals(textSubway) || listSelected == null)) {
             warningColorTextView(tvSubway);
             isCorrect = false;
         } else {

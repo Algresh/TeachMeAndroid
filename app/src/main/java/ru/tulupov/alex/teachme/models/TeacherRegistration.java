@@ -39,6 +39,8 @@ public class TeacherRegistration {
     private String phoneNumber;
     private String subways;
     private boolean leaveHome;
+    private boolean onlyDistanceLearning;
+    private boolean distanceLearning;
     private int anketa;
 
     private int enable;
@@ -202,6 +204,22 @@ public class TeacherRegistration {
         this.accessToken = accessToken;
     }
 
+    public boolean isOnlyDistanceLearning() {
+        return onlyDistanceLearning;
+    }
+
+    public void setOnlyDistanceLearning(boolean onlyDistanceLearning) {
+        this.onlyDistanceLearning = onlyDistanceLearning;
+    }
+
+    public boolean isDistanceLearning() {
+        return distanceLearning;
+    }
+
+    public void setDistanceLearning(boolean distanceLearning) {
+        this.distanceLearning = distanceLearning;
+    }
+
     public Map<String, String> getMapData() {
         Map<String, String> map = new HashMap<>();
 
@@ -214,6 +232,8 @@ public class TeacherRegistration {
         map.put("birthDate", birthDate);
         map.put("description", description);
         map.put("leaveHouse", String.valueOf(leaveHome));
+        map.put("distanceLearning", String.valueOf(distanceLearning));
+        map.put("onlyDistanceLearning", String.valueOf(onlyDistanceLearning));
         map.put("subwayStation", subways);
         map.put("phoneNumber", phoneNumber);
         map.put("email", email);

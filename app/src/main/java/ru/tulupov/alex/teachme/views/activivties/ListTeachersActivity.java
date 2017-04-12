@@ -22,10 +22,12 @@ import ru.tulupov.alex.teachme.presenters.ListTeachersPresenter;
 import ru.tulupov.alex.teachme.views.adapters.TeachersAdapter;
 
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_CITY;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_DISTANCE_LEARNING;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_EXPERIENCE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_LEAVE_HOUSE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PHOTO;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PRICE;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_START_PRICE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBWAY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
@@ -51,7 +53,9 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
     protected int subjectId = 1;
     protected int expId;
     protected int price;
+    protected int startPrice;
     protected String subwaysIds;
+    protected boolean distanceLearning;
     protected boolean leaveHouse;
     protected boolean isPhoto;
     protected Map<String, String> mapFields;
@@ -90,7 +94,9 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             leaveHouse = intent.getBooleanExtra(SEARCH_FIELD_LEAVE_HOUSE, false);
             expId = intent.getIntExtra(SEARCH_FIELD_EXPERIENCE, -1);
             isPhoto = intent.getBooleanExtra(SEARCH_FIELD_PHOTO, false);
-            price = intent.getIntExtra(SEARCH_FIELD_PRICE, 10000);
+            price = intent.getIntExtra(SEARCH_FIELD_PRICE, -1);
+            startPrice = intent.getIntExtra(SEARCH_FIELD_START_PRICE, -1);
+            distanceLearning = intent.getBooleanExtra(SEARCH_FIELD_DISTANCE_LEARNING, false);
             subwaysIds = intent.getStringExtra(SEARCH_FIELD_SUBWAY);
             mapFields = wrapQuery();
             presenter.getTeachersFullSearch(mapFields);
@@ -133,6 +139,8 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
         map.put("photo", String.valueOf(photo));
         map.put("experience", String.valueOf(expId));
         map.put("price", String.valueOf(price));
+        map.put("priceStart", String.valueOf(startPrice));
+        map.put("distanceLearning", String.valueOf(distanceLearning));
         map.put("subways", subwaysIds);
         map.put("page", String.valueOf(pages));
 

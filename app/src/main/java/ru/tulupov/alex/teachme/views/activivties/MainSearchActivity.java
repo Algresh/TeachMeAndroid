@@ -30,6 +30,7 @@ import ru.tulupov.alex.teachme.views.fragments.ShowSubject;
 import ru.tulupov.alex.teachme.views.fragments.ShowSubway;
 
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_CITY;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_DISTANCE_LEARNING;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_EXPERIENCE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_LEAVE_HOUSE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PHOTO;
@@ -52,7 +53,9 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     protected TextView tvSubway;
 //    protected View vSubwayLine;
     protected EditText edtPrice;
+    protected EditText edtStartPrice;
     protected SwitchCompat swLeaveHouse;
+    protected SwitchCompat swDistanceLearning;
 //    protected SwitchCompat swPhoto;
     protected Button btnSearch;
 
@@ -173,27 +176,30 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 
     protected boolean checkFields() {
         String strPrice = edtPrice.getText().toString();
-        if (strPrice.equals("")  || strPrice.contains(".")) {
-            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
+        String strStartPrice = edtStartPrice.getText().toString();
+        if (strStartPrice.contains(".")  || strPrice.contains(".")) {
+            Toast.makeText(this, R.string.reg_warning_message_fields_wrong, Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (selectedSubject == null || selectedCity == null ||
-                indexSelectedCity == -1 || indexSelectedSubject == -1 || indexSelectedExp == -1) {
-            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (selectedCity.isHasSubway() && (listSelectedSubways == null || listSelectedSubways.size() == 0)) {
-            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
-            return false;
-        }
+//        if (selectedSubject == null || selectedCity == null ||
+//                indexSelectedCity == -1 || indexSelectedSubject == -1 || indexSelectedExp == -1) {
+//            Toast.makeText(this, R.string.reg_warning_message_fields_wrong, Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//
+//        if (selectedCity.isHasSubway() && (listSelectedSubways == null || listSelectedSubways.size() == 0)) {
+//            Toast.makeText(this, R.string.reg_warning_message_fields_wrong, Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
 
         return true;
     }
 
     protected void initViews () {
         edtPrice = (EditText) findViewById(R.id.et_main_search_price);
+        edtStartPrice = (EditText) findViewById(R.id.et_main_search_start_price);
+        swDistanceLearning = (SwitchCompat) findViewById(R.id.sc_main_distance_learning);
         tvCity = (TextView) findViewById(R.id.sp_main_search_city);
         tvCity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,13 +291,22 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
             if (checkFields()) {
                 Intent intent = new Intent(this, ListTeachersActivity.class);
                 intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_FULL);
-                intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
-                intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
+                if (indexSelectedCity > 0) intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
+                if (indexSelectedSubject > 0) intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
+
                 intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
+                intent.putExtra(SEARCH_FIELD_DISTANCE_LEARNING, swDistanceLearning.isChecked());
 
 //                intent.putExtra(SEARCH_FIELD_PHOTO, photo);
                 intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
-                intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
+                if (!edtPrice.getText().toString().isEmpty()) {
+                    intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
+                }
+
+                if (!edtStartPrice.getText().toString().isEmpty()) {
+                    intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtStartPrice.getText().toString()));
+                }
+
                 String strSubIds = "";
                 if (listSelectedSubways != null) {
                     for (Integer i : listSelectedSubways) {

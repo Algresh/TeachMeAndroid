@@ -49,19 +49,54 @@
         android:layout_marginRight="@dimen/right_left_size_search"
         />
 
-    <EditText
-        android:id="@+id/et_main_search_price"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_price"
-        android:textColorHint="@android:color/white"
+        android:text="@string/label_price"
+        android:textSize="@dimen/text_size_search"
         android:textColor="@android:color/white"
-        android:inputType="numberDecimal"
         android:layout_marginTop="@dimen/margin_top_search"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:maxLength="6"
+        android:layout_marginLeft="@dimen/right_left_size_search"
+        android:layout_marginRight="@dimen/right_left_size_search"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_main_search_start_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_start_price"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="@dimen/margin_top_search"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:maxLength="6"
+            android:layout_weight="1"
+            />
+
+        <EditText
+            android:id="@+id/et_main_search_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_finish_price"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:inputType="numberDecimal"
+            android:layout_marginTop="@dimen/margin_top_search"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:maxLength="6"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+
 
     <TextView
         android:id="@+id/et_main_search_subway"
@@ -83,6 +118,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/switch_leave_house"
+        android:layout_marginTop="@dimen/margin_top_search"
+        android:layout_marginLeft="@dimen/right_left_size_search"
+        android:layout_marginRight="@dimen/right_left_size_search"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_search"
+        android:background="@color/colorBg"
+        />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sc_main_distance_learning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_distance_learning"
         android:layout_marginTop="@dimen/margin_top_search"
         android:layout_marginLeft="@dimen/right_left_size_search"
         android:layout_marginRight="@dimen/right_left_size_search"

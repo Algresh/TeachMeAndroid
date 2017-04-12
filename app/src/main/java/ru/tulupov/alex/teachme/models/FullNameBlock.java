@@ -12,6 +12,8 @@ public class FullNameBlock {
     private String district;
     private String okrug;
     private String photo;
+    private boolean onlyDistanceLearning;
+    private boolean distanceLearning;
 
     public int getId() {
         return id;
@@ -83,6 +85,22 @@ public class FullNameBlock {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public boolean isOnlyDistanceLearning() {
+        return onlyDistanceLearning;
+    }
+
+    public void setOnlyDistanceLearning(boolean onlyDistanceLearning) {
+        this.onlyDistanceLearning = onlyDistanceLearning;
+    }
+
+    public boolean isDistanceLearning() {
+        return distanceLearning;
+    }
+
+    public void setDistanceLearning(boolean distanceLearning) {
+        this.distanceLearning = distanceLearning;
     }
 
     @Override

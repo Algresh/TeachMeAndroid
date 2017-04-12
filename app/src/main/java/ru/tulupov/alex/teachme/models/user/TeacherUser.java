@@ -21,12 +21,14 @@ public class TeacherUser extends User {
     public static final String PREF_USER_LAST_NAME = "pref_last_name";
     public static final String PREF_USER_FATHER_NAME = "pref_father_name";
     public static final String PREF_USER_PHOTO_SRC= "pref_photo_src";
+    public static final String PREF_USER_ONLY_DISTANCE= "pref_only_distance";
 
     private String firstName;
     private String lastName;
     private String fatherName;
     private Bitmap photo;
     private String photoSrc;
+    private boolean onlyDistance;
 
 
     public TeacherUser(){
@@ -35,7 +37,7 @@ public class TeacherUser extends User {
 
     public TeacherUser(Context context, String typeUser, int userId, String accessToken, int enable,
                        String firstName, String lastName, String fatherName, String login,
-                       String email, String cityTitle, int cityId, String photoSrc) {
+                       String email, String cityTitle, int cityId, String photoSrc, boolean onlyDistance) {
 
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -47,6 +49,7 @@ public class TeacherUser extends User {
         editor.putString(PREF_USER_FATHER_NAME, fatherName);
         editor.putString(PREF_USER_LOGIN, login);
         editor.putInt(PREF_USER_ENABLE, enable);
+        editor.putBoolean(PREF_USER_ONLY_DISTANCE, onlyDistance);
         editor.putString(PREF_USER_EMAIL, email);
         editor.putString(PREF_USER_CITY_TITLE, cityTitle);
         editor.putString(PREF_USER_PHOTO_SRC, photoSrc);
@@ -84,6 +87,7 @@ public class TeacherUser extends User {
         editor.remove(PREF_USER_EMAIL);
         editor.remove(PREF_USER_CITY_TITLE);
         editor.remove(PREF_USER_CITY_ID);
+        editor.remove(PREF_USER_ONLY_DISTANCE);
 
         this.firstName = "";
         this.lastName = "";
@@ -98,6 +102,7 @@ public class TeacherUser extends User {
         this.cityId = 0;
         this.login = "";
         this.photoSrc = "";
+        this.onlyDistance = false;
 
         editor.apply();
     }
@@ -182,6 +187,16 @@ public class TeacherUser extends User {
     public void setFatherName(Context context, String fatherName) {
         setStringToPref(context, PREF_USER_FATHER_NAME, fatherName);
         this.fatherName = fatherName;
+    }
+
+    public void setOnlyDistance(Context context, boolean onlyDistance) {
+        setBoolToPref(context, PREF_USER_ONLY_DISTANCE, onlyDistance);
+        this.onlyDistance = onlyDistance;
+    }
+
+    public boolean getOnlyDistance(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_USER_ONLY_DISTANCE, false);
     }
 
     public String getLogin(Context context) {

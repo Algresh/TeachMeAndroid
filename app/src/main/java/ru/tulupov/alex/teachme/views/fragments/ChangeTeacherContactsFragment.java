@@ -51,6 +51,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 //    private int selectedPromotion = 0;
 
     boolean leaveHouse = false;
+    boolean onlyDistance = false;
 
     private String oldLogin;
     private String oldPhone;
@@ -62,14 +63,21 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
                              Bundle savedInstanceState) {
 
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
-        int cityId = teacherUser.getCityId(getContext());
-        String cityTitle = teacherUser.getCityTitle(getContext());
-        boolean cityHasSub = teacherUser.getCityHasSub(getContext());
 
-        selectedCity = new City(cityId, cityTitle, cityHasSub);
+        onlyDistance = teacherUser.getOnlyDistance(getContext());
+        boolean cityHasSub =false;
+        if (!onlyDistance) {
+            int cityId = teacherUser.getCityId(getContext());
+            String cityTitle = teacherUser.getCityTitle(getContext());
+            cityHasSub = teacherUser.getCityHasSub(getContext());
+            selectedCity = new City(cityId, cityTitle, cityHasSub);
+        }
+
+
+
 
         View view = inflater.inflate(R.layout.fragment_change_teacher_contacts, container, false);
-        Resources res = getResources();
+//        Resources res = getResources();
 
         tvSubway = (TextView) view.findViewById(R.id.et_reg_teacher_subway);
 
@@ -82,7 +90,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         leaveHouse = block.isLeaveHome();
         Log.d(Constants.MY_TAG, leaveHouse + "||");
 
-        if (selectedCity.isHasSubway()) {
+        if (selectedCity != null && !onlyDistance && selectedCity.isHasSubway()) {
 
             tvSubway.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -227,7 +235,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         String strSubway = tvSubway.getText().toString().trim();
         String textSubway = getResources().getString(R.string.hint_subway);
-        if(selectedCity.isHasSubway() && strSubway.equals(textSubway)) {
+        if(selectedCity != null && onlyDistance && selectedCity.isHasSubway() && strSubway.equals(textSubway)) {
             warningColorTextView(tvSubway);
             isCorrect = false;
         } else {

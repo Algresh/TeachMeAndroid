@@ -23,8 +23,10 @@ public class SelectSearchActivity extends BaseNavigationActivity {
     public static final String SEARCH_FIELD_CITY = "city";
     public static final String SEARCH_FIELD_SUBJECT = "subject";
     public static final String SEARCH_FIELD_LEAVE_HOUSE = "leaveHouse";
+    public static final String SEARCH_FIELD_DISTANCE_LEARNING = "distanceLearning";
     public static final String SEARCH_FIELD_EXPERIENCE = "exp";
     public static final String SEARCH_FIELD_PRICE = "price";
+    public static final String SEARCH_FIELD_START_PRICE = "start_price";
     public static final String SEARCH_FIELD_SUBWAY = "subway";
     public static final String SEARCH_FIELD_PHOTO = "photo";
 

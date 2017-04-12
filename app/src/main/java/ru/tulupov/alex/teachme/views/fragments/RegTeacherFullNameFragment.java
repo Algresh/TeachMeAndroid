@@ -13,12 +13,15 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +54,8 @@ public class RegTeacherFullNameFragment extends Fragment
     private EditText etFatherName;
     private EditText etOkrug;
     private EditText etDistrict;
+    private SwitchCompat onlyDistanceLearningSW;
+    private SwitchCompat distanceLearningSW;
     private TextView etCity;
     private ImageView ivAvatar;
     private CitySubjectPresenter presenter;
@@ -154,6 +159,21 @@ public class RegTeacherFullNameFragment extends Fragment
                 }
             }
         });
+        onlyDistanceLearningSW = (SwitchCompat) view.findViewById(R.id.reg_teacher_only_distance_learning);
+        onlyDistanceLearningSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    distanceLearningSW.setVisibility(View.GONE);
+                    etCity.setVisibility(View.GONE);
+                    selectedCity = null;
+                    indexSelectedCity = -1;
+                } else {
+                    distanceLearningSW.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        distanceLearningSW = (SwitchCompat) view.findViewById(R.id.reg_teacher_distance_learning);
         ivAvatar = (ImageView) view.findViewById(R.id.avatarImage);
         ivAvatar.setOnClickListener(selectAvatar);
         view.findViewById(R.id.avatarImageText).setOnClickListener(selectAvatar);
@@ -176,7 +196,7 @@ public class RegTeacherFullNameFragment extends Fragment
         return bitmapPhoto;
     }
 
-    //используется только при изменении профиля так как только тогда map != null
+    //используется только при изменении профиля так как только тогда block != null
     protected void initData() {
         if (block != null) {
             String firstName = block.getFirstName();
@@ -194,7 +214,11 @@ public class RegTeacherFullNameFragment extends Fragment
             etLastName.setText(lastName);
             etFatherName.setText(fatherName);
             etBirthday.setText(birthDate);
-            selectedCity = new City(cityId, cityTitle, cityHasSub);
+            distanceLearningSW.setChecked(block.isDistanceLearning());
+            onlyDistanceLearningSW.setChecked(block.isOnlyDistanceLearning());
+            if (block.isOnlyDistanceLearning()) {
+                selectedCity = new City(cityId, cityTitle, cityHasSub);
+            }
             if (okrug != null) {
                 etOkrug.setText(okrug);
             }
@@ -218,6 +242,8 @@ public class RegTeacherFullNameFragment extends Fragment
         map.put("city", String.valueOf(selectedCity.getId()));
         map.put("okrug", etOkrug.getText().toString());
         map.put("district", etDistrict.getText().toString());
+        map.put("distanceLearning",  String.valueOf(distanceLearningSW.isChecked()));
+        map.put("onlyDistanceLearning", String.valueOf(onlyDistanceLearningSW.isChecked()));
 
         return map;
     }
@@ -260,6 +286,9 @@ public class RegTeacherFullNameFragment extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         TeacherRegistration teacherRegistration = TeacherRegistration.getInstance();
+
+        teacherRegistration.setDistanceLearning(distanceLearningSW.isChecked());
+        teacherRegistration.setOnlyDistanceLearning(onlyDistanceLearningSW.isChecked());
         teacherRegistration.setBirthDate(etBirthday.getText().toString());
         teacherRegistration.setFirstName(etFirstName.getText().toString());
         teacherRegistration.setLastName(etLastName.getText().toString());
@@ -332,7 +361,7 @@ public class RegTeacherFullNameFragment extends Fragment
             correctColorEditText(etDistrict);
         }
 
-        if (selectedCity == null) {
+        if (selectedCity == null && !onlyDistanceLearningSW.isChecked()) {
             warningColorTextView(etCity);
             isCorrect = false;
         } else {
