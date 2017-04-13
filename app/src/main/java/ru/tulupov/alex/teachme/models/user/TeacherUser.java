@@ -28,7 +28,7 @@ public class TeacherUser extends User {
     private String fatherName;
     private Bitmap photo;
     private String photoSrc;
-    private boolean onlyDistance;
+    private int onlyDistance;
 
 
     public TeacherUser(){
@@ -37,7 +37,7 @@ public class TeacherUser extends User {
 
     public TeacherUser(Context context, String typeUser, int userId, String accessToken, int enable,
                        String firstName, String lastName, String fatherName, String login,
-                       String email, String cityTitle, int cityId, String photoSrc, boolean onlyDistance) {
+                       String email, String cityTitle, int cityId, String photoSrc, int onlyDistance) {
 
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -49,11 +49,16 @@ public class TeacherUser extends User {
         editor.putString(PREF_USER_FATHER_NAME, fatherName);
         editor.putString(PREF_USER_LOGIN, login);
         editor.putInt(PREF_USER_ENABLE, enable);
-        editor.putBoolean(PREF_USER_ONLY_DISTANCE, onlyDistance);
+        editor.putInt(PREF_USER_ONLY_DISTANCE, onlyDistance);
         editor.putString(PREF_USER_EMAIL, email);
-        editor.putString(PREF_USER_CITY_TITLE, cityTitle);
+        if (cityTitle != null) {
+            editor.putString(PREF_USER_CITY_TITLE, cityTitle);
+        }
         editor.putString(PREF_USER_PHOTO_SRC, photoSrc);
-        editor.putInt(PREF_USER_CITY_ID, cityId);
+        if (cityId > 0) {
+            editor.putInt(PREF_USER_CITY_ID, cityId);
+        }
+
         editor.apply();
 
         this.firstName = firstName;
@@ -102,7 +107,7 @@ public class TeacherUser extends User {
         this.cityId = 0;
         this.login = "";
         this.photoSrc = "";
-        this.onlyDistance = false;
+        this.onlyDistance = 0;
 
         editor.apply();
     }
@@ -189,14 +194,14 @@ public class TeacherUser extends User {
         this.fatherName = fatherName;
     }
 
-    public void setOnlyDistance(Context context, boolean onlyDistance) {
-        setBoolToPref(context, PREF_USER_ONLY_DISTANCE, onlyDistance);
+    public void setOnlyDistance(Context context, int onlyDistance) {
+        setIntToPref(context, PREF_USER_ONLY_DISTANCE, onlyDistance);
         this.onlyDistance = onlyDistance;
     }
 
-    public boolean getOnlyDistance(Context context) {
+    public int getOnlyDistance(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_USER_ONLY_DISTANCE, false);
+        return preferences.getInt(PREF_USER_ONLY_DISTANCE, 0);
     }
 
     public String getLogin(Context context) {

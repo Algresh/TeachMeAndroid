@@ -37,7 +37,7 @@
 
         <EditText
             android:id="@+id/et_reg_teacher_price"
-            android:hint="@string/hint_price"
+            android:hint="@string/label_price"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"
             android:inputType="numberDecimal"

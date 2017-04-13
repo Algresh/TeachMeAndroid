@@ -170,6 +170,7 @@ public class RegTeacherFullNameFragment extends Fragment
                     indexSelectedCity = -1;
                 } else {
                     distanceLearningSW.setVisibility(View.VISIBLE);
+                    etCity.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -202,9 +203,7 @@ public class RegTeacherFullNameFragment extends Fragment
             String firstName = block.getFirstName();
             String lastName = block.getLastName();
             String fatherName = block.getFatherName();
-            int cityId = block.getCity().getId();
-            String cityTitle =block.getCity().getTitle();
-            boolean cityHasSub = block.getCity().isHasSubway();
+
             String birthDate = block.getBirthDate();
             String okrug = block.getOkrug();
             String district = block.getDistrict();
@@ -216,8 +215,12 @@ public class RegTeacherFullNameFragment extends Fragment
             etBirthday.setText(birthDate);
             distanceLearningSW.setChecked(block.isDistanceLearning());
             onlyDistanceLearningSW.setChecked(block.isOnlyDistanceLearning());
-            if (block.isOnlyDistanceLearning()) {
+            if (!block.isOnlyDistanceLearning()) {
+                int cityId = block.getCity().getId();
+                String cityTitle = block.getCity().getTitle();
+                boolean cityHasSub = block.getCity().isHasSubway();
                 selectedCity = new City(cityId, cityTitle, cityHasSub);
+                etCity.setText(cityTitle);
             }
             if (okrug != null) {
                 etOkrug.setText(okrug);
@@ -226,7 +229,6 @@ public class RegTeacherFullNameFragment extends Fragment
             if (district != null) {
                 etDistrict.setText(district);
             }
-            etCity.setText(cityTitle);
 
             Picasso.with(getContext()).load(Constants.DOMAIN_IMAGE + photo).into(ivAvatar);
         }
@@ -239,7 +241,9 @@ public class RegTeacherFullNameFragment extends Fragment
         map.put("lastName", etLastName.getText().toString());
         map.put("fatherName", etFatherName.getText().toString());
         map.put("birthDate", etBirthday.getText().toString());
-        map.put("city", String.valueOf(selectedCity.getId()));
+        if (!onlyDistanceLearningSW.isChecked()) {
+            map.put("city", String.valueOf(selectedCity.getId()));
+        }
         map.put("okrug", etOkrug.getText().toString());
         map.put("district", etDistrict.getText().toString());
         map.put("distanceLearning",  String.valueOf(distanceLearningSW.isChecked()));

@@ -189,19 +189,26 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
         String firstName = block.getFirstName();
         String lastName = block.getLastName();
         String fatherName = block.getFatherName();
-        int cityId = block.getCity().getId();
-        String cityTitle =block.getCity().getTitle();
-        boolean cityHasSub = block.getCity().isHasSubway();
+
         String photo = block.getPhoto();
 
         TeacherUser teacherUser = (TeacherUser) MyApplications.getUser();
-        teacherUser.setCityId(this, cityId);
-        teacherUser.setCityTitle(this, cityTitle);
+
+        if (!block.isOnlyDistanceLearning()){
+            int cityId = block.getCity().getId();
+            String cityTitle =block.getCity().getTitle();
+            boolean cityHasSub = block.getCity().isHasSubway();
+            teacherUser.setCityId(this, cityId);
+            teacherUser.setCityTitle(this, cityTitle);
+            teacherUser.setCityHasSub(this, cityHasSub);
+        }
+
+        teacherUser.setOnlyDistance(this, block.isOnlyDistanceLearning()? 1 : 0);
         teacherUser.setFirstName(this, firstName);
         teacherUser.setLastName(this, lastName);
         teacherUser.setFatherName(this, fatherName);
         teacherUser.setPhotoSrc(this, photo);
-        teacherUser.setCityHasSub(this, cityHasSub);
+
 
         Toast.makeText(this, getString(R.string.allChangesSave), Toast.LENGTH_SHORT).show();
         presenter.showTeacherDescription(teacherUser.getAccessToken(this));

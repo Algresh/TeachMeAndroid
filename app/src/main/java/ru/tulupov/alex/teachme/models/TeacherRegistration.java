@@ -226,7 +226,11 @@ public class TeacherRegistration {
         map.put("firstName", firstName);
         map.put("lastName", lastName);
         map.put("fatherName", fatherName);
-        map.put("city", String.valueOf(city.getId()));
+        if (city != null) {
+            map.put("city", String.valueOf(city.getId()));
+        } else {
+            map.put("city", String.valueOf(-1));
+        }
         map.put("okrug", okrug);
         map.put("district", district);
         map.put("birthDate", birthDate);
@@ -262,6 +266,9 @@ public class TeacherRegistration {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", subways='" + subways + '\'' +
                 ", leaveHome=" + leaveHome +
+                ", onlyDistanceLearning=" + onlyDistanceLearning +
+                ", distanceLearning=" + distanceLearning +
+                ", anketa=" + anketa +
                 ", enable=" + enable +
                 ", photo=" + photo +
                 '}';

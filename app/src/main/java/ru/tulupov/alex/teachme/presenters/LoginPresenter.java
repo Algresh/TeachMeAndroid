@@ -38,10 +38,19 @@ public class LoginPresenter {
                 String accessToken = (String) fields.get("access_token");
                 Double userId = (Double) fields.get("id");
                 String login = (String) fields.get("login");
-                String cityTitle = (String) fields.get("cityTitle");
+
                 String email = (String) fields.get("email");
-                Double cityId = (Double) fields.get("cityId");
-                Boolean cityHasSub = (Boolean) fields.get("cityHasSub");
+
+                Double onlyDistance = (Double) fields.get("onlyDistanceLearning");
+                String cityTitle = null;
+                Double cityId = (double) -1;
+                Boolean cityHasSub = false;
+                if (onlyDistance.intValue() == 0) {
+                    cityTitle = (String) fields.get("cityTitle");
+                    cityId = (Double) fields.get("cityId");
+                    cityHasSub = (Boolean) fields.get("cityHasSub");
+                }
+
 
                 User user;
                 if (type_user.equals(User.TYPE_USER_TEACHER)) {
@@ -52,7 +61,7 @@ public class LoginPresenter {
 
                     user = new TeacherUser(context, type_user, userId.intValue(), accessToken,
                             enable.intValue(), firstName, lastName, fatherName, login, email, cityTitle,
-                            cityId.intValue(), photoSrc
+                            cityId.intValue(), photoSrc, onlyDistance.intValue()
                     );
                 } else {
 
@@ -185,9 +194,18 @@ public class LoginPresenter {
                 Double enable = (Double) fields.get("enable");
                 String accessToken = (String) fields.get("accessToken");
                 Double userId = (Double) fields.get("id");
-                String cityTitle = (String) fields.get("cityTitle");
+//                String cityTitle = (String) fields.get("cityTitle");
                 String email = (String) fields.get("email");
-                Double cityId = (Double) fields.get("cityId");
+
+                Double onlyDistance = (Double) fields.get("onlyDistanceLearning");
+                String cityTitle = null;
+                Double cityId = (double) -1;
+//                Boolean cityHasSub = false;
+                if (onlyDistance.intValue() == 0) {
+                    cityTitle = (String) fields.get("cityTitle");
+                    cityId = (Double) fields.get("cityId");
+//                    cityHasSub = (Boolean) fields.get("cityHasSub");
+                }
 
                 String firstName = (String) fields.get("firstName");
                 String fatherName = (String) fields.get("fatherName");
@@ -197,7 +215,7 @@ public class LoginPresenter {
 
                 User user = new TeacherUser(context, type_user, userId.intValue(), accessToken,
                         enable.intValue(), firstName, lastName, fatherName, login, email, cityTitle,
-                        cityId.intValue(), photoSrc
+                        cityId.intValue(), photoSrc, onlyDistance.intValue()
                 );
 
 //                Bitmap photo = teacherRegistration.getPhoto();

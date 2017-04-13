@@ -51,7 +51,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 //    private int selectedPromotion = 0;
 
     boolean leaveHouse = false;
-    boolean onlyDistance = false;
+    int onlyDistance = 0;
 
     private String oldLogin;
     private String oldPhone;
@@ -66,7 +66,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         onlyDistance = teacherUser.getOnlyDistance(getContext());
         boolean cityHasSub =false;
-        if (!onlyDistance) {
+        if (onlyDistance == 0) {
             int cityId = teacherUser.getCityId(getContext());
             String cityTitle = teacherUser.getCityTitle(getContext());
             cityHasSub = teacherUser.getCityHasSub(getContext());
@@ -90,7 +90,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         leaveHouse = block.isLeaveHome();
         Log.d(Constants.MY_TAG, leaveHouse + "||");
 
-        if (selectedCity != null && !onlyDistance && selectedCity.isHasSubway()) {
+        if (selectedCity != null && onlyDistance == 0 && selectedCity.isHasSubway()) {
 
             tvSubway.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -235,7 +235,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 
         String strSubway = tvSubway.getText().toString().trim();
         String textSubway = getResources().getString(R.string.hint_subway);
-        if(selectedCity != null && onlyDistance && selectedCity.isHasSubway() && strSubway.equals(textSubway)) {
+        if(selectedCity != null && onlyDistance == 1 && selectedCity.isHasSubway() && strSubway.equals(textSubway)) {
             warningColorTextView(tvSubway);
             isCorrect = false;
         } else {
