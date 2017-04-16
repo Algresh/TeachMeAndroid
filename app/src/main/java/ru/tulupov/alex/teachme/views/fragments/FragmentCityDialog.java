@@ -38,6 +38,7 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
 
     protected List<City> listCities;
     protected String[] arrCitiesTitle;
+    protected boolean withOptional = false;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -46,6 +47,12 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
         if (parent != null) {
             listener = (SelectCity) parent;
         }
+
+        if (withOptional) {
+            String title = getResources().getString(R.string.any_city);
+            listCities.add(0, new City(-1, title, false));
+        }
+
 //        Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -107,6 +114,11 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
     }
 
     public void setListCities(List<City> listCities) {
+        this.listCities = listCities;
+    }
+
+    public void setListOptionalCity(List<City> listCities) {
+        withOptional = true;
         this.listCities = listCities;
     }
 

@@ -102,18 +102,18 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkFields()) {
-                    if (checkConnection()) {
-                        Intent intent = new Intent(QuickSearchActivity.this, ListTeachersActivity.class);
-                        intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_QUICK);
-                        intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
-                        intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
-                        intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(QuickSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
-                    }
+//                if (checkFields()) {
+                if (checkConnection()) {
+                    Intent intent = new Intent(QuickSearchActivity.this, ListTeachersActivity.class);
+                    intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_QUICK);
+                    if (indexSelectedCity > 1) intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
+                    if (indexSelectedSubject > 0) intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
+                    intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(QuickSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
                 }
+//                }
             }
         });
 
@@ -124,7 +124,7 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
         if (list != null && list.size() > 0) {
             listCities = list;
             FragmentCityDialog dialog = new FragmentCityDialog();
-            dialog.setListCities(list);
+            dialog.setListOptionalCity(list);
             dialog.setSelectedItem(indexSelectedCity);
             FragmentManager manager = getSupportFragmentManager();
             dialog.show(manager, "city");
@@ -163,12 +163,12 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
         super.onResume();
     }
 
-    protected boolean checkFields() {
-        if (selectedSubject == null || selectedCity == null) {
-            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
-    }
+//    protected boolean checkFields() {
+//        if (selectedSubject == null || selectedCity == null) {
+//            Toast.makeText(this, R.string.reg_warning_message, Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//
+//        return true;
+//    }
 }
