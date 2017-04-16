@@ -282,6 +282,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
         ExperienceDialogFragment fragment = new ExperienceDialogFragment();
         fragment.setTagItem(0);
         fragment.setSelectedItem(indexSelectedExp);
+        fragment.setWithOptional(true);
         FragmentManager manager = getSupportFragmentManager();
         fragment.show(manager, "exp");
         dialogIsDownloading = false;
@@ -293,14 +294,14 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
                 Intent intent = new Intent(this, ListTeachersActivity.class);
                 intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_FULL);
                 //начинается с 1 так как под индексом 0 "Любой город"
-                if (indexSelectedCity > 1) intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
+                if (indexSelectedCity > 0) intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
                 if (indexSelectedSubject > 0) intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
 
                 intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
                 intent.putExtra(SEARCH_FIELD_DISTANCE_LEARNING, swDistanceLearning.isChecked());
 
 //                intent.putExtra(SEARCH_FIELD_PHOTO, photo);
-                intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
+                if (indexSelectedExp > 0) intent.putExtra(SEARCH_FIELD_EXPERIENCE, indexSelectedExp);
                 if (!edtPrice.getText().toString().isEmpty()) {
                     intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtPrice.getText().toString()));
                 }

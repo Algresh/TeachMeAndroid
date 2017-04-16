@@ -19,6 +19,8 @@ public class ExperienceDialogFragment extends DialogFragment implements DialogIn
     private SelectExperience listener;
     private int tagItem;
 
+    protected boolean withOptional = false;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -29,9 +31,16 @@ public class ExperienceDialogFragment extends DialogFragment implements DialogIn
         }
         Resources res = getActivity().getResources();
 
+        String[] arrExp;
+        if (withOptional) {
+            arrExp = res.getStringArray(R.array.typeExperienceOptional);
+        } else {
+            arrExp = res.getStringArray(R.array.typeExperience);
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(res.getString(R.string.btn_select_promotion))
-                .setSingleChoiceItems(res.getStringArray(R.array.typeExperience), selectedItem, this)
+                .setSingleChoiceItems(arrExp, selectedItem, this)
                 .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -49,6 +58,10 @@ public class ExperienceDialogFragment extends DialogFragment implements DialogIn
             listener.selectExperience(which, tagItem);
         }
         dismiss();
+    }
+
+    public void setWithOptional(boolean withOptional) {
+        this.withOptional = withOptional;
     }
 
     public int getTagItem() {

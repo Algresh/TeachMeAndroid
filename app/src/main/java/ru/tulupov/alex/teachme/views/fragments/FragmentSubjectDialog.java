@@ -33,6 +33,7 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
     protected List<Subject> listSubject;
     protected int tag = 0;
     protected String[] arrSubjectsTitle;
+    protected boolean withOptional = false;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,6 +43,10 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
             listener = (SelectSubject) parent;
         }
 
+        if (withOptional) {
+            String title = getResources().getString(R.string.any_subject);
+            listSubject.add(0, new Subject(-1, title));
+        }
 //        Resources res = getActivity().getResources();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -110,6 +115,11 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
     }
 
     public void setListSubject(List<Subject> listSubject) {
+        this.listSubject = listSubject;
+    }
+
+    public void setListOptionalSubject(List<Subject> listSubject) {
+        withOptional = true;
         this.listSubject = listSubject;
     }
 

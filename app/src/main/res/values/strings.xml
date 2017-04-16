@@ -137,8 +137,7 @@
     <string name="passwordChanges">Пароль изменен</string>
     <string name="impossibleToOpenPage">Невозможно открыть web страницу</string>
     <string name="any_city">Любой город</string>
-    <string name="any_subject">Любой город</string>
-    <string name="any_ex">Любой город</string>
+    <string name="any_subject">Любой предмет</string>
 
     <string name="priceListFormat">%1$s %2$d руб, опыт %3$s</string>
 
@@ -153,6 +152,16 @@
     </string-array>
 
     <string-array name="typeExperience">
+        <item>нет опыта</item>
+        <item>до 1 года</item>
+        <item>до 3 лет</item>
+        <item>от 3 до 6 лет</item>
+        <item>от 6 до 10 лет</item>
+        <item>свыше 10 лет</item>
+    </string-array>
+
+    <string-array name="typeExperienceOptional">
+        <item>любой опыт</item>
         <item>нет опыта</item>
         <item>до 1 года</item>
         <item>до 3 лет</item>
