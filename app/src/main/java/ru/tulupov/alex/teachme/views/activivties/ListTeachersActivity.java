@@ -140,7 +140,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
         map.put("experience", String.valueOf(expId));
         map.put("price", String.valueOf(price));
         map.put("priceStart", String.valueOf(startPrice));
-        map.put("distanceLearning", String.valueOf(distanceLearning));
+        map.put("distanceLearning", String.valueOf(distanceLearning ? 1 : 0));
         map.put("subways", subwaysIds);
         map.put("page", String.valueOf(pages));
 

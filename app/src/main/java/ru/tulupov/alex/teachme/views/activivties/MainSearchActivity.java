@@ -35,6 +35,7 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEA
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_LEAVE_HOUSE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PHOTO;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_PRICE;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_START_PRICE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBWAY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
@@ -304,7 +305,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
                 }
 
                 if (!edtStartPrice.getText().toString().isEmpty()) {
-                    intent.putExtra(SEARCH_FIELD_PRICE, Integer.parseInt(edtStartPrice.getText().toString()));
+                    intent.putExtra(SEARCH_FIELD_START_PRICE, Integer.parseInt(edtStartPrice.getText().toString()));
                 }
 
                 String strSubIds = "";
