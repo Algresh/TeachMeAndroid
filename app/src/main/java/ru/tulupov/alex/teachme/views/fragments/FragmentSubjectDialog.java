@@ -45,7 +45,9 @@ public class FragmentSubjectDialog extends DialogFragment implements DialogInter
 
         if (withOptional) {
             String title = getResources().getString(R.string.any_subject);
-            listSubject.add(0, new Subject(-1, title));
+            if (listSubject.get(0).getId() != -1) {
+                listSubject.add(0, new Subject(-1, title));
+            }
         }
 //        Resources res = getActivity().getResources();
 

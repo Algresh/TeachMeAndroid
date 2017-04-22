@@ -144,7 +144,7 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
     public void showSubjects(List<Subject> list, int tag) {
         listSubjects = list;
         FragmentSubjectDialog dialog = new FragmentSubjectDialog();
-        dialog.setListSubject(list);
+        dialog.setListOptionalSubject(list);
         dialog.setSelectedItem(indexSelectedSubject);
         FragmentManager manager = getSupportFragmentManager();
         dialog.show(manager, "subjects");

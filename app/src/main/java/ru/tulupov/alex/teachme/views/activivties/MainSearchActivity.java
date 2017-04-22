@@ -132,7 +132,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
         if (list != null && list.size() > 0) {
             listSubjects = list;
             FragmentSubjectDialog dialog = new FragmentSubjectDialog();
-            dialog.setListSubject(list);
+            dialog.setListOptionalSubject(list);
             dialog.setSelectedItem(indexSelectedSubject);
             FragmentManager manager = getSupportFragmentManager();
             dialog.show(manager, "subjects");
@@ -178,7 +178,10 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     protected boolean checkFields() {
         String strPrice = edtPrice.getText().toString();
         String strStartPrice = edtStartPrice.getText().toString();
-        if (strStartPrice.contains(".")  || strPrice.contains(".")) {
+
+        int price = Integer.parseInt(strPrice);
+        int startPrice = Integer.parseInt(strStartPrice);
+        if (strStartPrice.contains(".")  || strPrice.contains(".") || startPrice > price) {
             Toast.makeText(this, R.string.reg_warning_message_fields_wrong, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -327,7 +330,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     @Override
     public void selectExperience(int item, int tagItem) {
         indexSelectedExp = item;
-        String str = getResources().getStringArray(R.array.typeExperience)[item];
+        String str = getResources().getStringArray(R.array.typeExperienceOptional)[item];
         tvExp.setText(str);
     }
 

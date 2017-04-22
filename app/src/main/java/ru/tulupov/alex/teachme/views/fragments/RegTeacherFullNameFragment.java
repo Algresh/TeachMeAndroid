@@ -114,7 +114,7 @@ public class RegTeacherFullNameFragment extends Fragment
 
                         Log.d(Constants.MY_TAG, width + " | " + height);
                         Bitmap smallBitmap = Bitmap.createScaledBitmap(selectedImage, width, height, false);
-                        selectedImage = null;
+                        selectedImage.recycle();
                         ivAvatar.setImageBitmap(smallBitmap);
                         bitmapPhoto = smallBitmap;
                         photoChanged = true;
@@ -168,9 +168,15 @@ public class RegTeacherFullNameFragment extends Fragment
                     etCity.setVisibility(View.GONE);
                     selectedCity = null;
                     indexSelectedCity = -1;
+                    etOkrug.setVisibility(View.GONE);
+                    etOkrug.setText("");
+                    etDistrict.setVisibility(View.GONE);
+                    etDistrict.setText("");
                 } else {
                     distanceLearningSW.setVisibility(View.VISIBLE);
                     etCity.setVisibility(View.VISIBLE);
+                    etOkrug.setVisibility(View.VISIBLE);
+                    etDistrict.setVisibility(View.VISIBLE);
                 }
             }
         });

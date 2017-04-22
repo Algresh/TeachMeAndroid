@@ -598,9 +598,11 @@ public class ModelUserInfo {
 
     public void changeTeacherFullName(String accessToken, Map<String, String> map, final ChangeTeacherFullNameCallBack callback) {
         Call<FullNameBlock> call = api.changeTeacherFullName(accessToken, map);
+        Log.d(Constants.MY_TAG, "changeTeacherFullName1");
         call.enqueue(new Callback<FullNameBlock>() {
             @Override
             public void onResponse(Call<FullNameBlock> call, Response<FullNameBlock> response) {
+                Log.d(Constants.MY_TAG, "changeTeacherFullName2");
                 if(response == null || response.body() == null) {
                     callback.error();
                     return;
@@ -615,6 +617,7 @@ public class ModelUserInfo {
 
             @Override
             public void onFailure(Call<FullNameBlock> call, Throwable t) {
+                Log.d(Constants.MY_TAG, String.valueOf(t.getCause()));
                 callback.error();
             }
         });

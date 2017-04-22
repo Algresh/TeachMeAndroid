@@ -39,7 +39,7 @@ public class ExperienceDialogFragment extends DialogFragment implements DialogIn
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(res.getString(R.string.btn_select_promotion))
+        builder.setTitle(res.getString(R.string.btn_select_experience))
                 .setSingleChoiceItems(arrExp, selectedItem, this)
                 .setNegativeButton(res.getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override

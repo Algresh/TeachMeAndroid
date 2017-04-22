@@ -50,7 +50,9 @@ public class FragmentCityDialog  extends DialogFragment implements DialogInterfa
 
         if (withOptional) {
             String title = getResources().getString(R.string.any_city);
-            listCities.add(0, new City(-1, title, false));
+            if (listCities.get(0).getId() != -1) {
+                listCities.add(0, new City(-1, title, false));
+            }
         }
 
 //        Resources res = getActivity().getResources();
