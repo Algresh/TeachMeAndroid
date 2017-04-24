@@ -179,9 +179,14 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
         String strPrice = edtPrice.getText().toString();
         String strStartPrice = edtStartPrice.getText().toString();
 
-        int price = Integer.parseInt(strPrice);
-        int startPrice = Integer.parseInt(strStartPrice);
-        if (strStartPrice.contains(".")  || strPrice.contains(".") || startPrice > price) {
+//        int price = Integer.parseInt(strPrice);
+//        int startPrice = Integer.parseInt(strStartPrice);
+        if (strStartPrice.contains(".")  || strPrice.contains(".")) {
+            Toast.makeText(this, R.string.reg_warning_message_fields_wrong, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (!strStartPrice.isEmpty() && !strPrice.isEmpty() && Integer.parseInt(strStartPrice) > Integer.parseInt(strPrice)) {
             Toast.makeText(this, R.string.reg_warning_message_fields_wrong, Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -203,7 +208,7 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
     protected void initViews () {
         edtPrice = (EditText) findViewById(R.id.et_main_search_price);
         edtStartPrice = (EditText) findViewById(R.id.et_main_search_start_price);
-        swDistanceLearning = (SwitchCompat) findViewById(R.id.sc_main_distance_learning);
+
         tvCity = (TextView) findViewById(R.id.sp_main_search_city);
         tvCity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,6 +276,20 @@ public class MainSearchActivity  extends BaseActivity implements ShowCity, ShowS
 //                photo = isChecked;
 //            }
 //        });
+        swDistanceLearning = (SwitchCompat) findViewById(R.id.sc_main_distance_learning);
+        swDistanceLearning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    tvCity.setVisibility(View.GONE);
+                    swLeaveHouse.setVisibility(View.GONE);
+                } else {
+                    tvCity.setVisibility(View.VISIBLE);
+                    swLeaveHouse.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         btnSearch = (Button) findViewById(R.id.btn_main_search_exec);
         btnSearch.setOnClickListener(new View.OnClickListener() {

@@ -107,6 +107,24 @@
                 tools:text="Выезд на дом: Да"
                 style="@style/leaveHomeShowTeacher"/>
 
+
+            <TextView
+                android:id="@+id/onlyDistantLearningShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/onlyDistanceLearningYes"
+                style="@style/leaveHomeShowTeacher"/>
+
+            <TextView
+                android:id="@+id/distantLearningShowTeacher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:text="@string/distanceLearningYes"
+                style="@style/leaveHomeShowTeacher"/>
+
+
+
             <TextView
                 android:id="@+id/descriptionShowTeacher"
                 android:layout_width="wrap_content"

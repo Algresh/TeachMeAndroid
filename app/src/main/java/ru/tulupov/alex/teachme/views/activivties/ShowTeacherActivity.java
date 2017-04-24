@@ -38,6 +38,8 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
     private TextView tvOkrug;
     private TextView tvDistrict;
     private TextView tvSubways;
+    private TextView tvOnlyDistanceLearning;
+    private TextView tvDistanceLearning;
     private TextView tvLeaveHome;
     private TextView tvDescription;
     private ImageView ivAvatar;
@@ -50,6 +52,8 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
     private ShowTeacherPresenter presenter;
 
     private boolean isFavorite = false;
+    private boolean onlyDistanceLearning = false;
+    private boolean distanceLearning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +66,8 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         Intent intent = getIntent();
         teacher = intent.getParcelableExtra("teacher");
         isFavorite = teacher.isFavorite();
-
-
-
+        onlyDistanceLearning = teacher.isOnlyDistanceLearning();
+        distanceLearning = teacher.isDistanceLearning();
 
         initToolbar(teacher.getFullName(), R.id.toolbarShowTeachers);
 
@@ -77,6 +80,8 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         tvDistrict = (TextView) findViewById(R.id.districtShowTeacher);
         tvSubways = (TextView) findViewById(R.id.subwaysShowTeacher);
         tvLeaveHome = (TextView) findViewById(R.id.leaveHomeShowTeacher);
+        tvDistanceLearning = (TextView) findViewById(R.id.distantLearningShowTeacher);
+        tvOnlyDistanceLearning = (TextView) findViewById(R.id.onlyDistantLearningShowTeacher);
         tvDescription = (TextView) findViewById(R.id.descriptionShowTeacher);
         ivAvatar = (ImageView) findViewById(R.id.avatarImageShowTeacher);
         llContainer = (LinearLayout) findViewById(R.id.containerSubjectsShowTeacher);
@@ -194,6 +199,26 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
             leaveHome = getResources().getString(R.string.leaveHomeNo);
         }
         tvLeaveHome.setText(leaveHome);
+
+        String onlyDistantLearningText;
+        if (onlyDistanceLearning) {
+            onlyDistantLearningText = getResources().getString(R.string.onlyDistanceLearningYes);
+        } else {
+            onlyDistantLearningText = getResources().getString(R.string.onlyDistanceLearningNo);
+        }
+        tvOnlyDistanceLearning.setText(onlyDistantLearningText);
+
+        if (!onlyDistanceLearning) {
+            String distantLearningText;
+            if (distanceLearning) {
+                distantLearningText = getResources().getString(R.string.distanceLearningYes);
+            } else {
+                distantLearningText = getResources().getString(R.string.distanceLearningNo);
+            }
+            tvDistanceLearning.setText(distantLearningText);
+            tvDistanceLearning.setVisibility(View.VISIBLE);
+        }
+
 
         tvDescription.setText(teacher.getDescription());
 

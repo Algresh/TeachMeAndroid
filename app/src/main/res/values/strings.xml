@@ -129,6 +129,12 @@
     <string name="leaveHomeYes">Выезд на дом: Да</string>
     <string name="leaveHomeNo">Выезд на дом: Нет</string>
 
+    <string name="onlyDistanceLearningYes">Только дистанционное обучение: Да</string>
+    <string name="onlyDistanceLearningNo">Только дистанционное обучение: Нет</string>
+
+    <string name="distanceLearningYes">Дистанционное обучение: Да</string>
+    <string name="distanceLearningNo">Дистанционное обучение Нет</string>
+
     <string name="showTeacherAnketaStop">Показ анкеты приостановлен</string>
     <string name="showTeacherAnketaStart">Показ анкеты возобновлен</string>
     <string name="somethingBroken">Что то не работает</string>
@@ -152,22 +158,22 @@
     </string-array>
 
     <string-array name="typeExperience">
-        <item>нет опыта</item>
-        <item>до 1 года</item>
-        <item>до 3 лет</item>
-        <item>от 3 до 6 лет</item>
-        <item>от 6 до 10 лет</item>
-        <item>свыше 10 лет</item>
+        <item>Нет опыта</item>
+        <item>До 1 года</item>
+        <item>До 3 лет</item>
+        <item>От 3 до 6 лет</item>
+        <item>От 6 до 10 лет</item>
+        <item>Свыше 10 лет</item>
     </string-array>
 
     <string-array name="typeExperienceOptional">
-        <item>любой опыт</item>
-        <item>нет опыта</item>
-        <item>до 1 года</item>
-        <item>до 3 лет</item>
-        <item>от 3 до 6 лет</item>
-        <item>от 6 до 10 лет</item>
-        <item>свыше 10 лет</item>
+        <item>Любой опыт</item>
+        <item>Нет опыта</item>
+        <item>До 1 года</item>
+        <item>До 3 лет</item>
+        <item>От 3 до 6 лет</item>
+        <item>От 6 до 10 лет</item>
+        <item>Свыше 10 лет</item>
     </string-array>
 
     <string-array name="changeFragmentTeacherTags">

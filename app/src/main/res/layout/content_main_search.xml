@@ -130,7 +130,7 @@
         android:id="@+id/sc_main_distance_learning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/switch_distance_learning"
+        android:text="@string/switch_only_distance_learning"
         android:layout_marginTop="@dimen/margin_top_search"
         android:layout_marginLeft="@dimen/right_left_size_search"
         android:layout_marginRight="@dimen/right_left_size_search"

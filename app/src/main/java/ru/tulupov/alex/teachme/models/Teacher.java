@@ -30,6 +30,8 @@ public class Teacher implements Parcelable {
     private String subways;
     private boolean leaveHome;
     private String photo;
+    private boolean onlyDistanceLearning;
+    private boolean distanceLearning;
 
 //    private String strPriceList;
 //    private String strCity;
@@ -56,6 +58,8 @@ public class Teacher implements Parcelable {
         phoneNumber = in.readString();
         subways = in.readString();
         leaveHome = in.readByte() != 0;
+        onlyDistanceLearning = in.readByte() != 0;
+        distanceLearning = in.readByte() != 0;
         isFavorite = in.readByte() != 0;
         photo = in.readString();
         city = in.readString();
@@ -99,9 +103,6 @@ public class Teacher implements Parcelable {
         int month = Integer.parseInt(dateArr[1]);
         int day = Integer.parseInt(dateArr[0]);
 
-        /**
-         * @TODO проверить отсчет месяца и дня
-         */
         Calendar c = Calendar.getInstance();
         int currYear = c.get(Calendar.YEAR);
         int currMonth = c.get(Calendar.MONTH);
@@ -277,6 +278,22 @@ public class Teacher implements Parcelable {
         this.photo = photo;
     }
 
+    public boolean isOnlyDistanceLearning() {
+        return onlyDistanceLearning;
+    }
+
+    public void setOnlyDistanceLearning(boolean onlyDistanceLearning) {
+        this.onlyDistanceLearning = onlyDistanceLearning;
+    }
+
+    public boolean isDistanceLearning() {
+        return distanceLearning;
+    }
+
+    public void setDistanceLearning(boolean distanceLearning) {
+        this.distanceLearning = distanceLearning;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -284,7 +301,6 @@ public class Teacher implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
         parcel.writeInt(id);
         parcel.writeString(firstName);
         parcel.writeString(lastName);
@@ -297,6 +313,8 @@ public class Teacher implements Parcelable {
         parcel.writeString(phoneNumber);
         parcel.writeString(subways);
         parcel.writeByte((byte) (leaveHome ? 1 : 0));
+        parcel.writeByte((byte) (onlyDistanceLearning ? 1 : 0));
+        parcel.writeByte((byte) (distanceLearning ? 1 : 0));
         parcel.writeByte((byte) (isFavorite ? 1 : 0));
         parcel.writeString(photo);
         parcel.writeString(city.getTitle());
