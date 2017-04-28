@@ -317,9 +317,15 @@ public class Teacher implements Parcelable {
         parcel.writeByte((byte) (distanceLearning ? 1 : 0));
         parcel.writeByte((byte) (isFavorite ? 1 : 0));
         parcel.writeString(photo);
-        parcel.writeString(city.getTitle());
-        parcel.writeInt(city.getId());
-        parcel.writeByte((byte) (city.isHasSubway() ? 1 : 0 ));
+        if (city != null) {
+            parcel.writeString(city.getTitle());
+            parcel.writeInt(city.getId());
+            parcel.writeByte((byte) (city.isHasSubway() ? 1 : 0 ));
+        } else {
+            parcel.writeString("");
+            parcel.writeInt(-1);
+            parcel.writeByte((byte) 0);
+        }
         parcel.writeInt(priceLists.size());
 
         for (PriceList priceList : priceLists) {
