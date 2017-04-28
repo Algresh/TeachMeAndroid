@@ -57,6 +57,19 @@
         android:background="@color/colorBg"
         />
 
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sc_quick_distance_learning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_only_distance_learning"
+        android:layout_marginTop="@dimen/size_quick_search"
+        android:layout_marginLeft="@dimen/size_quick_search"
+        android:layout_marginRight="@dimen/size_quick_search"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_search"
+        android:background="@color/colorBg"
+        />
+
     <Button
         android:id="@+id/btn_quick_search_exec"
         android:layout_width="wrap_content"

@@ -216,12 +216,12 @@ public class ModelMainImpl {
 
 
 
-    public void getTeachersSearchQuick (int city, boolean leaveHouse, int subject,
+    public void getTeachersSearchQuick (int city, boolean leaveHouse, int distanceLearning, int subject,
                                         int page, final ModelMainTeachersCallBack callback) {
         int leave = 0;
         if (leaveHouse) leave = 1;
 
-        Call<List<Teacher>> call = mainApi.getTeachersQuickSearch(city, leave, subject, page);
+        Call<List<Teacher>> call = mainApi.getTeachersQuickSearch(city, leave, distanceLearning, subject, page);
         call.enqueue(new Callback<List<Teacher>>() {
             @Override
             public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {

@@ -34,6 +34,7 @@ public interface MainApi {
     Call<List<Teacher>> getTeachersQuickSearch(
             @Query("city") int idCity,
             @Query("leaveHouse") int leaveHouse,
+            @Query("distanceLearning") int distanceLearning,
             @Query("subject") int idSubject,
             @Query("page") int page
     );

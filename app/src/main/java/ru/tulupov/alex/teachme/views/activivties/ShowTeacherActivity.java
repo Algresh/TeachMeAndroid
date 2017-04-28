@@ -174,14 +174,18 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         tvEmail.setText(teacher.getEmail());
         tvPhone.setText(teacher.getPhoneNumber());
         tvCity.setText(teacher.getCity().getTitle());
+
+        String strOkrug = getString(R.string.hint_region);
+        String strDistrict = getString(R.string.hint_district);
+
         if (teacher.getOkrug() != null && !teacher.getOkrug().equals("")) {
-            tvOkrug.setText(teacher.getOkrug());
+            tvOkrug.setText(strOkrug + ": " + teacher.getOkrug());
         } else {
             tvOkrug.setVisibility(View.GONE);
         }
 
         if (teacher.getDistrict() != null && !teacher.getDistrict().equals("")) {
-            tvDistrict.setText(teacher.getDistrict());
+            tvDistrict.setText(strDistrict + ": " + teacher.getDistrict());
         } else {
             tvDistrict.setVisibility(View.GONE);
         }

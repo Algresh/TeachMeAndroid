@@ -84,7 +84,8 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             cityId = intent.getIntExtra(SEARCH_FIELD_CITY, -1);
             subjectId = intent.getIntExtra(SEARCH_FIELD_SUBJECT, -1);
             leaveHouse = intent.getBooleanExtra(SEARCH_FIELD_LEAVE_HOUSE, false);
-            presenter.getTeachersQuickSearch(cityId, leaveHouse, subjectId);
+            distanceLearning = intent.getBooleanExtra(SEARCH_FIELD_DISTANCE_LEARNING, false);
+            presenter.getTeachersQuickSearch(cityId, leaveHouse, subjectId, distanceLearning ? 1 : 0);
             teachersAreDownloading = true;
         }
 
@@ -212,7 +213,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             mapFields.put("page", String.valueOf(pages));
             presenter.addTeachersFullSearch(mapFields);
         } else if (typeSearch == TYPE_SEARCH_QUICK) {
-            presenter.addTeachersQuickSearch(cityId, leaveHouse, subjectId, pages);
+            presenter.addTeachersQuickSearch(cityId, leaveHouse, subjectId, distanceLearning ? 1 : 0, pages);
         }
     }
 }

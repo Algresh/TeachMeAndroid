@@ -39,8 +39,8 @@ public class ListTeachersPresenter {
         });
     }
 
-    public void getTeachersQuickSearch(int city, boolean leaveHouse, int subject) {
-        model.getTeachersSearchQuick(city, leaveHouse, subject , 0, new ModelMainImpl.ModelMainTeachersCallBack() {
+    public void getTeachersQuickSearch(int city, boolean leaveHouse, int subject, int distanceLearning) {
+        model.getTeachersSearchQuick(city, leaveHouse, distanceLearning, subject, 0, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override
             public void success(List<Teacher> list) {
                 if (view != null) {
@@ -57,8 +57,8 @@ public class ListTeachersPresenter {
         });
     }
 
-    public void addTeachersQuickSearch(int city, boolean leaveHouse, int subject, int page) {
-        model.getTeachersSearchQuick(city, leaveHouse, subject , page, new ModelMainImpl.ModelMainTeachersCallBack() {
+    public void addTeachersQuickSearch(int city, boolean leaveHouse, int subject, int distanceLearning,int page) {
+        model.getTeachersSearchQuick(city, leaveHouse, distanceLearning, subject , page, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override
             public void success(List<Teacher> list) {
                 if (view != null) {

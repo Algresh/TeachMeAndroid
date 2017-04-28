@@ -24,6 +24,7 @@ import ru.tulupov.alex.teachme.views.fragments.ShowCity;
 import ru.tulupov.alex.teachme.views.fragments.ShowSubject;
 
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_CITY;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_DISTANCE_LEARNING;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_LEAVE_HOUSE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
@@ -38,6 +39,7 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
     private TextView tvCity;
     private TextView tvSubject;
     private SwitchCompat swLeaveHouse;
+    protected SwitchCompat swDistanceLearning;
     private Button btnSearch;
 
     private List<City> listCities;
@@ -109,11 +111,26 @@ public class QuickSearchActivity extends BaseActivity implements ShowCity, ShowS
                     if (indexSelectedCity > 0) intent.putExtra(SEARCH_FIELD_CITY, listCities.get(indexSelectedCity).getId());
                     if (indexSelectedSubject > 0) intent.putExtra(SEARCH_FIELD_SUBJECT, listSubjects.get(indexSelectedSubject).getId());
                     intent.putExtra(SEARCH_FIELD_LEAVE_HOUSE, leaveHouse);
+                    intent.putExtra(SEARCH_FIELD_DISTANCE_LEARNING, swDistanceLearning.isChecked());
                     startActivity(intent);
                 } else {
                     Toast.makeText(QuickSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
                 }
 //                }
+            }
+        });
+
+        swDistanceLearning = (SwitchCompat) findViewById(R.id.sc_quick_distance_learning);
+        swDistanceLearning.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    tvCity.setVisibility(View.GONE);
+                    swLeaveHouse.setVisibility(View.GONE);
+                } else {
+                    tvCity.setVisibility(View.VISIBLE);
+                    swLeaveHouse.setVisibility(View.VISIBLE);
+                }
             }
         });
 
