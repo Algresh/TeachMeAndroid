@@ -45,15 +45,16 @@ public class LoginPresenter {
                 String cityTitle = null;
                 Double cityId = (double) -1;
                 Boolean cityHasSub = false;
-                if (onlyDistance.intValue() == 0) {
-                    cityTitle = (String) fields.get("cityTitle");
-                    cityId = (Double) fields.get("cityId");
-                    cityHasSub = (Boolean) fields.get("cityHasSub");
-                }
 
 
                 User user;
                 if (type_user.equals(User.TYPE_USER_TEACHER)) {
+
+                    if (onlyDistance.intValue() == 0) {
+                        cityTitle = (String) fields.get("cityTitle");
+                        cityId = (Double) fields.get("cityId");
+                        cityHasSub = (Boolean) fields.get("cityHasSub");
+                    }
                     String firstName = (String) fields.get("firstName");
                     String fatherName = (String) fields.get("fatherName");
                     String lastName = (String) fields.get("lastName");
@@ -64,6 +65,9 @@ public class LoginPresenter {
                             cityId.intValue(), photoSrc, onlyDistance.intValue()
                     );
                 } else {
+                    cityTitle = (String) fields.get("cityTitle");
+                    cityId = (Double) fields.get("cityId");
+                    cityHasSub = (Boolean) fields.get("cityHasSub");
 
                     user = new PupilUser(context, type_user, userId.intValue(), accessToken,
                             enable.intValue(), email, cityTitle, cityId.intValue(), login);

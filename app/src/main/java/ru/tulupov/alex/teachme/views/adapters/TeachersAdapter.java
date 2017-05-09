@@ -75,6 +75,8 @@ public class TeachersAdapter extends RecyclerView.Adapter<TeachersAdapter.Teache
 
         if (teacher.getPhoto() != null) {
             Picasso.with(context).load(Constants.DOMAIN_IMAGE + teacher.getPhoto()).into(holder.imgAvatar);
+        } else {
+            holder.imgAvatar.setImageResource(R.drawable.ic_person);
         }
     }
 
