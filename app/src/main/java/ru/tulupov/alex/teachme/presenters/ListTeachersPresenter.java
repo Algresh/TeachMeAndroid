@@ -21,6 +21,24 @@ public class ListTeachersPresenter {
         model = new ModelMainImpl();
     }
 
+    public void getAllTeachers() {
+        model.getAllTeachers(0, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.showListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorListTeachers();
+                }
+            }
+        });
+    }
+
     public void getTeachersByCity(int city) {
         model.getTeachersByCity(city, 0, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override
@@ -132,6 +150,24 @@ public class ListTeachersPresenter {
 
     public void addTeachersByCity(int city, int page) {
         model.getTeachersByCity(city, page, new ModelMainImpl.ModelMainTeachersCallBack() {
+            @Override
+            public void success(List<Teacher> list) {
+                if (view != null) {
+                    view.addToListTeachers(list);
+                }
+            }
+
+            @Override
+            public void error() {
+                if (view != null) {
+                    view.errorAddListTeachers();
+                }
+            }
+        });
+    }
+
+    public void addAllTeachers(int page) {
+        model.getAllTeachers(page, new ModelMainImpl.ModelMainTeachersCallBack() {
             @Override
             public void success(List<Teacher> list) {
                 if (view != null) {

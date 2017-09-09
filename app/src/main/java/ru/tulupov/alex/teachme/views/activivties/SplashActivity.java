@@ -10,6 +10,9 @@ import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
 import ru.tulupov.alex.teachme.models.user.User;
 
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_ALL;
+
 public class SplashActivity extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 2000;
@@ -30,20 +33,24 @@ public class SplashActivity extends AppCompatActivity {
                 }
                 Intent intent;
 
-                if (user == null) {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    return;
-                }
+                intent = new Intent(SplashActivity.this, ListTeachersActivity.class);
+                intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_ALL);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-                String typeUser = user.getTypeUser(SplashActivity.this);
-
-                if (typeUser.equals(User.TYPE_USER_NONE) || typeUser.equals("")) {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                } else {
-                    intent = new Intent(SplashActivity.this, SelectSearchActivity.class);
-                }
+//                if (user == null) {
+//                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    return;
+//                }
+//
+//                String typeUser = user.getTypeUser(SplashActivity.this);
+//
+//                if (typeUser.equals(User.TYPE_USER_NONE) || typeUser.equals("")) {
+//                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//                } else {
+//                    intent = new Intent(SplashActivity.this, SelectSearchActivity.class);
+//                }
                 startActivity(intent);
                 finish();
             }

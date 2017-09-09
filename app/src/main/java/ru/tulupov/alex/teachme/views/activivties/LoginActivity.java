@@ -40,6 +40,9 @@ import ru.tulupov.alex.teachme.views.fragments.RegTeacherContactsFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherFullNameFragment;
 import ru.tulupov.alex.teachme.views.fragments.RegTeacherSubjectsFragment;
 
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_ALL;
+
 public class LoginActivity extends AppCompatActivity
         implements LoginView, LoginFragments.LoginFragmentCallback,
         RegConfirmationFragment.CodeConfirmation, RegSelectTypeProfile.SelectTypeProfile,
@@ -126,7 +129,8 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void logInSuccess() {
-        Intent intent = new Intent(this, SelectSearchActivity.class);
+        Intent intent = new Intent(this, ListTeachersActivity.class);
+        intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_ALL);
         startActivity(intent);
         finish();
     }
@@ -169,18 +173,32 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void registerClick() {
-        if (checkConnection()) {
-            FragmentManager manager = getSupportFragmentManager();
-            RegSelectTypeProfile fragment = new RegSelectTypeProfile();
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = getFragmentTeacherStep(registerStep);
+        if (fragment != null) {
+            currRegDataCorrect = (RegDataCorrect) fragment;
             manager.beginTransaction()
-                    .replace(R.id.reg_fragment_container, fragment, "selectProfile")
-                    .addToBackStack("selectProfile")
+                    .replace(R.id.reg_fragment_container, fragment, regFragmentTagsTeacher[registerStep])
+                    .addToBackStack(regFragmentTagsTeacher[registerStep - 1])
                     .commit();
             registerStep++;
-            Log.d(Constants.MY_TAG, "registerClick regStep: " + registerStep);
-        } else {
-            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+            Log.d(Constants.MY_TAG, regFragmentTagsTeacher[registerStep- 1] + " |" + "| setUpNextFragmentTeacher regStep: " + registerStep);
         }
+        nextPrevPanel.setVisibility(View.VISIBLE);
+        registerUserType = User.TYPE_USER_TEACHER;
+
+//        if (checkConnection()) {
+//            FragmentManager manager = getSupportFragmentManager();
+//            RegSelectTypeProfile fragment = new RegSelectTypeProfile();
+//            manager.beginTransaction()
+//                    .replace(R.id.reg_fragment_container, fragment, "selectProfile")
+//                    .addToBackStack("selectProfile")
+//                    .commit();
+//            registerStep++;
+//            Log.d(Constants.MY_TAG, "registerClick regStep: " + registerStep);
+//        } else {
+//            Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+//        }
     }
 
     @Override
@@ -236,7 +254,7 @@ public class LoginActivity extends AppCompatActivity
 
     protected void toNextFragmentTeacher() {
 
-        if (registerStep == 7) {
+        if (registerStep == 6) {
             pDialog = new ProgressDialog(this);
             pDialog.setMessage(getString(R.string.pleaseWait));
             pDialog.show();
@@ -249,7 +267,7 @@ public class LoginActivity extends AppCompatActivity
         }
 
         if (currRegDataCorrect.dataIsCorrect()) {
-            if (registerStep == 6) {
+            if (registerStep == 5) {
                 if (checkingLoginEmail) {
                     return;
                 }
@@ -318,7 +336,7 @@ public class LoginActivity extends AppCompatActivity
             finish();
         }
 
-        if (registerStep <= 2) {
+        if (registerStep <= 1) {
             nextPrevPanel.setVisibility(View.GONE);
         } else {
 
@@ -338,15 +356,15 @@ public class LoginActivity extends AppCompatActivity
     protected Fragment getFragmentTeacherStep (int step) {
 
         switch (step) {
-            case 2:
+            case 1:
                 return new RegTeacherFullNameFragment();
-            case 3:
+            case 2:
                 return new RegTeacherAboutFragment();
-            case 4:
+            case 3:
                 return new RegTeacherSubjectsFragment();
-            case 5:
+            case 4:
                 return new RegTeacherContactsFragment();
-            case 6:
+            case 5:
                 RegTeacherAgreementFragment fragment = new RegTeacherAgreementFragment();
                 Bundle args = new Bundle();
                 args.putString("type", "teacher");
@@ -393,7 +411,8 @@ public class LoginActivity extends AppCompatActivity
     @Override
     public void registerConfirmTeacherSuccess() {
         Log.d(Constants.MY_TAG, "full registration success");
-        Intent intent = new Intent(this, SelectSearchActivity.class);
+        Intent intent = new Intent(this, ListTeachersActivity.class);
+        intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_ALL);
         startActivity(intent);
         finish();
     }

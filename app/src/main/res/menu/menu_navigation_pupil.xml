@@ -23,6 +23,6 @@
 
     <item
         android:id="@+id/nav_logout"
-        android:title="@string/cancel"
+        android:title="@string/sign_in_as_teacher"
         />
 </menu>

@@ -31,12 +31,13 @@ import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEA
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBJECT;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.SEARCH_FIELD_SUBWAY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH;
+import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_ALL;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_FAVORITE;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_FULL;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_MY_CITY;
 import static ru.tulupov.alex.teachme.views.activivties.SelectSearchActivity.TYPE_SEARCH_QUICK;
 
-public class ListTeachersActivity extends BaseActivity implements ListTeachersView {
+public class ListTeachersActivity extends BaseNavigationActivity implements ListTeachersView {
 
     protected User user;
     protected ListTeachersPresenter presenter;
@@ -65,7 +66,7 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_teachers);
 
-        initToolbar(R.string.result_search_activity_title, R.id.toolbarListTeachers);
+
         user = MyApplications.getUser();
         Intent intent = getIntent();
         presenter = new ListTeachersPresenter();
@@ -74,10 +75,19 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
         tvSearchNothing = (TextView) findViewById(R.id.searchNothing);
 
         int typeSearch = intent.getIntExtra(TYPE_SEARCH, -1);
+
+        if (typeSearch == TYPE_SEARCH_ALL) {
+            presenter.getAllTeachers();
+            teachersAreDownloading = true;
+            initToolbatWithoutArrow(R.string.result_search_activity_title, R.id.toolbarListTeachers);
+            initNavigationView();
+        }
+
         if (typeSearch == TYPE_SEARCH_MY_CITY) {
             cityId = user.getCityId(this);
             presenter.getTeachersByCity(cityId);
             teachersAreDownloading = true;
+            initToolbar(R.string.result_search_activity_title, R.id.toolbarListTeachers);
         }
 
         if (typeSearch == TYPE_SEARCH_QUICK) {
@@ -87,6 +97,8 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             distanceLearning = intent.getBooleanExtra(SEARCH_FIELD_DISTANCE_LEARNING, false);
             presenter.getTeachersQuickSearch(cityId, leaveHouse, subjectId, distanceLearning ? 1 : 0);
             teachersAreDownloading = true;
+            initToolbar(R.string.result_search_activity_title, R.id.toolbarListTeachers);
+
         }
 
         if (typeSearch == TYPE_SEARCH_FULL) {
@@ -102,16 +114,20 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             mapFields = wrapQuery();
             presenter.getTeachersFullSearch(mapFields);
             teachersAreDownloading = true;
+            initToolbar(R.string.result_search_activity_title, R.id.toolbarListTeachers);
         }
 
         if (typeSearch == TYPE_SEARCH_FAVORITE) {
             teachersAreDownloading = true;
-            if (checkConnection()) {
-                String accessToken = MyApplications.getUser().getAccessToken(this);
-                presenter.getFavoriteTeachers(accessToken);
-            } else {
-                presenter.getListFavoriteTeachers(this);
-            }
+//            if (checkConnection()) {
+//                String accessToken = MyApplications.getUser().getAccessToken(this);
+//                presenter.getFavoriteTeachers(accessToken);
+//            } else {
+//                presenter.getListFavoriteTeachers(this);
+//            }
+            initToolbar(R.string.result_search_activity_title, R.id.toolbarListTeachers);
+            presenter.getListFavoriteTeachers(this);
+
         }
 
 
@@ -214,6 +230,8 @@ public class ListTeachersActivity extends BaseActivity implements ListTeachersVi
             presenter.addTeachersFullSearch(mapFields);
         } else if (typeSearch == TYPE_SEARCH_QUICK) {
             presenter.addTeachersQuickSearch(cityId, leaveHouse, subjectId, distanceLearning ? 1 : 0, pages);
+        } else if (typeSearch == TYPE_SEARCH_ALL) {
+            presenter.addAllTeachers(pages);
         }
     }
 }

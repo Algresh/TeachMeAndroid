@@ -86,24 +86,27 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         ivAvatar = (ImageView) findViewById(R.id.avatarImageShowTeacher);
         llContainer = (LinearLayout) findViewById(R.id.containerSubjectsShowTeacher);
 
-        String typeUser = MyApplications.getUser().getTypeUser(this);
-        if (!isFavorite && typeUser.equals(User.TYPE_USER_PUPIL)) {
-            if (!checkConnection()) {
-                isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
-                initData();
-            } else {
-                String accessToken = MyApplications.getUser().getAccessToken(this);
-                presenter.isFavorite(accessToken, teacher.getId());
-            }
-        } else {
-            initData();
-        }
+//        String typeUser = MyApplications.getUser().getTypeUser(this);
+//        if (!isFavorite && typeUser.equals(User.TYPE_USER_PUPIL)) {
+//            if (!checkConnection()) {
+//                isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+//                initData();
+//            } else {
+//                String accessToken = MyApplications.getUser().getAccessToken(this);
+//                presenter.isFavorite(accessToken, teacher.getId());
+//            }
+//        } else {
+//            initData();
+//        }
+        isFavorite = presenter.isTeacherFavorite(this, teacher.getId());
+        initData();
 
-        if (typeUser.equals(User.TYPE_USER_PUPIL)) {
-            initBottomPanel(teacher.getPhoneNumber());
-        } else {
-            findViewById(R.id.bottomPanelTeacher).setVisibility(View.GONE);
-        }
+        initBottomPanel(teacher.getPhoneNumber());
+//        if (typeUser.equals(User.TYPE_USER_PUPIL)) {
+//            initBottomPanel(teacher.getPhoneNumber());
+//        } else {
+//            findViewById(R.id.bottomPanelTeacher).setVisibility(View.GONE);
+//        }
 
 
     }
@@ -148,12 +151,26 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
             @Override
             public void onClick(View view) {
 
-                User user = MyApplications.getUser();
+//                User user = MyApplications.getUser();
 
-                String accessToken = user.getAccessToken(ShowTeacherActivity.this);
-                int id = teacher.getId();
+//                String accessToken = user.getAccessToken(ShowTeacherActivity.this);
+//                int id = teacher.getId();
+//                presenter.setFavorite();
+                isFavorite = !isFavorite;
 
-                presenter.setFavorite(accessToken, id);
+                if (isFavorite) {
+                    Toast.makeText(ShowTeacherActivity.this,
+                            getString(R.string.message_teacher_add_to_favorites), Toast.LENGTH_SHORT)
+                            .show();
+                    presenter.saveFavorite(ShowTeacherActivity.this, teacher);
+                    ibFavorite.setImageResource(R.drawable.ic_favorite_full);
+                } else {
+                    Toast.makeText(ShowTeacherActivity.this,
+                            getString(R.string.message_teacher_delete_from_favorites), Toast.LENGTH_SHORT)
+                            .show();
+                    presenter.deleteFavorite(ShowTeacherActivity.this, teacher.getId());
+                    ibFavorite.setImageResource(R.drawable.ic_favorite_border);
+                }
             }
         });
         initFavoriteButton();

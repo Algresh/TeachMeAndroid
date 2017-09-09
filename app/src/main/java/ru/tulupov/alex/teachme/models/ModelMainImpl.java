@@ -194,6 +194,26 @@ public class ModelMainImpl {
         });
     }
 
+    public void getAllTeachers (int page, final ModelMainTeachersCallBack callback) {
+        Call<List<Teacher>> call = mainApi.getAllTeachers(page);
+        call.enqueue(new Callback<List<Teacher>>() {
+            @Override
+            public void onResponse(Call<List<Teacher>> call, Response<List<Teacher>> response) {
+                if(response == null || response.body() == null) {
+                    callback.error();
+                    return;
+                }
+
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Teacher>> call, Throwable t) {
+                callback.error();
+            }
+        });
+    }
+
     public void getTeachersByCity (int city,int page, final ModelMainTeachersCallBack callback) {
         Call<List<Teacher>> call = mainApi.getTeachersByCity(city, page);
         call.enqueue(new Callback<List<Teacher>>() {

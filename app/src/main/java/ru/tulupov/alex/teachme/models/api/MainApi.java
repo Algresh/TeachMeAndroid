@@ -27,6 +27,9 @@ public interface MainApi {
     @GET("/api/get/subways")
     Call<List<Subway>> getSubways(@Query("city") int id);
 
+    @GET("/api/get/all/teachers")
+    Call<List<Teacher>> getAllTeachers(@Query("page") int page);
+
     @GET("/api/get/teachers/by/city")
     Call<List<Teacher>> getTeachersByCity(@Query("city") int id, @Query("page") int page);
 

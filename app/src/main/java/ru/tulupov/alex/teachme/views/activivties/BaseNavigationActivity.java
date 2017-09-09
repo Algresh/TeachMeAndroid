@@ -56,13 +56,13 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
         View viewHeader = null;
 
         User user = MyApplications.getUser();
-        String typeUser = user.getTypeUser(this);
+//        String typeUser = user.getTypeUser(this);
 
-        if (typeUser.equals(User.TYPE_USER_PUPIL)) {
+        if (user == null) {
             viewHeader = getLayoutInflater().inflate(R.layout.navigation_header_pupil, null, false);
             navigationView.inflateMenu(R.menu.menu_navigation_pupil);
             Log.d(Constants.MY_TAG, "TYPE_USER_PUPIL");
-        } else if (typeUser.equals(User.TYPE_USER_TEACHER)) {
+        } else {
             viewHeader = getLayoutInflater().inflate(R.layout.navigation_header_teacher, null, false);
             TeacherUser teacherUser = (TeacherUser) user;
             ImageView ivAvatar = (ImageView) viewHeader.findViewById(R.id.avatarImageNavHead);
@@ -78,8 +78,14 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
         }
         if (viewHeader != null) {
             TextView tvEmail = (TextView) viewHeader.findViewById(R.id.emailNavHead);
-            String email = user.getEmail(this);
-            tvEmail.setText(email);
+            String str;
+            if (user != null) {
+                str = user.getEmail(this);
+            } else {
+                str = getString(R.string.pupil);
+            }
+
+            tvEmail.setText(str);
             navigationView.addHeaderView(viewHeader);
         }
 
@@ -174,7 +180,9 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
     }
 
     protected void logOut() {
-        MyApplications.getUser().clearAllData(this);
+        if (MyApplications.getUser() != null) {
+            MyApplications.getUser().clearAllData(this);
+        }
     }
 
     protected Intent getIntentPromotion() {

@@ -19,6 +19,7 @@ public class SelectSearchActivity extends BaseNavigationActivity {
     public static final int TYPE_SEARCH_QUICK = 1;
     public static final int TYPE_SEARCH_FULL = 2;
     public static final int TYPE_SEARCH_FAVORITE = 3;
+    public static final int TYPE_SEARCH_ALL = 4;
 
     public static final String SEARCH_FIELD_CITY = "city";
     public static final String SEARCH_FIELD_SUBJECT = "subject";

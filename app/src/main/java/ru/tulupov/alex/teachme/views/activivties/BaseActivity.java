@@ -42,6 +42,14 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void initToolbatWithoutArrow(String title, int idToolbar) {
+        toolbar = (Toolbar) findViewById(idToolbar);
+        if (toolbar != null) {
+            toolbar.setTitle(title);
+            setSupportActionBar(toolbar);
+        }
+    }
+
     protected void initToolbar(String title, int idToolbar ) {
         toolbar = (Toolbar) findViewById(idToolbar);
         if (toolbar != null) {
@@ -55,6 +63,11 @@ public class BaseActivity extends AppCompatActivity {
     protected void initToolbar(int idTitle, int idToolbar) {
         String title = getResources().getString(idTitle);
         initToolbar(title, idToolbar);
+    }
+
+    protected void initToolbatWithoutArrow(int idTitle, int idToolbar) {
+        String title = getResources().getString(idTitle);
+        initToolbatWithoutArrow(title, idToolbar);
     }
 
     @Override

@@ -16,6 +16,7 @@
     <string name="ask_are_you_teacher">Вы репетитор?</string>
     <string name="ask_freeze_your_profile">Приостановить показ анкеты?</string>
     <string name="ask_unlock_profile">Возобновить пока анкеты?</string>
+    <string name="pupil">Ученик</string>
 
     <string name="btn_search">Поиск</string>
     <string name="btn_quick_search">Быстрый поиск</string>
@@ -271,6 +272,7 @@
     <string name="send_mail_to">Отправить сообщение…</string>
     <string name="switch_only_distance_learning">Только дистанционное обучение</string>
     <string name="switch_distance_learning">Дистанционное обучение</string>
+    <string name="sign_in_as_teacher">Войти как репетитор</string>
 
 
 </resources>
