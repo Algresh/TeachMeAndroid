@@ -30,6 +30,8 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private TextView tvPhoneExisted;
     private TextView tvSubway;
     private SwitchCompat scLeaveHouse;
+    private SwitchCompat scShowEmail;
+    private SwitchCompat scShowPhone;
     private EditText edtPhone;
     private EditText edtEmail;
     private EditText edtLogin;
@@ -104,6 +106,25 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
         tvEmailExisted = (TextView) view.findViewById(R.id.tv_email_existed);
+        scShowEmail = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_email);
+        scShowEmail.setChecked(true);
+        scShowEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    scShowPhone.setChecked(true);
+                }
+            }
+        });
+        scShowPhone = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_phone);
+        scShowPhone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    scShowEmail.setChecked(true);
+                }
+            }
+        });
 //        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
 //        if (selectedPromotion != 0) {
 //            String[] arr = res.getStringArray(R.array.promotion);
@@ -167,6 +188,8 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         teacherRegistration.setEmail(edtEmail.getText().toString());
         teacherRegistration.setLogin(edtLogin.getText().toString());
         teacherRegistration.setPassword(edtPassword.getText().toString());
+        teacherRegistration.setShowEmail(scShowEmail.isChecked());
+        teacherRegistration.setShowPhone(scShowPhone.isChecked());
 //        teacherRegistration.setAnketa(selectedPromotion);
     }
 

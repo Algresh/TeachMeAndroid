@@ -4,6 +4,8 @@ package ru.tulupov.alex.teachme.models;
 public class ContactsBlock {
 
     private boolean leaveHome;
+    private boolean showEmail;
+    private boolean showPhone;
     private String subways;
     private String phoneNumber;
     private String login;
@@ -56,6 +58,22 @@ public class ContactsBlock {
 
     public void setIdSubways(String idSubways) {
         this.idSubways = idSubways;
+    }
+
+    public boolean isShowEmail() {
+        return showEmail;
+    }
+
+    public void setShowEmail(boolean showEmail) {
+        this.showEmail = showEmail;
+    }
+
+    public boolean isShowPhone() {
+        return showPhone;
+    }
+
+    public void setShowPhone(boolean showPhone) {
+        this.showPhone = showPhone;
     }
 
     @Override

@@ -37,6 +37,8 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
     private SwitchCompat scLeaveHouse;
     private EditText edtPhone;
     private EditText edtLogin;
+    private SwitchCompat scShowEmail;
+    private SwitchCompat scShowPhone;
 //    private TextView tvAnketa;
     private TextView tvLoginExisted;
 
@@ -120,6 +122,26 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         edtLogin.setText(login);
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
+        scShowEmail = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_email);
+        scShowEmail.setChecked(block.isShowEmail());
+        scShowEmail.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    scShowPhone.setChecked(true);
+                }
+            }
+        });
+        scShowPhone = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_phone);
+        scShowPhone.setChecked(block.isShowPhone());
+        scShowPhone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    scShowEmail.setChecked(true);
+                }
+            }
+        });
 //        selectedPromotion = typeAnketa;
 //        String strAnketa = getResources().getStringArray(R.array.promotion)[typeAnketa];
 //        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
@@ -208,6 +230,8 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         map.put("subwayStation", strSubwayIds);
         map.put("phoneNumber", edtPhone.getText().toString());
         map.put("login", edtLogin.getText().toString());
+        map.put("showPhone", String.valueOf(scShowPhone.isChecked()? 1: 0));
+        map.put("showEmail", String.valueOf(scShowEmail.isChecked()? 1: 0));
 //        map.put("typeAnketa", String.valueOf(selectedPromotion));
 
         return map;

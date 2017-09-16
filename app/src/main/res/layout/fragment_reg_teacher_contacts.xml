@@ -17,6 +17,28 @@
         />
 
 
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sc_reg_teacher_show_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_show_phone"
+        android:textSize="@dimen/font_size_main"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:paddingLeft="@dimen/left_padding_contacts"
+        />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/sc_reg_teacher_show_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_show_email"
+        android:textSize="@dimen/font_size_main"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:paddingLeft="@dimen/left_padding_contacts"
+        />
+
     <TextView
         android:id="@+id/et_reg_teacher_subway"
         android:layout_width="match_parent"

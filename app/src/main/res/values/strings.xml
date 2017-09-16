@@ -273,6 +273,8 @@
     <string name="switch_only_distance_learning">Только дистанционное обучение</string>
     <string name="switch_distance_learning">Дистанционное обучение</string>
     <string name="sign_in_as_teacher">Войти как репетитор</string>
+    <string name="switch_show_phone">Показывать номер телефона</string>
+    <string name="switch_show_email">Показывать email</string>
 
 
 </resources>
