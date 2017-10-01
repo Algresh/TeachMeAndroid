@@ -32,6 +32,8 @@ public class Teacher implements Parcelable {
     private String photo;
     private boolean onlyDistanceLearning;
     private boolean distanceLearning;
+    private boolean showEmail;
+    private boolean showPhone;
 
 //    private String strPriceList;
 //    private String strCity;
@@ -61,6 +63,8 @@ public class Teacher implements Parcelable {
         onlyDistanceLearning = in.readByte() != 0;
         distanceLearning = in.readByte() != 0;
         isFavorite = in.readByte() != 0;
+        showEmail = in.readByte() != 0;
+        showPhone = in.readByte() != 0;
         photo = in.readString();
         city = in.readString();
         cityId = in.readInt();
@@ -294,6 +298,22 @@ public class Teacher implements Parcelable {
         this.distanceLearning = distanceLearning;
     }
 
+    public boolean isShowEmail() {
+        return showEmail;
+    }
+
+    public void setShowEmail(boolean showEmail) {
+        this.showEmail = showEmail;
+    }
+
+    public boolean isShowPhone() {
+        return showPhone;
+    }
+
+    public void setShowPhone(boolean showPhone) {
+        this.showPhone = showPhone;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -316,6 +336,8 @@ public class Teacher implements Parcelable {
         parcel.writeByte((byte) (onlyDistanceLearning ? 1 : 0));
         parcel.writeByte((byte) (distanceLearning ? 1 : 0));
         parcel.writeByte((byte) (isFavorite ? 1 : 0));
+        parcel.writeByte((byte) (showEmail ? 1 : 0));
+        parcel.writeByte((byte) (showPhone ? 1 : 0));
         parcel.writeString(photo);
         if (city != null) {
             parcel.writeString(city.getTitle());

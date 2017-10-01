@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.MyApplications;
 import ru.tulupov.alex.teachme.R;
+import ru.tulupov.alex.teachme.models.user.PupilUser;
 import ru.tulupov.alex.teachme.models.user.TeacherUser;
 import ru.tulupov.alex.teachme.models.user.User;
 import ru.tulupov.alex.teachme.presenters.BasePresenter;
@@ -58,7 +59,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
         User user = MyApplications.getUser();
 //        String typeUser = user.getTypeUser(this);
 
-        if (user == null) {
+        if (user == null || user instanceof PupilUser) {
             viewHeader = getLayoutInflater().inflate(R.layout.navigation_header_pupil, null, false);
             navigationView.inflateMenu(R.menu.menu_navigation_pupil);
             Log.d(Constants.MY_TAG, "TYPE_USER_PUPIL");

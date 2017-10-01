@@ -31,9 +31,6 @@ public class MyApplications extends Application {
     }
 
     public static User getUser() {
-        if (user == null) {
-
-        }
         return user;
     }
 
@@ -47,10 +44,7 @@ public class MyApplications extends Application {
         User user = null;
         if (type.equals(User.TYPE_USER_TEACHER)) {
             user = new TeacherUser();
-        } else if (type.equals(User.TYPE_USER_PUPIL)) {
-            user = new PupilUser();
         }
-        MyApplications.user = user;
 
         return user;
     }

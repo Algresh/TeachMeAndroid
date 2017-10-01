@@ -29,7 +29,9 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (user == null) {
                     user = ((MyApplications) getApplication()).initUser();
-                    MyApplications.setUser(user);
+                    if (user != null) {
+                        MyApplications.setUser(user);
+                    }
                 }
                 Intent intent;
 
