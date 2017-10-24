@@ -411,8 +411,8 @@ public class ModelUserInfo {
         });
     }
 
-    public void checkEmailAndLogin(String login, String email, String phone, final CheckLoginEmailCallBack callback) {
-        Call<Object> call = api.checkEmailAndLogin(login, email, phone);
+    public void checkEmailAndLogin(String email, String phone, final CheckLoginEmailCallBack callback) {
+        Call<Object> call = api.checkEmailAndLogin(email, phone);
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {

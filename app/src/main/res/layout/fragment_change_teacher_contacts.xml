@@ -76,15 +76,15 @@
         />
 
 
-    <EditText
-        android:id="@+id/edt_reg_teacher_login"
-        android:hint="@string/hint_login"
-        android:textSize="@dimen/font_size_main"
-        android:paddingLeft="@dimen/left_padding_teacher_contacts"
-        android:textColorHint="@android:color/white"
-        android:textColor="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--<EditText-->
+        <!--android:id="@+id/edt_reg_teacher_login"-->
+        <!--android:hint="@string/hint_login"-->
+        <!--android:textSize="@dimen/font_size_main"-->
+        <!--android:paddingLeft="@dimen/left_padding_teacher_contacts"-->
+        <!--android:textColorHint="@android:color/white"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
     <TextView
         android:id="@+id/tv_login_existed"

@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/et_login"
-            android:hint="@string/login"
+            android:hint="@string/email"
             android:inputType="text"
             android:textColorHint="@android:color/white"
             android:textColor="@android:color/white"

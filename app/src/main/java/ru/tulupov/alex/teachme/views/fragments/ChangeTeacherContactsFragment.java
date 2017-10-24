@@ -36,7 +36,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
     private TextView tvSubway;
     private SwitchCompat scLeaveHouse;
     private EditText edtPhone;
-    private EditText edtLogin;
+//    private EditText edtLogin;
     private SwitchCompat scShowEmail;
     private SwitchCompat scShowPhone;
 //    private TextView tvAnketa;
@@ -118,8 +118,8 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         scLeaveHouse.setChecked(leaveHouse);
         edtPhone = (EditText) view.findViewById(R.id.edt_reg_teacher_phone);
         edtPhone.setText(String.valueOf(phoneNumber));
-        edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
-        edtLogin.setText(login);
+//        edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
+//        edtLogin.setText(login);
         tvPhoneExisted = (TextView) view.findViewById(R.id.tv_phone_existed);
         tvLoginExisted = (TextView) view.findViewById(R.id.tv_login_existed);
         scShowEmail = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_email);
@@ -229,7 +229,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         map.put("leaveHouse", String.valueOf(leaveHouse? 1: 0));
         map.put("subwayStation", strSubwayIds);
         map.put("phoneNumber", edtPhone.getText().toString());
-        map.put("login", edtLogin.getText().toString());
+//        map.put("login", edtLogin.getText().toString());
         map.put("showPhone", String.valueOf(scShowPhone.isChecked()? 1: 0));
         map.put("showEmail", String.valueOf(scShowEmail.isChecked()? 1: 0));
 //        map.put("typeAnketa", String.valueOf(selectedPromotion));
@@ -237,13 +237,13 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         return map;
     }
 
-    public boolean isChangedLogin() {
-        if (oldLogin.equals(edtLogin.getText().toString())) {
-            return false;
-        }
-
-        return true;
-    }
+//    public boolean isChangedLogin() {
+//        if (oldLogin.equals(edtLogin.getText().toString())) {
+//            return false;
+//        }
+//
+//        return true;
+//    }
 
     public boolean isChangedPhone() {
         if (oldPhone.equals(edtPhone.getText().toString())) {
@@ -283,14 +283,14 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
             correctColorEditText(edtPhone);
         }
 
-
-        String strLogin = edtLogin.getText().toString().trim();
-        if (strLogin.length() < 3) {
-            warningColorEditText(edtLogin);
-            isCorrect = false;
-        } else {
-            correctColorEditText(edtLogin);
-        }
+//
+//        String strLogin = edtLogin.getText().toString().trim();
+//        if (strLogin.length() < 3) {
+//            warningColorEditText(edtLogin);
+//            isCorrect = false;
+//        } else {
+//            correctColorEditText(edtLogin);
+//        }
 
 
         return isCorrect;
@@ -343,10 +343,6 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
         return null;
     }
 
-    @Override
-    public String getLogin() {
-        return  edtLogin.getText().toString();
-    }
 
     public String getPhone() {
         return  edtPhone.getText().toString();

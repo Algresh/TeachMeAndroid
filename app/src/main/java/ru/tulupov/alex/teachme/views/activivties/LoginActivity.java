@@ -229,10 +229,9 @@ public class LoginActivity extends AppCompatActivity
 
             checkingLoginEmail = true;
             RegPupilContacts fragment = (RegPupilContacts) currRegDataCorrect;
-            String login = fragment.getLogin();
             String email = fragment.getEmail();
             if (checkConnection()) {
-                presenter.checkEmailAndLogin(login, email, "");
+                presenter.checkEmailAndLogin(email, "");
             } else {
                 Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
             }
@@ -273,11 +272,11 @@ public class LoginActivity extends AppCompatActivity
                 }
                 checkingLoginEmail = true;
                 RegTeacherContactsFragment fragment = (RegTeacherContactsFragment) currRegDataCorrect;
-                String login = fragment.getLogin();
+//                String login = fragment.getLogin();
                 String email = fragment.getEmail();
                 String phone = fragment.getPhone();
                 if (checkConnection()) {
-                    presenter.checkEmailAndLogin(login, email, phone);
+                    presenter.checkEmailAndLogin(email, phone);
                 } else {
                     Toast.makeText(this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
                 }

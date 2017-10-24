@@ -164,15 +164,11 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
                     String login = "";
                     String phone = "";
 
-                    if (fragment.isChangedLogin()) {
-                        login = fragment.getLogin();
-                    }
-
                     if (fragment.isChangedPhone()) {
                         phone = fragment.getPhone();
                     }
 
-                    presenter.checkEmailAndLogin(login, "", phone);
+                    presenter.checkEmailAndLogin("", phone);
                 }
             }
         } else {

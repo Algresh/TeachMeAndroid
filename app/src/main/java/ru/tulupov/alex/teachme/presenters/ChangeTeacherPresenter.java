@@ -26,16 +26,14 @@ public class ChangeTeacherPresenter {
     }
 
 
-    public void checkEmailAndLogin(String login, String email, String phone) {
-        model.checkEmailAndLogin(login, email, phone, new ModelUserInfo.CheckLoginEmailCallBack() {
+    public void checkEmailAndLogin(String email, String phone) {
+        model.checkEmailAndLogin(email, phone, new ModelUserInfo.CheckLoginEmailCallBack() {
             @Override
             public void success(Map fields) {
-                Double login = (Double) fields.get("login");
                 Double email = (Double) fields.get("email");
                 Double phone = (Double) fields.get("phoneNumber");
 
                 int err = 0;
-                if (login == 1) err++;
                 if (email == 1) err = err + 10;
                 if (phone == 1) err = err + 100;
 

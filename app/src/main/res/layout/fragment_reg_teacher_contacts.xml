@@ -100,16 +100,16 @@
         android:visibility="gone"
         />
 
-    <EditText
-        android:id="@+id/edt_reg_teacher_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_login"
-        android:textSize="@dimen/font_size_main"
-        android:paddingLeft="@dimen/left_padding_contacts"
-        android:textColorHint="@android:color/white"
-        android:textColor="@android:color/white"
-        />
+    <!--<EditText-->
+        <!--android:id="@+id/edt_reg_teacher_login"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="@string/hint_login"-->
+        <!--android:textSize="@dimen/font_size_main"-->
+        <!--android:paddingLeft="@dimen/left_padding_contacts"-->
+        <!--android:textColorHint="@android:color/white"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--/>-->
 
     <TextView
         android:id="@+id/tv_login_existed"

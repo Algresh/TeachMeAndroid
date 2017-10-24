@@ -34,7 +34,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private SwitchCompat scShowPhone;
     private EditText edtPhone;
     private EditText edtEmail;
-    private EditText edtLogin;
+//    private EditText edtLogin;
     private EditText edtPassword;
     private EditText edtPasswordConfirm;
 //    private TextView tvAnketa;
@@ -99,7 +99,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         });
         edtPhone = (EditText) view.findViewById(R.id.edt_reg_teacher_phone);
         edtEmail = (EditText) view.findViewById(R.id.edt_reg_teacher_email);
-        edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
+//        edtLogin = (EditText) view.findViewById(R.id.edt_reg_teacher_login);
         edtPassword = (EditText) view.findViewById(R.id.edt_reg_teacher_password);
         edtPasswordConfirm = (EditText) view.findViewById(R.id.edt_reg_teacher_passwordConfirm);
         tvPassDiffer = (TextView) view.findViewById(R.id.tv_pass_is_differ);
@@ -186,7 +186,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         teacherRegistration.setSubways(strSubwayIds);
         teacherRegistration.setPhoneNumber(edtPhone.getText().toString());
         teacherRegistration.setEmail(edtEmail.getText().toString());
-        teacherRegistration.setLogin(edtLogin.getText().toString());
+        teacherRegistration.setLogin("login");
         teacherRegistration.setPassword(edtPassword.getText().toString());
         teacherRegistration.setShowEmail(scShowEmail.isChecked());
         teacherRegistration.setShowPhone(scShowPhone.isChecked());
@@ -231,13 +231,13 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
             correctColorEditText(edtEmail);
         }
 
-        String strLogin = edtLogin.getText().toString().trim();
-        if (strLogin.length() < 3) {
-            warningColorEditText(edtLogin);
-            isCorrect = false;
-        } else {
-            correctColorEditText(edtLogin);
-        }
+//        String strLogin = edtLogin.getText().toString().trim();
+//        if (strLogin.length() < 3) {
+//            warningColorEditText(edtLogin);
+//            isCorrect = false;
+//        } else {
+//            correctColorEditText(edtLogin);
+//        }
 
         String strPass = edtPassword.getText().toString().trim();
         if (strPass.length() < 6) {
@@ -309,10 +309,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         return  edtEmail.getText().toString();
     }
 
-    @Override
-    public String getLogin() {
-        return  edtLogin.getText().toString();
-    }
+
 
     public String getPhone() {
         return  edtPhone.getText().toString();

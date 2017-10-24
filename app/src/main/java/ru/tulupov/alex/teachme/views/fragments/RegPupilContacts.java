@@ -178,11 +178,6 @@ public class RegPupilContacts extends Fragment implements ShowCity,
     }
 
     @Override
-    public String getLogin() {
-        return  edtLogin.getText().toString();
-    }
-
-    @Override
     public void showLoginExisted() {
         tvLoginExisted.setVisibility(View.VISIBLE);
     }
