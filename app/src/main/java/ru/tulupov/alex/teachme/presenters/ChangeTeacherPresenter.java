@@ -19,6 +19,7 @@ public class ChangeTeacherPresenter {
     ChangeTeacherView view;
 
     private ModelUserInfo model;
+    private boolean isLoading = false;
 
     public void onCreate(ChangeTeacherView view) {
         this.view = view;
@@ -27,6 +28,9 @@ public class ChangeTeacherPresenter {
 
 
     public void checkEmailAndLogin(String email, String phone) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.checkEmailAndLogin(email, phone, new ModelUserInfo.CheckLoginEmailCallBack() {
             @Override
             public void success(Map fields) {
@@ -40,6 +44,7 @@ public class ChangeTeacherPresenter {
                 if (view != null) {
                     // передается число в которое означает какие ошибки произошли
                     // Пример: 101 - ошибка в логине и в номере телефона
+                    isLoading = false;
                     view.emailAndLoginIsChecked(err);
                 }
 
@@ -48,17 +53,22 @@ public class ChangeTeacherPresenter {
 
             @Override
             public void error() {
-                view.emailAndLoginIsCheckedError();
+                isLoading = false;
+                if (view != null) view.emailAndLoginIsCheckedError();
             }
         });
     }
 
 
     public void showTeacherFullName(String accessToken) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.getTeacherFullName(accessToken, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
             public void success(FullNameBlock block) {
                 if (view != null) {
+                    isLoading = false;
                     view.showDataFullName(block);
                 }
             }
@@ -66,6 +76,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.errorDataFullName();
                 }
             }
@@ -73,12 +84,15 @@ public class ChangeTeacherPresenter {
     }
 
     public void showTeacherDescription(String accessToken) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.getTeacherDescription(accessToken, new ModelUserInfo.ChangeTeacherDescriptionCallBack() {
             @Override
             public void success(Description description) {
                 if (view != null) {
                     String text = description.toString();
-
+                    isLoading = false;
                     view.showDataDescription(text);
                 }
             }
@@ -86,6 +100,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.errorDataDescription();
                 }
             }
@@ -93,10 +108,14 @@ public class ChangeTeacherPresenter {
     }
 
     public void showTeacherSubjects(String accessToken) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.getTeacherSubjects(accessToken, new ModelUserInfo.ChangeTeacherPriceListCallBack() {
             @Override
             public void success(List<PriceList> lists) {
                 if (view != null) {
+                    isLoading = false;
                     view.showDataSubjects(lists);
                 }
             }
@@ -104,6 +123,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.errorDataSubjects();
                 }
             }
@@ -111,10 +131,14 @@ public class ChangeTeacherPresenter {
     }
 
     public void showTeacherContacts(String accessToken) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.getTeacherContacts(accessToken, new ModelUserInfo.ChangeTeacherContactsBlockCallBack() {
             @Override
             public void success(ContactsBlock block) {
                 if (view != null) {
+                    isLoading = false;
                     view.showDataContacts(block);
                 }
             }
@@ -122,6 +146,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.errorDataContacts();
                 }
             }
@@ -129,10 +154,14 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherFullName(String accessToken, Map<String, String> map) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
             public void success(FullNameBlock block) {
                 if (view != null) {
+                    isLoading = false;
                     view.changeFullNameSuccess(block);
                 }
             }
@@ -140,6 +169,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeFullNameError();
                 }
             }
@@ -147,6 +177,9 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherFullName(final String accessToken, final Bitmap photo, final int userId, Map<String, String> map) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.changeTeacherFullName(accessToken, map, new ModelUserInfo.ChangeTeacherFullNameCallBack() {
             @Override
             public void success(final FullNameBlock block) {
@@ -155,15 +188,19 @@ public class ChangeTeacherPresenter {
                     public void success(String photoSrc) {
                         if (view != null) {
                             block.setPhoto(photoSrc);
+                            isLoading = false;
                             view.changeFullNameSuccess(block);
+
                         }
                     }
 
                     @Override
                     public void error(int type) {
                         if (view != null) {
+                            isLoading = false;
                             view.changeFullNameError();
                         }
+
                     }
                 });
             }
@@ -171,17 +208,23 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeFullNameError();
                 }
+
             }
         });
     }
 
     public void changeTeacherDescription(String accessToken, String description) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.changeTeacherDescription(accessToken, description, new ModelUserInfo.ChangeTeacherCallBack() {
             @Override
             public void success() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeDescriptionSuccess();
                 }
             }
@@ -189,6 +232,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeDescriptionError();
                 }
             }
@@ -196,10 +240,14 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherSubjects(String accessToken, List<PriceList> lists) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.changeTeacherSubjects(accessToken, lists, new ModelUserInfo.ChangeTeacherCallBack() {
             @Override
             public void success() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeSubjectsSuccess();
                 }
             }
@@ -207,6 +255,7 @@ public class ChangeTeacherPresenter {
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeSubjectsError();
                 }
             }
@@ -214,17 +263,23 @@ public class ChangeTeacherPresenter {
     }
 
     public void changeTeacherContacts(String accessToken, Map<String, String> map) {
+        if (isLoading) return;
+        isLoading = true;
+
         model.changeTeacherContacts(accessToken, map, new ModelUserInfo.ChangeTeacherContactsBlockCallBack() {
             @Override
             public void success(ContactsBlock block) {
                 if (view != null) {
+                    isLoading = false;
                     view.changeContactsSuccess(block);
                 }
+
             }
 
             @Override
             public void error() {
                 if (view != null) {
+                    isLoading = false;
                     view.changeContactsError();
                 }
             }

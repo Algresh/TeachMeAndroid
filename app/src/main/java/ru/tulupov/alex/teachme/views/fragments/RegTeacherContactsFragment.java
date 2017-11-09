@@ -32,6 +32,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
     private SwitchCompat scLeaveHouse;
     private SwitchCompat scShowEmail;
     private SwitchCompat scShowPhone;
+    private SwitchCompat scShowBirthDate;
     private EditText edtPhone;
     private EditText edtEmail;
 //    private EditText edtLogin;
@@ -125,6 +126,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
                 }
             }
         });
+        scShowBirthDate = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_birth_date);
 //        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
 //        if (selectedPromotion != 0) {
 //            String[] arr = res.getStringArray(R.array.promotion);
@@ -190,6 +192,7 @@ public class RegTeacherContactsFragment extends Fragment implements ShowSubway, 
         teacherRegistration.setPassword(edtPassword.getText().toString());
         teacherRegistration.setShowEmail(scShowEmail.isChecked());
         teacherRegistration.setShowPhone(scShowPhone.isChecked());
+        teacherRegistration.setShowBirthDate(scShowBirthDate.isChecked());
 //        teacherRegistration.setAnketa(selectedPromotion);
     }
 

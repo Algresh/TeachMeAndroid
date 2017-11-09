@@ -66,6 +66,7 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
             @Override
             public void onClick(View view) {
                 toNextFragmentTeacher();
+                nextFragment.setEnabled(false);
             }
         });
         previousFragment = (ImageButton) findViewById(R.id.btn_register_teacher_prev);
@@ -112,6 +113,7 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
                 .commit();
 
         registerStep++;
+        nextFragment.setEnabled(true);
     }
 
     @Override
@@ -228,6 +230,7 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
                 .commit();
         if (pDialog != null) pDialog.dismiss();
         registerStep++;
+        nextFragment.setEnabled(true);
     }
 
     @Override
@@ -248,6 +251,7 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
                 .commit();
         if (pDialog != null) pDialog.dismiss();
         registerStep++;
+        nextFragment.setEnabled(true);
     }
 
     @Override
@@ -269,6 +273,7 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
                 .commit();
         if (pDialog != null) pDialog.dismiss();
         registerStep++;
+        nextFragment.setEnabled(true);
     }
 
     @Override
@@ -332,6 +337,7 @@ public class ChangeTeacherProfileActivity extends BaseActivity implements Change
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        nextFragment.setEnabled(true);
 
         registerStep--;
 

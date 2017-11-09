@@ -275,6 +275,8 @@
     <string name="sign_in_as_teacher">Войти как репетитор</string>
     <string name="switch_show_phone">Показывать номер телефона</string>
     <string name="switch_show_email">Показывать email</string>
+    <string name="msg_please_wait">Пожалуйста подождите</string>
+    <string name="show_birth_date">Показывать возраст</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package ru.tulupov.alex.teachme.views.activivties;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,6 +61,7 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
     protected boolean leaveHouse;
     protected boolean isPhoto;
     protected Map<String, String> mapFields;
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +75,12 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         presenter.onCreate(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycleViewTeachers);
         tvSearchNothing = (TextView) findViewById(R.id.searchNothing);
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(getString(R.string.msg_please_wait));
         int typeSearch = intent.getIntExtra(TYPE_SEARCH, -1);
 
         if (typeSearch == TYPE_SEARCH_ALL) {
+            progressDialog.show();
             presenter.getAllTeachers();
             teachersAreDownloading = true;
             initToolbatWithoutArrow(R.string.result_search_activity_title, R.id.toolbarListTeachers);
@@ -84,6 +88,7 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         }
 
         if (typeSearch == TYPE_SEARCH_MY_CITY) {
+            progressDialog.show();
             cityId = user.getCityId(this);
             presenter.getTeachersByCity(cityId);
             teachersAreDownloading = true;
@@ -91,6 +96,7 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         }
 
         if (typeSearch == TYPE_SEARCH_QUICK) {
+            progressDialog.show();
             cityId = intent.getIntExtra(SEARCH_FIELD_CITY, -1);
             subjectId = intent.getIntExtra(SEARCH_FIELD_SUBJECT, -1);
             leaveHouse = intent.getBooleanExtra(SEARCH_FIELD_LEAVE_HOUSE, false);
@@ -102,6 +108,7 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         }
 
         if (typeSearch == TYPE_SEARCH_FULL) {
+            progressDialog.show();
             cityId = intent.getIntExtra(SEARCH_FIELD_CITY, -1);
             subjectId = intent.getIntExtra(SEARCH_FIELD_SUBJECT, -1);
             leaveHouse = intent.getBooleanExtra(SEARCH_FIELD_LEAVE_HOUSE, false);
@@ -118,6 +125,7 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         }
 
         if (typeSearch == TYPE_SEARCH_FAVORITE) {
+            progressDialog.show();
             teachersAreDownloading = true;
 //            if (checkConnection()) {
 //                String accessToken = MyApplications.getUser().getAccessToken(this);
@@ -179,11 +187,12 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
             tvSearchNothing.setVisibility(View.VISIBLE);
         }
 
+        if (progressDialog != null) progressDialog.hide();
     }
 
     @Override
     public void errorListTeachers() {
-
+        if (progressDialog != null) progressDialog.hide();
     }
 
     @Override

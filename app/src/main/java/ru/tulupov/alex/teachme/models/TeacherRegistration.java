@@ -43,6 +43,7 @@ public class TeacherRegistration {
     private boolean distanceLearning;
     private boolean showEmail;
     private boolean showPhone;
+    private boolean showBirthDate;
     private int anketa;
 
     private int enable;
@@ -238,6 +239,14 @@ public class TeacherRegistration {
         this.showPhone = showPhone;
     }
 
+    public boolean isShowBirthDate() {
+        return showBirthDate;
+    }
+
+    public void setShowBirthDate(boolean showBirthDate) {
+        this.showBirthDate = showBirthDate;
+    }
+
     public Map<String, String> getMapData() {
         Map<String, String> map = new HashMap<>();
 
@@ -264,6 +273,7 @@ public class TeacherRegistration {
         map.put("password", password);
         map.put("login", login);
         map.put("priceLIstNum", String.valueOf(getPriceLists().size()));
+        map.put("showBirthDate", String.valueOf(showBirthDate? 1: 0));
 
         return  map;
     }
