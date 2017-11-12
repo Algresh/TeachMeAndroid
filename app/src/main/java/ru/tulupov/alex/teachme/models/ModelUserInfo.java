@@ -19,6 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 import ru.tulupov.alex.teachme.Constants;
 import ru.tulupov.alex.teachme.models.api.MainApi;
 import ru.tulupov.alex.teachme.models.api.UserApi;
@@ -138,10 +139,16 @@ public class ModelUserInfo {
     }
 
     public void login(String login, String password, final ModelCallBack callback) {
-        Call<Object> call = api.login(login, password);
-        call.enqueue(new Callback<Object>() {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.DOMAIN)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+
+        UserApi stringApi = retrofit.create(UserApi.class);
+
+        Call<String> call = stringApi.login(login, password);
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if(response == null || response.body() == null) {
                     callback.error(TYPE_ERROR_OTHER);
                     return;
@@ -172,7 +179,7 @@ public class ModelUserInfo {
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 callback.error(TYPE_ERROR_OTHER);
             }
         });

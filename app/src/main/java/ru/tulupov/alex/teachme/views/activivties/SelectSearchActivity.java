@@ -63,19 +63,19 @@ public class SelectSearchActivity extends BaseNavigationActivity {
                 }
             }
         });
-        btnFullSearch = (Button) findViewById(R.id.btn_search_all_profiles);
-        btnFullSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkConnection()) {
-                    Intent intent = new Intent(SelectSearchActivity.this, ListTeachersActivity.class);
-                    intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_MY_CITY);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SelectSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        btnFullSearch = (Button) findViewById(R.id.btn_search_all_profiles);
+//        btnFullSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (checkConnection()) {
+//                    Intent intent = new Intent(SelectSearchActivity.this, ListTeachersActivity.class);
+//                    intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_MY_CITY);
+//                    startActivity(intent);
+//                } else {
+//                    Toast.makeText(SelectSearchActivity.this, R.string.noInternetAccess, Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         initToolbar(R.string.select_search_activity_title, R.id.toolbarSelectSearch);
         initNavigationView();

@@ -34,7 +34,7 @@ public class LoginPresenter {
             @Override
             public void success(Map fields) {
                 String type_user = (String) fields.get("type_user");
-                Double enable = (Double) fields.get("enable");
+                Double enable = Double.parseDouble( (String) fields.get("enable"));
                 String accessToken = (String) fields.get("access_token");
                 Double userId = (Double) fields.get("id");
 //                String login = (String) fields.get("login");

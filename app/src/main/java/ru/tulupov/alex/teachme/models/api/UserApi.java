@@ -26,7 +26,7 @@ import ru.tulupov.alex.teachme.models.PriceList;
 public interface UserApi {
 
     @GET("/api/login/user")
-    Call<Object> login(@Query("login") String login, @Query("password") String password);
+    Call<String> login(@Query("login") String login, @Query("password") String password);
 
     @FormUrlEncoded
     @POST("/api/register/teacher")

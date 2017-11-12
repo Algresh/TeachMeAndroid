@@ -191,7 +191,9 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
 
     protected void initData() {
         tvFullName.setText(teacher.getFullName());
-        tvAge.setText(teacher.getAge(getResources()));
+        if (teacher.isShowBirthDate()) {
+            tvAge.setText(teacher.getAge(getResources()));
+        }
         if (!teacher.isShowEmail()) {
             tvEmail.setVisibility(View.GONE);
         } else {

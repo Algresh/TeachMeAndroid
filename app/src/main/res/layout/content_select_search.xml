@@ -37,16 +37,6 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             />
 
-        <Button
-            android:id="@+id/btn_search_all_profiles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_all_profiles_in_my_city"
-            android:textColor="@android:color/white"
-            android:background="@drawable/btn_light_blue"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            />
-
     </LinearLayout>
 
 </RelativeLayout>
