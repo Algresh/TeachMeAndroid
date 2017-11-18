@@ -39,6 +39,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 //    private EditText edtLogin;
     private SwitchCompat scShowEmail;
     private SwitchCompat scShowPhone;
+    private SwitchCompat scShowBirthDate;
 //    private TextView tvAnketa;
     private TextView tvLoginExisted;
 
@@ -142,6 +143,9 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
                 }
             }
         });
+
+        scShowBirthDate = (SwitchCompat) view.findViewById(R.id.sc_reg_teacher_show_birth_date);
+        scShowBirthDate.setChecked(block.isShowBirthDate());
 //        selectedPromotion = typeAnketa;
 //        String strAnketa = getResources().getStringArray(R.array.promotion)[typeAnketa];
 //        tvAnketa = (TextView) view.findViewById(R.id.tv_reg_teacher_anketa);
@@ -232,6 +236,7 @@ public class ChangeTeacherContactsFragment extends Fragment implements ShowSubwa
 //        map.put("login", edtLogin.getText().toString());
         map.put("showPhone", String.valueOf(scShowPhone.isChecked()? 1: 0));
         map.put("showEmail", String.valueOf(scShowEmail.isChecked()? 1: 0));
+        map.put("showBirthDate", String.valueOf(scShowBirthDate.isChecked()? 1: 0));
 //        map.put("typeAnketa", String.valueOf(selectedPromotion));
 
         return map;

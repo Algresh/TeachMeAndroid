@@ -6,6 +6,7 @@ public class ContactsBlock {
     private boolean leaveHome;
     private boolean showEmail;
     private boolean showPhone;
+    private boolean showBirthDate;
     private String subways;
     private String phoneNumber;
     private String login;
@@ -74,6 +75,14 @@ public class ContactsBlock {
 
     public void setShowPhone(boolean showPhone) {
         this.showPhone = showPhone;
+    }
+
+    public boolean isShowBirthDate() {
+        return showBirthDate;
+    }
+
+    public void setShowBirthDate(boolean showBirthDate) {
+        this.showBirthDate = showBirthDate;
     }
 
     @Override

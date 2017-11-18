@@ -84,7 +84,6 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
             presenter.getAllTeachers();
             teachersAreDownloading = true;
             initToolbatWithoutArrow(R.string.result_search_activity_title, R.id.toolbarListTeachers);
-            initNavigationView();
         }
 
         if (typeSearch == TYPE_SEARCH_MY_CITY) {
@@ -142,6 +141,7 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         this.typeSearch = typeSearch;
 
         addNewItemsByScroll();
+        initNavigationView();
 
     }
 

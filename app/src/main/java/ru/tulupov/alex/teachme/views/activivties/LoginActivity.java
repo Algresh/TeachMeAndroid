@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity
         nextPrevPanel.setVisibility(View.GONE);
         Fragment fragment = new RegConfirmationFragment();
         manager.beginTransaction()
-                .replace(R.id.reg_fragment_container, fragment)
+                .replace(R.id.reg_fragment_container, fragment, "confirmation")
                 .addToBackStack("confirmation")
                 .commit();
         registerStep++;
@@ -325,7 +325,10 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        Fragment confirmFragment = getSupportFragmentManager().findFragmentByTag("confirmation");
+        if (confirmFragment != null && confirmFragment.isVisible()) return;
         super.onBackPressed();
+
         registerStep--;
         try {
             Log.d(Constants.MY_TAG, regFragmentTagsTeacher[registerStep - 1] + " back regStep: " + registerStep);

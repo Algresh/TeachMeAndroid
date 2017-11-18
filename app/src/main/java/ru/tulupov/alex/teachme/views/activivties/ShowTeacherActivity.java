@@ -223,7 +223,8 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
             tvDistrict.setVisibility(View.GONE);
         }
 
-        if (teacher.getCity().isHasSubway()) {
+        if (teacher.getCity().isHasSubway() && teacher.getSubways() != null &&
+                !teacher.getSubways().isEmpty()) {
             tvSubways.setText(teacher.getSubways());
         } else {
             tvSubways.setVisibility(View.GONE);
@@ -257,7 +258,7 @@ public class ShowTeacherActivity extends BaseActivity implements ShowTeacherView
         }
 
 
-        tvDescription.setText(teacher.getDescription());
+        tvDescription.setText(teacher.getDescription().trim());
 
         int colorText = ContextCompat.getColor(this, R.color.colorCorrect);
         String[] arrExp = getResources().getStringArray(R.array.typeExperience);
