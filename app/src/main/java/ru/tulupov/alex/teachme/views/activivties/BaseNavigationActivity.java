@@ -112,7 +112,7 @@ public class BaseNavigationActivity extends BaseActivity implements FreezeDialog
                         intent.putExtra(TYPE_SEARCH, TYPE_SEARCH_FAVORITE);
                         break;
                     case R.id.nav_search_techer:
-                        intent = new Intent(BaseNavigationActivity.this, SelectSearchActivity.class);
+                        intent = new Intent(BaseNavigationActivity.this, MainSearchActivity.class);
                         break;
                     case R.id.nav_logout:
                         logOut();

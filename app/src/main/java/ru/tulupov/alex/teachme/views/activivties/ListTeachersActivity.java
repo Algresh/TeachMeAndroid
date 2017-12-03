@@ -166,7 +166,9 @@ public class ListTeachersActivity extends BaseNavigationActivity implements List
         map.put("price", String.valueOf(price));
         map.put("priceStart", String.valueOf(startPrice));
         map.put("distanceLearning", String.valueOf(distanceLearning ? 1 : 0));
-        map.put("subways", subwaysIds);
+        if (subwaysIds != null && !subwaysIds.isEmpty()) {
+            map.put("subways", subwaysIds);
+        }
         map.put("page", String.valueOf(pages));
 
         Log.d(Constants.MY_TAG, cityId + " " + subjectId + " " + leave + " " + photo + " " + expId + " " + price  + " | " + subwaysIds + " | " + " " + pages);
